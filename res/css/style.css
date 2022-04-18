@@ -1,0 +1,13 @@
+.errorMsg {
+    color: red;
+    text-align: center;
+    font-family: "Roboto";
+    font-weight: 700;
+}
+
+.successMsg {
+    color: green;
+    text-align: center;
+    font-family: "Roboto";
+    font-weight: 700;
+}
