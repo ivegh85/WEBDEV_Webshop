@@ -11,11 +11,14 @@ $(document).ready(function () {
     $("#btnCancelLoginClicked").click(function (){
         cancelLogin();
     });
+    $("#btnRegisterUser").click(function (){
+        registerUser();
+    });
 
 });
 
 
-// ajax backend calls
+//ajax backend calls
 //basic webshop data
 function loaddata() {
     $.ajax({
@@ -87,8 +90,51 @@ function login() {
     }
 }
 
-
 //cancel login function
 function cancelLogin(){
     window.location.href = "../index.html";
+}
+
+//register user function
+function registerUser() {
+
+    console.log("yes")
+    let newUserName = document.getElementById("username").value;
+    let newPassword = document.getElementById("password").value;
+    let newEmail = document.getElementById("email").value;
+    let newTitle = document.getElementById("title").value;
+    let newFirstName = document.getElementById("firstname").value;
+    let newLastName = document.getElementById("lastname").value;
+    let newAddress = document.getElementById("address").value;
+    let newCity = document.getElementById("city").value;
+    let newPostal = document.getElementById("postalCode").value;
+    console.log("yes")
+
+    //data validation not yet implemented
+
+    $.ajax({
+        type: "POST",
+        url: "../config/registrationHandler.php",
+        cache: false,
+        data: {method: "register", username: newUserName, pw: newPassword, email : newEmail, title : newTitle,
+            fn: newFirstName, ln: newLastName, address : newAddress, city: newCity, zip: newPostal  },
+        dataType: "json",
+        success: function (response) {
+            //test log
+            console.log(response);
+            console.log(newUserName, newCity)
+
+            if(response !== null){
+                //show success and welcome message if username and password are correct
+                console.log("ajax response")
+            }
+
+        },
+        error: function () {
+            //show error message if no response (no successful login)
+            console.log("fail")
+
+        }
+
+    });
 }
