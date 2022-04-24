@@ -11,7 +11,7 @@ $(document).ready(function () {
     $("#btnCancelLoginClicked").click(function (){
         cancelLogin();
     });
-    $("#btnRegisterUser").click(function (){
+    $("#btnRegisterUserClicked").click(function (){
         registerUser();
     });
 
@@ -37,6 +37,7 @@ function loaddata() {
 
     });
 }
+
 //login
 function login() {
 
@@ -98,17 +99,16 @@ function cancelLogin(){
 //register user function
 function registerUser() {
 
-    console.log("yes")
     let newUserName = document.getElementById("username").value;
     let newPassword = document.getElementById("password").value;
     let newEmail = document.getElementById("email").value;
     let newTitle = document.getElementById("title").value;
-    let newFirstName = document.getElementById("firstname").value;
-    let newLastName = document.getElementById("lastname").value;
+    let newFirstName = document.getElementById("firstName").value;
+    let newLastName = document.getElementById("lastName").value;
     let newAddress = document.getElementById("address").value;
     let newCity = document.getElementById("city").value;
     let newPostal = document.getElementById("postalCode").value;
-    console.log("yes")
+
 
     //data validation not yet implemented
 
@@ -121,18 +121,17 @@ function registerUser() {
         dataType: "json",
         success: function (response) {
             //test log
-            console.log(response);
-            console.log(newUserName, newCity)
+            //console.log(response);
 
             if(response !== null){
                 //show success and welcome message if username and password are correct
-                console.log("ajax response")
+                console.log("User was created successfully!")
             }
 
         },
         error: function () {
             //show error message if no response (no successful login)
-            console.log("fail")
+            console.log("User was not created successfully!")
 
         }
 

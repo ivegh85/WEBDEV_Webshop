@@ -18,5 +18,19 @@ class DataHandler{
 
     }
 
+    public function registerUserToElement($userID,$username,$role,$mail){
+        //create array
+        $result = array(
+            "id" => $userID,
+            "username" => $username,
+            "role" => $role,
+            "usermail" => $mail
+        );
+
+        //return array
+        return $result;
+
+    }
+
 
 }
