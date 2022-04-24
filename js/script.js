@@ -11,11 +11,14 @@ $(document).ready(function () {
     $("#btnCancelLoginClicked").click(function (){
         cancelLogin();
     });
+    $("#btnRegisterUserClicked").click(function (){
+        registerUser();
+    });
 
 });
 
 
-// ajax backend calls
+//ajax backend calls
 //basic webshop data
 function loaddata() {
     $.ajax({
@@ -34,6 +37,7 @@ function loaddata() {
 
     });
 }
+
 //login
 function login() {
 
@@ -87,8 +91,49 @@ function login() {
     }
 }
 
-
 //cancel login function
 function cancelLogin(){
     window.location.href = "../index.html";
+}
+
+//register user function
+function registerUser() {
+
+    let newUserName = document.getElementById("username").value;
+    let newPassword = document.getElementById("password").value;
+    let newEmail = document.getElementById("email").value;
+    let newTitle = document.getElementById("title").value;
+    let newFirstName = document.getElementById("firstName").value;
+    let newLastName = document.getElementById("lastName").value;
+    let newAddress = document.getElementById("address").value;
+    let newCity = document.getElementById("city").value;
+    let newPostal = document.getElementById("postalCode").value;
+
+
+    //data validation not yet implemented
+
+    $.ajax({
+        type: "POST",
+        url: "../config/registrationHandler.php",
+        cache: false,
+        data: {method: "register", username: newUserName, pw: newPassword, email : newEmail, title : newTitle,
+            fn: newFirstName, ln: newLastName, address : newAddress, city: newCity, zip: newPostal  },
+        dataType: "json",
+        success: function (response) {
+            //test log
+            //console.log(response);
+
+            if(response !== null){
+                //show success and welcome message if username and password are correct
+                console.log("User was created successfully!")
+            }
+
+        },
+        error: function () {
+            //show error message if no response (no successful login)
+            console.log("User was not created successfully!")
+
+        }
+
+    });
 }

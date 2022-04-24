@@ -4,13 +4,18 @@ include ("../config/dataHandler.php");
 //include ("../config/dbaccess.php");
 
 
-class RequestLogic{
+class RequestLogic
+{
 
     private $dataHandler;
 
-   function __construct()
+    function __construct()
     {
         $this->dataHandler = new DataHandler();
+    }
+
+    function connectToDataBase() {
+
     }
 
     function handleRequest($method, $username, $pw, $remember)
@@ -23,7 +28,7 @@ class RequestLogic{
                 //$typed_password = filter_input($pw);
 
                 //db connection
-                require_once ('../config/dbaccess.php');
+                require_once('../config/dbaccess.php');
                 $db_obj = new mysqli($host, $user, $password, $database);
                 if ($db_obj->connect_error) {
                     die("Connection failed: " . $db_obj->connect_error);
@@ -54,12 +59,11 @@ class RequestLogic{
                 }
 
                 //return null when wrong username
-                if($db_username == '')
-                {
+                if ($db_username == '') {
                     $return = null;
-                }else{
+                } else {
                     //check if correct login data (username can be username or mail address)
-                    if (($username == $db_username && $pw == $verified_pw)||($username == $db_usermail && $pw == $verified_pw)) {
+                    if (($username == $db_username && $pw == $verified_pw) || ($username == $db_usermail && $pw == $verified_pw)) {
                         //admin user: admin/root!2022
 
                         //create session
@@ -72,12 +76,12 @@ class RequestLogic{
                         $_SESSION["remember"] = $remember;
 
                         //create array element with actual user information and return it (via data handler)
-                        $return = $this->dataHandler->loginUserToElement($db_user_id,$db_username,$db_role,$db_usermail);
+                        $return = $this->dataHandler->loginUserToElement($db_user_id, $db_username, $db_role, $db_usermail);
 
                         //close db connection
                         $db_obj->close();
 
-                    }else {
+                    } else {
                         //return null if password does not match
                         $return = null;
 
@@ -92,4 +96,56 @@ class RequestLogic{
         }
         return $return;
     }
-}
+
+    function registerRequest($newUserName, $newPassword, $newEmail, $newTitle, $newFirstName, $newLastName,
+                             $newAddress, $newCity, $newPostal)
+    {
+
+        //db connection
+        require_once('../config/dbaccess.php');
+        $db_obj = new mysqli($host, $user, $password, $database);
+        if ($db_obj->connect_error) {
+            die("Connection failed: " . $db_obj->connect_error);
+        }
+
+        $sql = "INSERT INTO `users` (`username`,`role`,`password`,`usermail`,`title`,`firstname`,`surname`,`postalcode`,`city`,`address`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        //use prepare function
+        $stmt = $db_obj->prepare($sql);
+
+        //"s" stands for string (string datatype is expected) ... i for integer, d for double
+        //followed by the variables which will be bound to the parameters
+        $stmt->bind_param("sssssssiss", $uname, $role, $pass, $mail, $title, $fname, $sname, $pcode, $city, $address);
+
+        $hash_pw = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        $uname = $newUserName;
+        $role = "guest";
+        $pass = $hash_pw;
+        $mail = $newEmail;
+        $title = $newTitle;
+        $fname = $newFirstName;
+        $sname = $newLastName;
+        $pcode = $newPostal;
+        $city = $newCity;
+        $address = $newAddress;
+
+
+        //execute statement
+        if ($stmt->execute()) {
+            return $uname;
+        } else {
+            return null;
+        }
+
+            //close statement
+            $stmt->close();
+
+            //close connection
+            $db_obj->close();
+
+            header('Refresh: 1; URL = ./sites/Login.html');
+
+        }
+    }
+
