@@ -18,23 +18,31 @@
 
     <div class="col-md-8 d-flex justify-content-center bg-light mt-auto">
 
-        <form class="row g-3 needs-validation" novalidate>
+        <form method="post" class="row g-3 needs-validation" novalidate>
 
             <h1 class="display-4 text-center">Registration</h1>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label for="username" class="form-label">Username:</label>
                 <input type="text" class="form-control" id="username" placeholder ="Username" required>
                 <div class="valid-feedback">Looks good!</div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label class="form-label" for="password">Password:</label>
                 <input type="password" class="form-control" id="password" placeholder ="Password" required>
                 <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">The supplied passwords are empty or do not match.</div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
+                <label class="form-label" for="password2">Confirm Password:</label>
+                <input type="password" class="form-control" id="password2" placeholder ="Confirm Password" required>
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">The supplied passwords are empty or do not match.</div>
+            </div>
+
+            <div class="col-md-3">
                 <label class="form-label" for="email">E-Mail:</label>
                 <input type="email" class="form-control" id="email" placeholder ="E-Mail" required>
                 <div class="valid-feedback">Looks good!</div>
@@ -63,7 +71,6 @@
                 <input type="text" name="lastName" id="lastName" class="form-control" placeholder ="Last Name" required>
                 <div class="valid-feedback">Looks good!</div>
             </div>
-
 
             <div class="col-md-6">
                 <label class="form-label" for="address">Address:</label>

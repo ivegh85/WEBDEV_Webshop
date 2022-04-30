@@ -12,6 +12,26 @@ $(document).ready(function () {
         cancelLogin();
     });
     $("#btnRegisterUserClicked").click(function (){
+        //interrupt submit in case input is missing or incorrect
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            let forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })();
         registerUser();
     });
 
@@ -96,6 +116,8 @@ function cancelLogin(){
     window.location.href = "../index.html";
 }
 
+
+
 //register user function
 function registerUser() {
 
@@ -121,40 +143,36 @@ function registerUser() {
         dataType: "json",
         success: function (response) {
             //test log
-            //console.log(response);
 
-            if(response !== null){
-                //show success and welcome message if username and password are correct
+            if(response === true){
+                window.alert("User was created successfully!")
                 console.log("User was created successfully!")
+            } else {
+                window.alert("User is already registered, try again with a different username & email!")
+                console.log("User is already registered, try again with a different username & email!")
             }
 
         },
         error: function () {
             //show error message if no response (no successful login)
-            console.log("User was not created successfully!")
+            console.log("mysterious error message")
 
         }
 
     });
 }
 
-//interrupt submit in case input is missing or incorrect
-(function() {
-    'use strict';
-    window.addEventListener('load', function() {
+//not yet implemented
+function matchRegistrationPassword() {
 
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.getElementsByClassName('needs-validation');
+    let password = document.getElementById('password').value;
+    let password2 = document.getElementById('password2').value;
 
-        // Loop over them and prevent submission
-       Array.prototype.filter.call(forms, function(form) {
-            form.addEventListener('submit', function(event) {
-                if (form.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
-        });
-    }, false);
-})();
+
+    if (password !== password2 || password === "" || password2 ===""){
+        password2.setCustomValidity("The supplied passwords are empty or do not match.")
+        return false;
+    } else
+    return true;
+}
+

@@ -28,8 +28,8 @@ $logic = new RequestLogic();
 $result = $logic->registerRequest($newUserName, $newPassword, $newEmail, $newTitle, $newFirstName, $newLastName,
     $newAddress, $newCity, $newPostal);
 
-if ($result == null) {
-    response("POST", 400, null);
+if ($result == false) {
+    response("POST", 400, $result);
 } else {
     response("POST", 200, $result);
 }
