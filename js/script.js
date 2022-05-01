@@ -85,7 +85,7 @@ function login() {
         //not fully implemented yet
         $.ajax({
             type: "GET",
-            url: "../config/requestHandler.php",
+            url: "../config/loginHandler.php",
             cache: false,
             data: {method: "login", username: username, pw: password, remember: remember},
             dataType: "json",
@@ -93,11 +93,28 @@ function login() {
                 //test log
                 console.log(response);
 
-                if(response !== null){
+                if (response !== null) {
                     //show success and welcome message if username and password are correct
                     $(".errorMsg").remove();
                     $(".successMsg").remove();
                     $("#loginBtnBox").append("<p class='successMsg'>Hi " + response.username + "!</p>");
+
+                    //create session cookie
+                    //document.cookie = "session= " + response.username + ";" + response.token + ";" + response.timestamp + ";" + response.remember;
+                    document.cookie = JSON.stringify({
+                        "username": response.username,
+                        "token": response.token,
+                        "timestamp": response.timestamp,
+                        "remember": response.remember
+                    });
+
+                    //test cookie output
+                    console.log("username= " + readCookie().username); //username
+                    console.log("token= " + readCookie().token); //token
+                    console.log("timestamp= " + readCookie().timestamp); //timestamp
+                    console.log("remember= " + readCookie().remember); //remember
+
+
                 }
 
             },
@@ -174,5 +191,10 @@ function matchRegistrationPassword() {
         return false;
     } else
     return true;
+}
+
+//read cookie
+function readCookie() {
+   return JSON.parse(document.cookie);
 }
 
