@@ -14,6 +14,11 @@ class user
     public $city;
     //maybe pw not necessary here?
     public $password;
+
+    //session token
+    public $token;
+    public $timestamp;
+    public $remember;
 }
 
 /*function __construct($userId, $username, $role, $mail, $firstname, $surname,$address,$postalCode,$city) {

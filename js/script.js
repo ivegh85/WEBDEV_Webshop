@@ -12,6 +12,26 @@ $(document).ready(function () {
         cancelLogin();
     });
     $("#btnRegisterUserClicked").click(function (){
+        //interrupt submit in case input is missing or incorrect
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            let forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })();
         registerUser();
     });
 
@@ -65,7 +85,7 @@ function login() {
         //not fully implemented yet
         $.ajax({
             type: "GET",
-            url: "../config/requestHandler.php",
+            url: "../config/loginHandler.php",
             cache: false,
             data: {method: "login", username: username, pw: password, remember: remember},
             dataType: "json",
@@ -73,11 +93,28 @@ function login() {
                 //test log
                 console.log(response);
 
-                if(response !== null){
+                if (response !== null) {
                     //show success and welcome message if username and password are correct
                     $(".errorMsg").remove();
                     $(".successMsg").remove();
                     $("#loginBtnBox").append("<p class='successMsg'>Hi " + response.username + "!</p>");
+
+                    //create session cookie
+                    //document.cookie = "session= " + response.username + ";" + response.token + ";" + response.timestamp + ";" + response.remember;
+                    document.cookie = JSON.stringify({
+                        "username": response.username,
+                        "token": response.token,
+                        "timestamp": response.timestamp,
+                        "remember": response.remember
+                    });
+
+                    //test cookie output
+                    console.log("username= " + readCookie().username); //username
+                    console.log("token= " + readCookie().token); //token
+                    console.log("timestamp= " + readCookie().timestamp); //timestamp
+                    console.log("remember= " + readCookie().remember); //remember
+
+
                 }
 
             },
@@ -95,6 +132,8 @@ function login() {
 function cancelLogin(){
     window.location.href = "../index.html";
 }
+
+
 
 //register user function
 function registerUser() {
@@ -121,19 +160,41 @@ function registerUser() {
         dataType: "json",
         success: function (response) {
             //test log
-            //console.log(response);
 
-            if(response !== null){
-                //show success and welcome message if username and password are correct
+            if(response === true){
+                window.alert("User was created successfully!")
                 console.log("User was created successfully!")
+            } else {
+                window.alert("User is already registered, try again with a different username & email!")
+                console.log("User is already registered, try again with a different username & email!")
             }
 
         },
         error: function () {
             //show error message if no response (no successful login)
-            console.log("User was not created successfully!")
+            console.log("mysterious error message")
 
         }
 
     });
 }
+
+//not yet implemented
+function matchRegistrationPassword() {
+
+    let password = document.getElementById('password').value;
+    let password2 = document.getElementById('password2').value;
+
+
+    if (password !== password2 || password === "" || password2 ===""){
+        password2.setCustomValidity("The supplied passwords are empty or do not match.")
+        return false;
+    } else
+    return true;
+}
+
+//read cookie
+function readCookie() {
+   return JSON.parse(document.cookie);
+}
+

@@ -14,7 +14,8 @@ class RequestLogic
         $this->dataHandler = new DataHandler();
     }
 
-    function connectToDataBase() {
+    function connectToDataBase()
+    {
 
     }
 
@@ -66,17 +67,34 @@ class RequestLogic
                     if (($username == $db_username && $pw == $verified_pw) || ($username == $db_usermail && $pw == $verified_pw)) {
                         //admin user: admin/root!2022
 
-                        //create session
-                        $_SESSION["valid"] = true;
+                        //create session (write to db)
+                        $sql = "INSERT INTO `session` (`token`,`role`,`permanent`) VALUES (?, ?, ?)";
+                        //use prepare function
+                        $stmt = $db_obj->prepare($sql);
+                        //"s" stands for string (string datatype is expected) ... i for integer, d for double
+                        //followed by the variables which will be bound to the parameters
+                        $stmt->bind_param("sss", $token, $role, $permanent);
+                        //Generate a random token for a user session (source: https://thisinterestsme.com/generating-random-token-php/)
+                        $pretoken = openssl_random_pseudo_bytes(16);
+                        //Convert the binary data into hexadecimal representation.
+                        $token = bin2hex($pretoken);
+                        //other values for session
+                        $role = $db_role;
+                        $permanent = $remember;
+                        //execute statement
+                        $stmt->execute();
+                        //close statement
+                        $stmt->close();
 
-                        //save some information into session
-                        $_SESSION["user_id"] = $db_user_id;
-                        $_SESSION["role"] = $db_role;
-                        $_SESSION["username"] = $db_username;
-                        $_SESSION["remember"] = $remember;
+                        //get expire timestamp for current session
+                        $sql = "SELECT created_at FROM session WHERE token='$token'";
+                        $result = $db_obj->query($sql);
+                        $row = $result->fetch_assoc();
+                        $preTimestamp = $row["created_at"];
+                        $timestamp = date("Y-m-d H:i:s", strtotime($preTimestamp));
 
-                        //create array element with actual user information and return it (via data handler)
-                        $return = $this->dataHandler->loginUserToElement($db_user_id, $db_username, $db_role, $db_usermail);
+                        //create array element with actual user information (for session) and return it (via data handler)
+                        $return = $this->dataHandler->sessionElement($token, $db_username, $db_role, $timestamp, $remember);
 
                         //close db connection
                         $db_obj->close();
@@ -108,44 +126,47 @@ class RequestLogic
             die("Connection failed: " . $db_obj->connect_error);
         }
 
-        $sql = "INSERT INTO `users` (`username`,`role`,`password`,`usermail`,`title`,`firstname`,`surname`,`postalcode`,`city`,`address`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $checkAlreadyRegistrered = "SELECT username, usermail FROM users WHERE username = '$newUserName' OR usermail = '$newEmail'";
+        $res_checkAlreadyRegistered = $db_obj->query($checkAlreadyRegistrered);
 
-        //use prepare function
-        $stmt = $db_obj->prepare($sql);
+        if ($res_checkAlreadyRegistered->num_rows > 0) {
 
-        //"s" stands for string (string datatype is expected) ... i for integer, d for double
-        //followed by the variables which will be bound to the parameters
-        $stmt->bind_param("sssssssiss", $uname, $role, $pass, $mail, $title, $fname, $sname, $pcode, $city, $address);
+            $db_obj->close();
+            return false;
 
-        $hash_pw = password_hash($newPassword, PASSWORD_DEFAULT);
-
-        $uname = $newUserName;
-        $role = "guest";
-        $pass = $hash_pw;
-        $mail = $newEmail;
-        $title = $newTitle;
-        $fname = $newFirstName;
-        $sname = $newLastName;
-        $pcode = $newPostal;
-        $city = $newCity;
-        $address = $newAddress;
-
-
-        //execute statement
-        if ($stmt->execute()) {
-            return $uname;
         } else {
-            return null;
-        }
+            $sql = "INSERT INTO `users` (`username`,`role`,`password`,`usermail`,`title`,`firstname`,`surname`,`postalcode`,`city`,`address`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            //use prepare function
+            $stmt = $db_obj->prepare($sql);
+
+            //"s" stands for string (string datatype is expected) ... i for integer, d for double
+            //followed by the variables which will be bound to the parameters
+            $stmt->bind_param("sssssssiss", $uname, $role, $pass, $mail, $title, $fname, $sname, $pcode, $city, $address);
+
+            $hash_pw = password_hash($newPassword, PASSWORD_DEFAULT);
+
+            $uname = $newUserName;
+            $role = "customer";
+            $pass = $hash_pw;
+            $mail = $newEmail;
+            $title = $newTitle;
+            $fname = $newFirstName;
+            $sname = $newLastName;
+            $pcode = $newPostal;
+            $city = $newCity;
+            $address = $newAddress;
+
+            //execute statement
+            $stmt->execute();
 
             //close statement
             $stmt->close();
 
             //close connection
             $db_obj->close();
-
-            header('Refresh: 1; URL = ./sites/Login.html');
-
+            return true;
         }
     }
+}
 
