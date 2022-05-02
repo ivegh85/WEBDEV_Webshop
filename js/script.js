@@ -156,10 +156,6 @@ function login() {
             remember = true;
         }
 
-        //test log
-        //console.log(username + " " + password);
-        //console.log(remember);
-
         //remove error messages
         $(".errorMsg").remove();
 
@@ -180,21 +176,34 @@ function login() {
                     $(".successMsg").remove();
                     $("#loginBtnBox").append("<p class='successMsg'>Hi " + response.username + "!</p>");
 
-                    //create session cookie
-                    //document.cookie = "session= " + response.username + ";" + response.token + ";" + response.timestamp + ";" + response.remember;
-                    document.cookie = JSON.stringify({
+                    //expire time
+                    let expires
+                    if(response.remember === "false"){
+                        //one hour
+                        expires = (new Date(Date.now()+ 3600*1000)).toUTCString();
+                    }if(response.remember === "true"){
+                        //one day
+                        expires = (new Date(Date.now()+ 86400*1000)).toUTCString();
+                    }
+
+                    //create cookie data as json string
+                    const session = JSON.stringify({
                         "username": response.username,
                         "token": response.token,
-                        "timestamp": response.timestamp,
-                        "remember": response.remember
+                        "expire": expires,
+                        "remember": response.remember,
+                        "role": response.role
                     });
+
+                    //create cookie with name, data and expire timestamp
+                    document.cookie =  "session=" + session + ";expires=" + expires;
 
                     //test cookie output
                     console.log("username= " + readCookie().username); //username
                     console.log("token= " + readCookie().token); //token
-                    console.log("timestamp= " + readCookie().timestamp); //timestamp
+                    console.log("expire= " + readCookie().expire); //expire timestamp (created_time + 30 min)
                     console.log("remember= " + readCookie().remember); //remember
-
+                    console.log("role= " + readCookie().role); //role
 
                 }
 
@@ -274,9 +283,14 @@ function matchRegistrationPassword() {
     return true;
 }
 
-//read cookie
+
+//read cookie new
 function readCookie() {
-   return JSON.parse(document.cookie);
+    //read and disassemble cookie
+    let cookie = document.cookie.split('=');
+    //return json from cookie
+    return JSON.parse(cookie[1]);
 }
+
 
 

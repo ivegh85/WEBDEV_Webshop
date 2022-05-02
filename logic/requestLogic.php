@@ -91,7 +91,15 @@ class RequestLogic
                         $result = $db_obj->query($sql);
                         $row = $result->fetch_assoc();
                         $preTimestamp = $row["created_at"];
-                        $timestamp = date("Y-m-d H:i:s", strtotime($preTimestamp));
+
+                        //check if remember me is set and create a specific timestamp for the both options
+                        if($remember == "true"){
+                            //timestamp = expire time (--> 1 day) - for remember me
+                            $timestamp = date("Y-m-d H:i:s", strtotime($preTimestamp . "+ 1 days"));
+                        }if($remember == "false"){
+                            //timestamp = expire time (--> 30 min)
+                            $timestamp = date("Y-m-d H:i:s", strtotime($preTimestamp . "+ 30 minutes"));
+                        }
 
                         //create array element with actual user information (for session) and return it (via data handler)
                         $return = $this->dataHandler->sessionElement($token, $db_username, $db_role, $timestamp, $remember);
