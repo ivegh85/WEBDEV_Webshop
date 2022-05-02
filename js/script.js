@@ -1,8 +1,10 @@
 //Starting point for JQuery init
 $(document).ready(function () {
 
-    //load basic data to show on site
-    //loaddata();
+    loadNavBarIndex();
+    loadNavBar();
+    loadFooter();
+
 
     //login and cancel login
     $("#btnLoginClicked").click(function (){
@@ -35,27 +37,106 @@ $(document).ready(function () {
         registerUser();
     });
 
+
+
 });
 
 
-//ajax backend calls
-//basic webshop data
-function loaddata() {
-    $.ajax({
-        type: "GET",
-        url: "../config/requestHandler.php",
-        cache: false,
-        data: {method: ""},
-        dataType: "json",
-        success: function (response) {
 
+//load footer
+function loadFooter() {
+    var z, i, elmnt, file, xhttp;
 
-        },
-        error: function () {
+    /* Loop through a collection of all HTML elements: */
+    z = document.getElementsByTagName("*");
+    for (i = 0; i < z.length; i++) {
+        elmnt = z[i];
 
+        /*search for elements with a certain atrribute:*/
+        file = elmnt.getAttribute("include-footer");
+        if (file) {
+
+            /* Make an HTTP request using the attribute value as the file name: */
+            xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4) {
+                    if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+                    if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+                    /* Remove the attribute, and call this function once more: */
+                    elmnt.removeAttribute("include-footer");
+                    loadFooter();
+                }
+            }
+            xhttp.open("GET", file, true);
+            xhttp.send();
+            /* Exit the function: */
+            return;
         }
+    }
+}
 
-    });
+//load navbar index
+function loadNavBarIndex(){
+    var z, i, elmnt, file, xhttp;
+
+    /* Loop through a collection of all HTML elements: */
+    z = document.getElementsByTagName("*");
+    for (i = 0; i < z.length; i++) {
+        elmnt = z[i];
+
+        /*search for elements with a certain atrribute:*/
+        file = elmnt.getAttribute("include-navbar-index");
+        if (file) {
+
+            /* Make an HTTP request using the attribute value as the file name: */
+            xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4) {
+                    if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+                    if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+                    /* Remove the attribute, and call this function once more: */
+                    elmnt.removeAttribute("include-navbar-index");
+                    loadNavBarIndex();
+                }
+            }
+            xhttp.open("GET", file, true);
+            xhttp.send();
+            /* Exit the function: */
+            return;
+        }
+    }
+}
+
+//load navbar other sites
+function loadNavBar(){
+    var z, i, elmnt, file, xhttp;
+
+    /* Loop through a collection of all HTML elements: */
+    z = document.getElementsByTagName("*");
+    for (i = 0; i < z.length; i++) {
+        elmnt = z[i];
+
+        /*search for elements with a certain atrribute:*/
+        file = elmnt.getAttribute("include-navbar");
+        if (file) {
+
+            /* Make an HTTP request using the attribute value as the file name: */
+            xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4) {
+                    if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+                    if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+                    /* Remove the attribute, and call this function once more: */
+                    elmnt.removeAttribute("include-navbar");
+                    loadNavBarIndex();
+                }
+            }
+            xhttp.open("GET", file, true);
+            xhttp.send();
+            /* Exit the function: */
+            return;
+        }
+    }
 }
 
 //login
@@ -133,8 +214,6 @@ function cancelLogin(){
     window.location.href = "../index.html";
 }
 
-
-
 //register user function
 function registerUser() {
 
@@ -163,9 +242,11 @@ function registerUser() {
 
             if(response === true){
                 window.alert("User was created successfully!")
+                window.location.href= "../sites/login.html"
                 console.log("User was created successfully!")
             } else {
                 window.alert("User is already registered, try again with a different username & email!")
+                window.location.href= "../index.html"
                 console.log("User is already registered, try again with a different username & email!")
             }
 
@@ -197,4 +278,5 @@ function matchRegistrationPassword() {
 function readCookie() {
    return JSON.parse(document.cookie);
 }
+
 

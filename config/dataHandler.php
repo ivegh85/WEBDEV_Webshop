@@ -5,16 +5,14 @@ include ("../models/user.php");
 class DataHandler{
 
     public function loginUserToElement($userID,$username,$role,$mail){
-        //create array
-        $result = array(
+
+        //crete and return array
+        return array(
             "id" => $userID,
             "username" => $username,
             "role" => $role,
             "usermail" => $mail
         );
-
-        //return array
-        return $result;
 
     }
 
@@ -31,16 +29,14 @@ class DataHandler{
     }
 
     public function registerUserToElement($userID,$username,$role,$mail){
-        //create array
-        $result = array(
+
+        //create and return array
+        return array(
             "id" => $userID,
             "username" => $username,
             "role" => $role,
             "usermail" => $mail
         );
-
-        //return array
-        return $result;
 
     }
 
