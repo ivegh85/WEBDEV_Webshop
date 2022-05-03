@@ -1,6 +1,7 @@
 <?php
 
-function checkSessionDB($tokenHash) {
+
+function deleteSessionDB($tokenHash) {
 
     //db connection
     require_once('../config/dbaccess.php');
@@ -9,11 +10,13 @@ function checkSessionDB($tokenHash) {
         die("Connection failed: " . $db_obj->connect_error);
     }
 
+
+
     //get expire timestamp for current session
     $sql = "SELECT created_at FROM session WHERE token='$tokenHash'";
     $result = $db_obj->query($sql);
     $row = $result->fetch_assoc();
-    $timestamp = $row["created_at"];
+    $cookieDeadline = $row["created_at"];
 
     //get current system timestamp
     $date = new DateTime();
@@ -21,13 +24,18 @@ function checkSessionDB($tokenHash) {
     $currenttimestamp = date("Y-m-d H:i:s", strtotime($date));
 
     //check if current time is higher than session expire timestamp
-    if($timestamp < $currenttimestamp){
-        //delete
-        // ...
-    }
+    if($cookieDeadline >= $currenttimestamp){
+       $delete = "DELETE FROM session where token='$tokenHash'";
+       $stmt = $db_obj->prepare($delete);
 
-    //return value
-    // ...
+       //execute statement
+       $stmt->execute();
+       //close statement
+       $stmt->close();
+
+       return false;
+    } else
+        return true;
+
 }
 
-?>

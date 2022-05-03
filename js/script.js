@@ -3,6 +3,7 @@ $(document).ready(function () {
 
     loadNavBarIndex();
     loadNavBar();
+    loadIndex();
     loadFooter();
 
 
@@ -43,6 +44,37 @@ $(document).ready(function () {
 
 
 
+// not finished
+function loadIndex() {
+
+    const content = document.createElement("div");
+    document.body.appendChild(content)
+
+    if (document.cookie.length === 0) {
+
+       content.setAttribute("class", "anonymous");
+
+        document.getElementsByClassName("anonymous").innerHTML = '<object type="text/html" data="../sites/registration.html" ></object>';
+
+    } else {
+
+        let userRole = readCookie().role;
+
+        if (userRole === "admin") {
+            content.setAttribute("class", "admin");
+
+            document.getElementsByClassName("admin").innerHTML = '<object type="text/html" data="../sites/products.html" ></object>';
+
+        } else if (userRole === "customer") {
+            content.setAttribute("class", "customer");
+
+            document.getElementsByClassName("customer").innerHTML = '<object type="text/html" data="../sites/products.html" ></object>';
+
+        }
+    }
+}
+
+//source: https://www.w3schools.com/howto/howto_html_include.asp
 //load footer
 function loadFooter() {
     var z, i, elmnt, file, xhttp;
@@ -75,6 +107,7 @@ function loadFooter() {
     }
 }
 
+//source: https://www.w3schools.com/howto/howto_html_include.asp
 //load navbar index
 function loadNavBarIndex(){
     var z, i, elmnt, file, xhttp;
@@ -107,6 +140,7 @@ function loadNavBarIndex(){
     }
 }
 
+//source: https://www.w3schools.com/howto/howto_html_include.asp
 //load navbar other sites
 function loadNavBar(){
     var z, i, elmnt, file, xhttp;
@@ -198,10 +232,11 @@ function login() {
                     //create cookie with name, data and expire timestamp
                     document.cookie =  "session=" + session + ";expires=" + expires;
 
+
                     //test cookie output
                     console.log("username= " + readCookie().username); //username
                     console.log("token= " + readCookie().token); //token
-                    console.log("expire= " + readCookie().expire); //expire timestamp (created_time + 30 min)
+                    console.log("expire= " + readCookie().expires); //expire timestamp (created_time + 30 min)
                     console.log("remember= " + readCookie().remember); //remember
                     console.log("role= " + readCookie().role); //role
 
@@ -288,8 +323,9 @@ function matchRegistrationPassword() {
 function readCookie() {
     //read and disassemble cookie
     let cookie = document.cookie.split('=');
-    //return json from cookie
+
     return JSON.parse(cookie[1]);
+
 }
 
 
