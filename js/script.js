@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     loadNavBarIndex();
     loadNavBar();
-    loadIndex();
+    //loadSite();
     loadFooter();
 
 
@@ -44,17 +44,16 @@ $(document).ready(function () {
 
 
 
-// not finished
-function loadIndex() {
+// not yet implemented
+function loadSite() {
 
-    const content = document.createElement("div");
-    document.body.appendChild(content)
+
 
     if (document.cookie.length === 0) {
 
        content.setAttribute("class", "anonymous");
 
-        document.getElementsByClassName("anonymous").innerHTML = '<object type="text/html" data="../sites/registration.html" ></object>';
+       document.getElementsByClassName("anonymous").innerHTML = '<object type="text/html" data="../sites/registration.html" ></object>';
 
     } else {
 
@@ -162,7 +161,7 @@ function loadNavBar(){
                     if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
                     /* Remove the attribute, and call this function once more: */
                     elmnt.removeAttribute("include-navbar");
-                    loadNavBarIndex();
+                    loadNavBar();
                 }
             }
             xhttp.open("GET", file, true);
