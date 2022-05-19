@@ -97,7 +97,6 @@ function login() {
         //remove error messages
         $(".errorMsg").remove();
 
-        //not fully implemented yet
         $.ajax({
             type: "GET",
             url: "../config/loginHandler.php",
@@ -144,6 +143,11 @@ function login() {
                     console.log("remember= " + readCookie().remember); //remember
                     console.log("role= " + readCookie().role); //role
 
+                    //redirect to home
+                    setTimeout(function (){
+                        window.location.href = "../sites/home.html";
+                    }, 2000);
+
                 }
 
             },
@@ -155,12 +159,11 @@ function login() {
 
         });
     }
-    loadNavbar();
 }
 
 //cancel login function
 function cancelLogin(){
-    window.location.href = "../index.html";
+    window.location.href = "../sites/home.html";
 }
 
 //register user function
@@ -224,10 +227,9 @@ function matchRegistrationPassword() {
 }
 
 
-//read cookie new
+//read cookie (not up to date)
 function readCookie() {
-    try {
-        //read and disassemble cookie
+
         let cookie = document.cookie.split('=');
 
         if (document.cookie === "") {
@@ -235,24 +237,8 @@ function readCookie() {
         } else {
             return JSON.parse(cookie[1]);
         }
-    }
-    catch(e){
-        return null;
-    }
 }
 
-//cookie null checker
-function nullCookieChecker() {
-    try {
-    if(document.cookie === ""){
-        return true;
-    }else{
-        return false;
-    }
-    } catch(e){
-            return true;
-        }
-}
 
 
 

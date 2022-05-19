@@ -28,6 +28,14 @@ class DataHandler{
 
     }
 
+    public function logoutElement($bool){
+        //create and return array
+        return array(
+            "result" => $bool
+        );
+
+    }
+
     public function registerUserToElement($userID,$username,$role,$mail){
 
         //create and return array

@@ -1,20 +1,16 @@
 <?php
 include("../logic/requestLogic.php");
 
-$username = "";
-$pw = "";
+$token = "";
 $method = "";
-$remember = false;
 
 
 //set data receiving from ajax function
+isset($_GET["token"]) ? $token = $_GET["token"] : false;
 isset($_GET["method"]) ? $method = $_GET["method"] : false;
-isset($_GET["username"]) ? $username = $_GET["username"] : false;
-isset($_GET["pw"]) ? $pw = $_GET["pw"] : false;
-isset($_GET["remember"]) ? $remember = $_GET["remember"] : false;
 
 $logic = new RequestLogic();
-$result = $logic->handleRequest($method, $username, $pw, $remember);
+$result = $logic->deleteSessionDB($token);
 if ($result == null) {
     response("GET", 400, null);
 } else {
