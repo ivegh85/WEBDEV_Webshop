@@ -1,7 +1,29 @@
 //Starting point for JQuery init
 $(document).ready(function (){
 
+    console.log("Test");
 
+    //load navbar
+    //loadNavBarIndex();
+    $("#loadNavbar").load("./sites/loadNavbarDefault.html");
+
+    //loadNavBar();
+    //loadSite();
+
+    //load footer
+    //loadFooter();
+
+    //hide navbar elements
+    navbarPermissions();
+
+
+    //login and cancel login
+    $("#btnLoginClicked").click(function (){
+        login();
+    });
+    $("#btnCancelLoginClicked").click(function (){
+        cancelLogin();
+    });
     $("#btnRegisterUserClicked").click(function (){
         //interrupt submit in case input is missing or incorrect
         (function () {
@@ -39,9 +61,9 @@ function loadSite() {
 
     if (document.cookie.length === 0) {
 
-        content.setAttribute("class", "anonymous");
+       content.setAttribute("class", "anonymous");
 
-        document.getElementsByClassName("anonymous").innerHTML = '<object type="text/html" data="../sites/registration.html" ></object>';
+       document.getElementsByClassName("anonymous").innerHTML = '<object type="text/html" data="../sites/registration.html" ></object>';
 
     } else {
 
@@ -61,20 +83,128 @@ function loadSite() {
     }
 }
 
+//source: https://www.w3schools.com/howto/howto_html_include.asp
+//load footer
+function loadFooter() {
+    var z, i, elmnt, file, xhttp;
 
+    /* Loop through a collection of all HTML elements: */
+    z = document.getElementsByTagName("*");
+    for (i = 0; i < z.length; i++) {
+        elmnt = z[i];
 
-//load login
-function loadLogin() {
-    $("#loginBtn").click(function (){
-        $("#pageContent").load("./sites/loadLogin.html");
-        //login and cancel login
-        /*$("#btnLoginClicked").click(function (){
-            login();
-        });
-        $("#btnCancelLoginClicked").click(function (){
-            cancelLogin();
-        });*/
-    })
+        /*search for elements with a certain atrribute:*/
+        file = elmnt.getAttribute("include-footer");
+        if (file) {
+
+            /* Make an HTTP request using the attribute value as the file name: */
+            xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4) {
+                    if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+                    if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+                    /* Remove the attribute, and call this function once more: */
+                    elmnt.removeAttribute("include-footer");
+                    loadFooter();
+                }
+            }
+            xhttp.open("GET", file, true);
+            xhttp.send();
+            /* Exit the function: */
+            return;
+        }
+    }
+}
+
+//source: https://www.w3schools.com/howto/howto_html_include.asp
+//load navbar index
+function loadNavBarIndex(){
+    var z, i, elmnt, file, xhttp;
+
+    /* Loop through a collection of all HTML elements: */
+    z = document.getElementsByTagName("*");
+    for (i = 0; i < z.length; i++) {
+        elmnt = z[i];
+
+        /*search for elements with a certain attribute:*/
+        file = elmnt.getAttribute("include-navbar-index");
+        if (file) {
+
+            /* Make an HTTP request using the attribute value as the file name: */
+            xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4) {
+                    if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+                    if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+                    /* Remove the attribute, and call this function once more: */
+                    elmnt.removeAttribute("include-navbar-index");
+                    loadNavBarIndex();
+                }
+            }
+            xhttp.open("GET", file, true);
+            xhttp.send();
+
+            /* Exit the function: */
+            return;
+        }
+    }
+}
+
+//navbar display according to permissions
+function navbarPermissions(){
+    //hide permission elements
+    $("#navLogout").hide();
+    $("#navCurrentUser").hide();
+    $("#navEditProducts").hide();
+    $("#navEditCustomers").hide();
+
+    //check for permissions
+    let permissions = readCookie().role;
+    if(permissions === "customer"){
+        $("#navLogout").show();
+        $("#navLogin").hide();
+        $("#navRegistration").hide();
+    }
+    if(permissions === "admin"){
+        $("#navRegistration").hide();
+        $("#navLogout").show();
+        $("#navEditProducts").show();
+        $("#navEditCustomers").show();
+    }
+
+}
+
+//source: https://www.w3schools.com/howto/howto_html_include.asp
+//load navbar other sites
+function loadNavBar(){
+    var z, i, elmnt, file, xhttp;
+
+    /* Loop through a collection of all HTML elements: */
+    z = document.getElementsByTagName("*");
+    for (i = 0; i < z.length; i++) {
+        elmnt = z[i];
+
+        /*search for elements with a certain atrribute:*/
+        file = elmnt.getAttribute("include-navbar");
+        if (file) {
+
+            /* Make an HTTP request using the attribute value as the file name: */
+            xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4) {
+                    if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+                    if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+                    /* Remove the attribute, and call this function once more: */
+                    elmnt.removeAttribute("include-navbar");
+                    loadNavBar();
+                }
+            }
+            xhttp.open("GET", file, true);
+            xhttp.send();
+            /* Exit the function: */
+            return;
+        }
+    }
 }
 
 //login
@@ -134,7 +264,7 @@ function login() {
                     });
 
                     //create cookie with name, data and expire timestamp
-                    document.cookie =  "session=" + session + ";expires=" + expires + ";path=/";
+                    document.cookie =  "session=" + session + ";expires=" + expires + ";path=/webshop";
 
 
                     //test cookie output
@@ -155,7 +285,6 @@ function login() {
 
         });
     }
-    loadNavbar();
 }
 
 //cancel login function
@@ -220,38 +349,17 @@ function matchRegistrationPassword() {
         password2.setCustomValidity("The supplied passwords are empty or do not match.")
         return false;
     } else
-        return true;
+    return true;
 }
 
 
 //read cookie new
 function readCookie() {
-    try {
-        //read and disassemble cookie
-        let cookie = document.cookie.split('=');
+    //read and disassemble cookie
+    let cookie = document.cookie.split('=');
 
-        if (document.cookie === "") {
-            return null;
-        } else {
-            return JSON.parse(cookie[1]);
-        }
-    }
-    catch(e){
-        return null;
-    }
-}
+    return JSON.parse(cookie[1]);
 
-//cookie null checker
-function nullCookieChecker() {
-    try {
-    if(document.cookie === ""){
-        return true;
-    }else{
-        return false;
-    }
-    } catch(e){
-            return true;
-        }
 }
 
 

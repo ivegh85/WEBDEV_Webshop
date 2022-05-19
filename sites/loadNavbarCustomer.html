@@ -1,0 +1,53 @@
+<!-- navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="./index.html">Webshop
+            <!-- icon possible: <img src="../res/img/FH.jpg" alt="" width="45" height="45"> -->
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item" id="navHome">
+                    <a class="nav-link" aria-current="page" href="./index.html">Home</a>
+                </li>
+                <li class="nav-item" visibility ="all" id="navProducts">
+                    <a class="nav-link" aria-current="page" href="./sites/products.html">Products</a>
+                </li>
+                <li class="nav-item" visibility ="all" id="navCart">
+                    <a class="nav-link" aria-current="page" href="./sites/cart.html">Cart</a>
+                </li>
+                <li class="nav-item" visibility ="all" id="navEditProducts">
+                    <a class="nav-link" aria-current="page" href="./sites/editProducts.html">Edit Products</a>
+                </li>
+                <li class="nav-item" visibility ="all" id="navEditCustomers">
+                    <a class="nav-link" aria-current="page" href="./sites/editCustomers.html">Edit Customers</a>
+                </li>
+                <li class="nav-item" id="navLogin">
+                    <a class="nav-link" aria-current="page" id="loginBtn">Login</a> <!-- link deleted -->
+                </li>
+                <li class="nav-item" id="navRegistration">
+                    <a class="nav-link" aria-current="page" href="./sites/registration.html">Registration</a> <!-- link deleted -->
+                </li>
+                <li class="nav-item" id="navLogout">
+                    <a class="nav-link" aria-current="page" href="./sites/logout.html">Logout</a> <!-- link deleted -->
+                </li>
+                <!-- other nav elements -->
+                <li class="nav-item" id="navHelp">
+                    <a class="nav-link" aria-current="page">Help</a> <!-- link deleted -->
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+					<span class = "navbar-text" id="navCurrentUser">
+						<!-- Current User - Demo Text Below-->
+                        <div id="displayUser"></div>
+					</span>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<script>console.log("after load");</script>
