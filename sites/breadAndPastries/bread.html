@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- meta data -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- title -->
+    <title>Bread</title>
+
+    <!-- icon -->
+    <link rel="icon">
+
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="../../res/css/style.css">
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&family=Ubuntu&display=swap" rel="stylesheet">
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+</head>
+<body>
+<!-- Navbar -->
+<!--<div include-navbar-index="./sites/navBarIndex.html"></div>-->
+<div class="loadNavbarBreadAndPastries""></div>
+
+<!-- Body -->
+<div id="pageContent"></div>
+<div class="container mt-4">
+    <h2>Bread</h2>
+    <br>
+    <div class="row row-cols-1 row-cols-md-5 g-3">
+        <div class="col">
+            <div class="card text-center h-100" style="width: 15rem;">
+                <img src="../../res/img/products/Roggenbrot.png" alt="">
+                <div class="card-body">
+                    <h4 class="card-title">Bio Rye Bread</h4>
+
+
+
+                    <h5 class="card-text"><b>€ 3,49</b></h5>
+                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-center h-100" style="width: 15rem;">
+                <img src="../../res/img/products/TirolerBrot.png" alt="">
+                <div class="card-body">
+                    <h4 class="card-title">Tyrolean Bread</h4>
+                    <h5 class="card-text"><b>€ 3,99</b></h5>
+                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-center h-100" style="width: 15rem;">
+                <img src="../../res/img/products/Wurzelbrot.png" alt="">
+                <div class="card-body">
+                    <h4 class="card-title">Twisted Bread</h4>
+                    <h5 class="card-text"><b>€ 3,99</b></h5>
+                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-center h-100" style="width: 15rem;">
+                <img src="../../res/img/products/LeopoldCapo.png" alt="">
+                <div class="card-body">
+                    <h4 class="card-title">Leopold Capo</h4>
+                    <h5 class="card-text"><b>€ 7,19</b></h5>
+                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-center h-100" style="width: 15rem;">
+                <img src="../../res/img/products/Dinkeltoast.png" alt="">
+                <div class="card-body">
+                    <h4 class="card-title">Spelt toast</h4>
+                    <h5 class="card-text"><b>€ 3,99</b></h5>
+                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Content -->
+
+<!--<div include-footer="./sites/footer.html"></div>-->
+
+</body>
+
+<!-- js -->
+<!-- include jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- include js file -->
+<!--<script src="../js/script.js"></script>-->
+<script src="../../js/loadNavbarProducts.js"></script>
+<!-- include js bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+<script>
+    //load navbar
+    loadNavbarBreadAndPastries();
+    //$(".loadNavbar").load("./loadNavbarDef.html");
+
+</script>
+
+</html>
