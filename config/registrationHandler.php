@@ -25,13 +25,14 @@ isset($_POST["city"]) ? $newCity = $_POST["city"] : false;
 isset($_POST["zip"]) ? $newPostal = $_POST["zip"] : false;
 
 $logic = new RequestLogic();
+
 $result = $logic->registerRequest($newUserName, $newPassword, $newEmail, $newTitle, $newFirstName, $newLastName,
     $newAddress, $newCity, $newPostal);
 
 if ($result == false) {
-    response("POST", 400, $result);
+    response( "POST",400, false);
 } else {
-    response("POST", 200, $result);
+    response( "POST",200, true);
 }
 
 function response($method, $httpStatus, $data)
@@ -46,4 +47,5 @@ function response($method, $httpStatus, $data)
             http_response_code(405);
             echo ("Method not supported yet!");
     }
+
 }

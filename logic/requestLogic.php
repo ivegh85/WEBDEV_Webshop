@@ -163,6 +163,32 @@ class RequestLogic
         return $this->dataHandler->logoutElement($returnLogoutElement);
     }
 
+    //get Products
+    function productRequest(){
+
+        //db connection
+        require_once('../config/dbaccess.php');
+        $db_obj = new mysqli($host, $user, $password, $database);
+        if ($db_obj->connect_error) {
+            die("Connection failed: " . $db_obj->connect_error);
+        }
+
+        //get data from db
+        $sql = "SELECT * FROM products";
+
+        //prepare statement
+        $stmt = $db_obj->prepare($sql);
+
+        //execute statement
+        $stmt->execute();
+
+        //close statement
+        $stmt->close();
+
+        //return result
+        return $stmt;
+
+    }
 
     function registerRequest($newUserName, $newPassword, $newEmail, $newTitle, $newFirstName, $newLastName,
                              $newAddress, $newCity, $newPostal)
@@ -216,6 +242,7 @@ class RequestLogic
             $db_obj->close();
             return true;
         }
+
     }
 }
 

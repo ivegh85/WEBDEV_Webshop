@@ -46,10 +46,10 @@ function registerUser() {
 
     $.ajax({
         type: "POST",
+        async: false,
         url: "../config/registrationHandler.php",
-        cache: false,
-        data: {method: "register", username: newUserName, pw: newPassword, email : newEmail, title : newTitle,
-            fn: newFirstName, ln: newLastName, address : newAddress, city: newCity, zip: newPostal  },
+        data: {username: newUserName, pw: newPassword, email : newEmail, title : newTitle,
+            fn: newFirstName, ln: newLastName, address : newAddress, city: newCity, zip: newPostal },
         dataType: "json",
         success: function (response) {
             //test log
@@ -92,7 +92,7 @@ function registerUser() {
     });
 }
 
-//not yet implemented
+//not implemented - Doesn´t work with bootstrap validation
 function matchRegistrationPassword() {
 
     let password = document.getElementById('password').value;
@@ -100,8 +100,9 @@ function matchRegistrationPassword() {
 
 
     if (password !== password2 || password === "" || password2 ===""){
+        password.setCustomValidity("The supplied passwords are empty or do not match.")
         password2.setCustomValidity("The supplied passwords are empty or do not match.")
-        return false;
     } else
-        return true;
+        password.setCustomValidity("")
+        password2.setCustomValidity("")
 }
