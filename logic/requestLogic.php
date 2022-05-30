@@ -117,6 +117,120 @@ class RequestLogic
                     }
                 }
                 break;
+
+
+            default:
+                $return = null;
+                break;
+        }
+        return $return;
+    }
+
+    //get user ID
+    function getUserID($method, $userID)
+    {
+        //get user ID
+        switch ($method) {
+            case "getID":
+                //db connection
+                require_once('../config/dbaccess.php');
+                $db_obj = new mysqli($host, $user, $password, $database);
+                if ($db_obj->connect_error) {
+                    die("Connection failed: " . $db_obj->connect_error);
+                }
+
+                //declare variables
+                $db_user_name = '';
+                $db_user_id = '';
+
+                //get data from db
+                $sql = "SELECT user_id, username FROM users WHERE user_id='$userID'";
+
+                $result = $db_obj->query($sql);
+                if (($result->num_rows > 0) && ($result->num_rows < 2)) {
+                    // output data of each row (in this case only 1 row)
+                    $row = $result->fetch_assoc();
+                    //store values into variables
+                    $db_user_name = $row["username"];
+                    $db_user_id = $row["user_id"];
+
+                    $return = $this->dataHandler->idElement($db_user_name, $db_user_id);
+                }
+                else {
+                    $return = null;
+                }
+
+
+
+                //close db connection
+                $db_obj->close();
+
+                break;
+
+            default:
+                $return = null;
+                break;
+        }
+        return $return;
+    }
+
+    //get user data
+    function getUserData($method, $userID)
+    {
+        //get user ID
+        switch ($method) {
+            case "getUserData":
+                //db connection
+                require_once('../config/dbaccess.php');
+                $db_obj = new mysqli($host, $user, $password, $database);
+                if ($db_obj->connect_error) {
+                    die("Connection failed: " . $db_obj->connect_error);
+                }
+
+                //declare variables
+                $db_user_name = '';
+                $db_user_id = '';
+                $db_role = '';
+                $db_usermail = '';
+                $db_title = '';
+                $db_firstname = '';
+                $db_surname = '';
+                $db_postalcode = '';
+                $db_city = '';
+                $db_address = '';
+                $db_created_at = '';
+
+                //get data from db
+                $sql = "SELECT user_id, username, role, usermail, title, firstname, surname, postalcode, city, address, created_at FROM users WHERE user_id='$userID'";
+
+                $result = $db_obj->query($sql);
+                if ($result->num_rows > 0) {
+                    // output data of each row (in this case only 1 row)
+                    $row = $result->fetch_assoc();
+                    //store values into variables
+                    $db_user_name = $row["username"];
+                    $db_user_id = $row["user_id"];
+                    $db_role = $row["role"];
+                    $db_usermail = $row["usermail"];
+                    $db_title = $row["title"];
+                    $db_firstname = $row["firstname"];
+                    $db_surname = $row["surname"];
+                    $db_postalcode = $row["postalcode"];
+                    $db_city = $row["city"];
+                    $db_address = $row["address"];
+                    $db_created_at = $row["created_at"];
+
+                    $return = $this->dataHandler->userElement($db_user_name, $db_user_id, $db_role, $db_usermail, $db_title, $db_firstname, $db_surname, $db_postalcode, $db_city, $db_address, $db_created_at);
+                }
+                else {
+                    $return = null;
+                }
+
+                //close db connection
+                $db_obj->close();
+
+                break;
+
             default:
                 $return = null;
                 break;

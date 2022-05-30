@@ -1,3 +1,18 @@
+//import js script (source: stackoverflow)
+function require(script) {
+    $.ajax({
+        url: script,
+        dataType: "script",
+        async: false,
+        success: function () {
+        },
+        error: function () {
+            throw new Error("Could not load script " + script);
+        }
+    });
+}
+require("../js/cookieHandling.js");
+
 //login
 function login() {
 
@@ -58,11 +73,11 @@ function login() {
 
 
                     //test cookie output
-                    console.log("username= " + readCookie().username); //username
-                    console.log("token= " + readCookie().token); //token
-                    console.log("expire= " + readCookie().expires); //expire timestamp (created_time + 30 min)
-                    console.log("remember= " + readCookie().remember); //remember
-                    console.log("role= " + readCookie().role); //role
+                    console.log("username= " + readSessionCookie().username); //username
+                    console.log("token= " + readSessionCookie().token); //token
+                    console.log("expire= " + readSessionCookie().expires); //expire timestamp (created_time + 30 min)
+                    console.log("remember= " + readSessionCookie().remember); //remember
+                    console.log("role= " + readSessionCookie().role); //role
 
                     //redirect to home
                     setTimeout(function (){
