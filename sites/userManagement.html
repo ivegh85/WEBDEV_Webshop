@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Management</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="loadNavbar"></div>
+
+<!-- actual body -->
+
+<div class="container-fluid shadow border mt-3 mb-3 ">
+    <div class="row mt-auto mb-auto pb-3 justify-content-center">
+
+        <h2 class="display-6 text-center pb-3">User Management</h2>
+
+        <div class="table-scroll">
+
+            <!-- responsive table display -->
+            <div class="col-md-12 align-middle table-responsive ">
+
+                <table class="table table-bordered table-hover table-striped align-middle" >
+                    <thead>
+
+                    <tr>
+
+                        <th>User ID</th>
+                        <th>Username</th>
+                        <th>E-Mail</th>
+                        <th>Role</th>
+                        <th>Created at </th>
+                        <th>User Management</th>
+                    </tr>
+                    </thead>
+
+                    <tr id="userTable0">
+                        <!--here showing results in the table -->
+                       <!-- <td id="userID"> </td>
+                        <td id="username"></td>
+                        <td id="status"></td>
+                        <td id="mail"> </td>
+                        <td id="role"> </td>
+                        <td id="createdAt"> </td>-->
+
+
+
+
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+
+
+</body>
+<!-- js -->
+<!-- include jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- include js file -->
+<!--<script src="../js/script.js"></script>-->
+<script src="../js/loadNavbar.js"></script>
+<script src="../js/profile.js"></script>
+<!-- include js bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+<script>
+    //load navbar
+    loadNavbar();
+
+    //insert elements into table and user data into table elements
+    loadTableElements();
+
+</script>
+</html>

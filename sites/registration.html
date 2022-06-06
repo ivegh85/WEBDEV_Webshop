@@ -15,8 +15,7 @@
 <body>
 
 <!-- Navbar -->
-
-<div include-navbar="navbar.html"></div>
+<div class="loadNavbar"></div>
 
 <!-- actual body -->
 
@@ -94,16 +93,19 @@
                 <label class="form-label" for="postalCode">Postal Code:</label>
                 <input type="text" name="postalCode" id="postalCode" class="form-control" placeholder ="Zip" required>
                 <div class="invalid-feedback">Please provide a valid zip.</div>
-            </div>
+            </div><!--
             <div class="col-12">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
                     <label class="form-check-label" for="invalidCheck">Agree to terms and conditions</label>
                     <div class="invalid-feedback">You must agree to our Terms before submitting.</div>
                 </div>
-            </div>
+            </div>-->
             <div class="col-12">
                 <button class="btn btn-primary" type="submit" id ="btnRegisterUserClicked">Submit form</button>
+            </div>
+            <div class="text-center">
+                <div id="registrationMessage"></div>
             </div>
         </form>
     </div>
@@ -113,12 +115,21 @@
 </body>
 
 <!-- js -->
+<!-- js -->
 <!-- include jquery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <!-- include js file -->
-<script src="../archiv/script_old.js"></script>
+<!--<script src="../js/script.js"></script>-->
+<script src="../js/loadNavbar.js"></script>
+<script src="../js/registration.js"></script>
 <!-- include js bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
+
+<script>
+    //load navbar
+    loadNavbar();
+
+</script>
 </html>

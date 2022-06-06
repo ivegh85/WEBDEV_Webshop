@@ -40,5 +40,5 @@ function logout(){
     //redirect to home
     setTimeout(function (){
         window.location.href = "../sites/home.html";
-    }, 2000);
+    }, 1500);
 }

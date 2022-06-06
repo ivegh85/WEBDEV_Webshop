@@ -1,21 +1,18 @@
 <?php
+
 include("../logic/requestLogic.php");
 
-$username = "";
-$pw = "";
+$userID = "";
 $method = "";
-$remember = false;
 
 
 //set data receiving from ajax function
 isset($_GET["method"]) ? $method = $_GET["method"] : false;
-isset($_GET["username"]) ? $username = $_GET["username"] : false;
-isset($_GET["pw"]) ? $pw = $_GET["pw"] : false;
-isset($_GET["remember"]) ? $remember = $_GET["remember"] : false;
+isset($_GET["userID"]) ? $userID = $_GET["userID"] : false;
 
 $logic = new RequestLogic();
 
-$result = $logic->handleRequest($method, $username, $pw, $remember);
+$result = $logic->getUserID($method, $userID);
 
 if ($result == null) {
     response("GET", 400, null);
@@ -29,10 +26,10 @@ function response($method, $httpStatus, $data)
     switch ($method) {
         case "GET":
             http_response_code($httpStatus);
-            echo (json_encode($data));
+            echo(json_encode($data));
             break;
         default:
             http_response_code(405);
-            echo ("Method not supported yet!");
+            echo("Method not supported yet!");
     }
 }
