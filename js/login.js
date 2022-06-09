@@ -43,7 +43,7 @@ function login() {
                 //test log
                 console.log(response);
 
-                if (response !== null) {
+                if (response !== null && response.status === "active") {
                     //show success and welcome message if username and password are correct
                     $(".errorMsg").remove();
                     $(".successMsg").remove();
@@ -84,6 +84,9 @@ function login() {
                         window.location.href = "../sites/home.html";
                     }, 1500);
 
+                } else{
+                    $(".successMsg").remove();
+                    $("#loginBtnBox").append("<p class='errorMsg'>User not active!</p>");
                 }
 
             },

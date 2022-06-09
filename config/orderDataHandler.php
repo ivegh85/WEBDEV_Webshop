@@ -1,17 +1,18 @@
 <?php
-include("../logic/logoutLogic.php");
 
-$token = "";
+include("../logic/orderLogic.php");
+
 $method = "";
+$user_id = "";
 
 
 //set data receiving from ajax function
-isset($_GET["token"]) ? $token = $_GET["token"] : false;
 isset($_GET["method"]) ? $method = $_GET["method"] : false;
+isset($_GET["user_id"]) ? $user_id = $_GET["user_id"] : false;
 
-$logic = new LogoutLogic();
+$logic = new OrderLogic();
 
-$result = $logic->deleteSessionDB($token);
+$result = $logic->userOrderData($user_id);
 
 if ($result == null) {
     response("GET", 400, null);
@@ -25,10 +26,10 @@ function response($method, $httpStatus, $data)
     switch ($method) {
         case "GET":
             http_response_code($httpStatus);
-            echo (json_encode($data));
+            echo(json_encode($data));
             break;
         default:
             http_response_code(405);
-            echo ("Method not supported yet!");
+            echo("Method not supported yet!");
     }
 }

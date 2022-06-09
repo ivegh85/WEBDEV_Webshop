@@ -199,9 +199,10 @@ class RequestLogic
                 $db_city = '';
                 $db_address = '';
                 $db_created_at = '';
+                $db_state = '';
 
                 //get data from db
-                $sql = "SELECT user_id, username, role, usermail, title, firstname, surname, postalcode, city, address, created_at FROM users WHERE user_id='$userID'";
+                $sql = "SELECT user_id, username, role, usermail, title, firstname, surname, postalcode, city, address, created_at, state FROM users WHERE user_id='$userID'";
 
                 $result = $db_obj->query($sql);
                 if ($result->num_rows > 0) {
@@ -219,8 +220,9 @@ class RequestLogic
                     $db_city = $row["city"];
                     $db_address = $row["address"];
                     $db_created_at = $row["created_at"];
+                    $db_state = $row["state"];
 
-                    $return = $this->dataHandler->userElement($db_user_name, $db_user_id, $db_role, $db_usermail, $db_title, $db_firstname, $db_surname, $db_postalcode, $db_city, $db_address, $db_created_at);
+                    $return = $this->dataHandler->userElement($db_user_name, $db_user_id, $db_role, $db_usermail, $db_title, $db_firstname, $db_surname, $db_postalcode, $db_city, $db_address, $db_created_at, $db_state);
                 }
                 else {
                     $return = null;
