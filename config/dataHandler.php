@@ -16,14 +16,15 @@ class DataHandler{
 
     }
 
-    public function sessionElement($token, $username, $role, $timestamp, $remember){
+    public function sessionElement($token, $username, $role, $timestamp, $remember, $state){
         //create and return array
         return array(
             "token" => $token,
             "username" => $username,
             "role" => $role,
             "timestamp" => $timestamp,
-            "remember" => $remember
+            "remember" => $remember,
+            "status" => $state
         );
 
     }
@@ -72,7 +73,7 @@ class DataHandler{
 
 
     //user data
-    public function userElement($db_user_name, $db_user_id, $db_role, $db_usermail, $db_title, $db_firstname, $db_surname, $db_postalcode, $db_city, $db_address, $db_created_at){
+    public function userElement($db_user_name, $db_user_id, $db_role, $db_usermail, $db_title, $db_firstname, $db_surname, $db_postalcode, $db_city, $db_address, $db_created_at, $db_state){
         return array(
             "username" => $db_user_name,
             "id" => $db_user_id,
@@ -84,9 +85,26 @@ class DataHandler{
             "postalcode" => $db_postalcode,
             "city" => $db_city,
             "address" => $db_address,
-            "createDate" => $db_created_at
+            "createDate" => $db_created_at,
+            "status" => $db_state
         );
 }
+
+
+//order management
+public function orderElement($order_id, $order_package, $user_id, $product_id, $product, $product_price, $created_at){
+        return array(
+            "orderID" => $order_id,
+            "orderPackage" => $order_package,
+            "userID" => $user_id,
+            "productID" => $product_id,
+            "product" => $product,
+            "productPrice" => $product_price,
+            "orderDate" => $created_at
+        );
+}
+
+
 
 
 }

@@ -1,5 +1,5 @@
 <?php
-include("../logic/requestLogic.php");
+include("../logic/loginLogic.php");
 
 $username = "";
 $pw = "";
@@ -13,7 +13,7 @@ isset($_GET["username"]) ? $username = $_GET["username"] : false;
 isset($_GET["pw"]) ? $pw = $_GET["pw"] : false;
 isset($_GET["remember"]) ? $remember = $_GET["remember"] : false;
 
-$logic = new RequestLogic();
+$logic = new LoginLogic();
 
 $result = $logic->handleRequest($method, $username, $pw, $remember);
 
