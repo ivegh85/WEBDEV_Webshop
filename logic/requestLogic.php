@@ -173,7 +173,7 @@ class RequestLogic
         }
         return $return;
     }
-
+    /*
     //get user data
     function getUserData($method, $userID)
     {
@@ -239,7 +239,7 @@ class RequestLogic
         }
         return $return;
     }
-
+    */
     //logout
     function deleteSessionDB($tokenHash) {
 
