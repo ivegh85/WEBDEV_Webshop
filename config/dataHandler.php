@@ -35,13 +35,14 @@ class DataHandler{
         );
     }
 
-    public function productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image){
+    public function productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image){
         //create and return array
         return array(
             "productId" => $db_product_id,
             "productname" => $db_product_name,
             "description" => $db_description,
             "price" => $db_price,
+            "rating" => $db_rating,
             "category" => $db_category,
             "subcategory" => $db_sub_category,
             "image" => $db_image,
