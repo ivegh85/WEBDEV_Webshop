@@ -1,6 +1,7 @@
 <?php
 
 include ("../models/user.php");
+include ("../models/product.php");
 
 class DataHandler{
 
@@ -13,7 +14,6 @@ class DataHandler{
             "role" => $role,
             "usermail" => $mail
         );
-
     }
 
     public function sessionElement($token, $username, $role, $timestamp, $remember, $state){
@@ -26,7 +26,6 @@ class DataHandler{
             "remember" => $remember,
             "status" => $state
         );
-
     }
 
     public function logoutElement($bool){
@@ -34,20 +33,33 @@ class DataHandler{
         return array(
             "result" => $bool
         );
-
     }
 
-    public function productList($product_id, $product_name, $description, $price_per_unit, $category){
+    public function productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image){
         //create and return array
         return array(
-            "product id" => $product_id,
-            "product name" => $product_name,
-            "product description" => $description,
-            "price" => $price_per_unit,
-            "category" => $category
+            "productId" => $db_product_id,
+            "productname" => $db_product_name,
+            "description" => $db_description,
+            "price" => $db_price,
+            "category" => $db_category,
+            "subcategory" => $db_sub_category,
+            "image" => $db_image,
         );
-
     }
+
+    public function cartElement($db_cart_id, $db_product_id, $db_product, $db_quantity, $db_price, $db_create){
+        //create and return array
+        return array(
+            "cartId" => $db_cart_id,
+            "productId" => $db_product_id,
+            "product" => $db_product,
+            "quantity" => $db_quantity,
+            "price" => $db_price,
+            "createDate" => $db_create,
+        );
+    }
+
 
     public function registerUser($bool){
 
