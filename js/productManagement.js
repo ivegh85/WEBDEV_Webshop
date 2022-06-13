@@ -1,7 +1,7 @@
 function loadProducts(){
     $.ajax({
         type: "GET",
-        url: "../config/productDataHandler.php",
+        url: "../config/allProductsDataHandler.php",
         cache: false,
         data: {method: "getProductData"},
         dataType: "json",

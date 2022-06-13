@@ -13,72 +13,79 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent1">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown" id="navBreadAndPastries">
-                    <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Bread & Pastries</a>
+                    <a class="nav-link active dropdown-toggle" onclick="loadPage()" href="#" role="button" data-bs-toggle="dropdown">Bread & Pastries</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="breadAndPastries/bread.html">Bread</a></li>
-                        <li><a class="dropdown-item" href="breadAndPastries/pastries.html">Pastries</a></li>
-                        <li><a class="dropdown-item" href="breadAndPastries/rolls.html">Rolls</a></li>
-                        <li><a class="dropdown-item" href="breadAndPastries/confectionery.html">Confectionery</a></li>
+                        <li ><a class="dropdown-item" href="#" id="bread">Bread</a></li>
+                        <li ><a class="dropdown-item" href="#" id="pastries">Pastries</a></li>
+                        <li><a class="dropdown-item" href="#" id="rolls">Rolls</a></li>
+                        <li><a class="dropdown-item" href="#" id="confectionery">Confectionery</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown" id="navMeatAndFish">
-                    <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Meat & Fish</a>
+                    <a class="nav-link active dropdown-toggle" onclick="loadPage()" href="#" role="button" data-bs-toggle="dropdown">Meat & Fish</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="meatAndFish/poultry.html">Poultry</a></li>
-                        <li><a class="dropdown-item" href="meatAndFish/pork.html">Pork</a></li>
-                        <li><a class="dropdown-item" href="meatAndFish/beef.html">Beef</a></li>
-                        <li><a class="dropdown-item" href="meatAndFish/seafood.html">Seafood</a></li>
+                        <li><a class="dropdown-item" href="#" id="poultry">Poultry</a></li>
+                        <li><a class="dropdown-item" href="#" id="pork">Pork</a></li>
+                        <li><a class="dropdown-item" href="#" id="beef">Beef</a></li>
+                        <li><a class="dropdown-item" href="#" id="seafood">Seafood</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown" id="navFruitsAndVegetables">
-                    <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Fruits & Vegetables</a>
+                    <a class="nav-link active dropdown-toggle" onclick="loadPage()" href="#" role="button" data-bs-toggle="dropdown">Fruits & Vegetables</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="fruitsAndVegetables/fruits.html">Fruits</a></li>
-                        <li><a class="dropdown-item" href="fruitsAndVegetables/herbs.html">Herbs</a></li>
-                        <li><a class="dropdown-item" href="fruitsAndVegetables/salads.html">Salads</a></li>
-                        <li><a class="dropdown-item" href="fruitsAndVegetables/vegetables.html">Vegetables</a></li>
+                        <li><a class="dropdown-item" href="#" id="fruits">Fruits</a></li>
+                        <li><a class="dropdown-item" href="#" id="herbs">Herbs</a></li>
+                        <li><a class="dropdown-item" href="#" id="salads">Salads</a></li>
+                        <li><a class="dropdown-item" href="#" id="vegetables">Vegetables</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown" id="navVeganAndDrinks">
-                    <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Vegan & Drinks</a>
+                    <a class="nav-link active dropdown-toggle" onclick="loadPage()" href="#" role="button" data-bs-toggle="dropdown">Vegan & Drinks</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="veganAndDrinks/meatSubstitutes.html">Meat Substitutes</a></li>
-                        <li><a class="dropdown-item" href="veganAndDrinks/milkSubstitutes.html">Milk Substitutes</a></li>
-                        <li><a class="dropdown-item" href="veganAndDrinks/cheeseSubstitutes.html">Cheese Substitutes</a></li>
-                        <li><a class="dropdown-item" href="veganAndDrinks/tofuVariations.html">Tofu Variations</a></li>
-                        <li><a class="dropdown-item" href="veganAndDrinks/juices.html">Juices</a></li>
-                        <li><a class="dropdown-item" href="veganAndDrinks/smoothies.html">Smoothies</a></li>
-                        <li><a class="dropdown-item" href="veganAndDrinks/milkAndHotChocolate.html">Milk and Hot Chocolate</a></li>
-                        <li><a class="dropdown-item" href="veganAndDrinks/alcoholicBeverages.html">Alcoholic Beverages</a></li>
+                        <li><a class="dropdown-item" href="#" id="meatSub">Meat Substitutes</a></li>
+                        <li><a class="dropdown-item" href="#" id="milkSub">Milk Substitutes</a></li>
+                        <li><a class="dropdown-item" href="#" id="cheeseSub">Cheese Substitutes</a></li>
+                        <li><a class="dropdown-item" href="#" id="tofu">Tofu Variations</a></li>
+                        <li><a class="dropdown-item" href="#" id="juices">Juices</a></li>
+                        <li><a class="dropdown-item" href="#" id="smoothies">Smoothies</a></li>
+                        <li><a class="dropdown-item" href="#" id="milkAndHotChocolate">Milk and Hot Chocolate</a></li>
+                        <li><a class="dropdown-item" href="#" id="alcohol">Alcoholic Beverages</a></li>
                     </ul>
                 </li>
-
-                <li class="nav-item" visibility ="all" id="navEditCustomers">
-                    <a class="nav-link" aria-current="page" href="../sites/editCustomers.html">Edit Customers</a>
-                </li><!--
+                <li class="nav-item dropdown" id="navHealthAndCare">
+                    <a class="nav-link active dropdown-toggle" onclick="loadPage()" href="#" role="button" data-bs-toggle="dropdown">Health & Care</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" id="healthProducts">Health Products</a></li>
+                        <li><a class="dropdown-item" href="#" id="naturalCosmetics">Natural Cosmetics</a></li>
+                    </ul>
+                </li>
+                <!--
                 <li class="nav-item" id="navLogin">
                     <a class="nav-link" aria-current="page" id="loginBtn">Login</a>
                 </li>-->
-                <li class="nav-item" id="navRegistration">
-                    <a class="nav-link" aria-current="page" href="../sites/registration.html">Registration</a> <!-- link deleted -->
 
-                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                <li class="nav-item" visibility ="all" id="navEditCustomers">
+                    <a class="nav-link active" aria-current="page" href="../sites/userManagement.html">Edit Customers</a>
+            </ul>
+            </li>
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                 <li class="nav-item" id="navLogout">
                     <a class="nav-link active" aria-current="page" href="../sites/logout.html">Logout</a> <!-- link deleted -->
                 </li>
-                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-					<span class = "navbar-text" id="navCurrentUser">
+                <span class = "navbar-text" id="navCurrentUser">
 						<!-- Current User - Demo Text Below-->
                         <div id="displayUser"></div>
 					</span>
-                </ul>
-                <ul class="navbar-nav ml-auto nav-flex-icons">
-                    <li class="nav-item">
-                        <a class="nav-link waves-effect waves-light" href="../sites/cart.html" >
-                            <img src="../res/img/icons/cart_empty.png" alt="" width="30" height="24">
-                        </a>
-                    </li>
-                </ul>
+            </ul>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item">
+                    <a class="nav-link waves-effect waves-light" href="../sites/cart.html" >
+                        <img src="../res/img/icons/cart_empty.png" alt="" width="30" height="24">
+                    </a>
+                </li>
+            </ul>
             </ul>
 
             <form class="d-flex">
@@ -88,3 +95,77 @@
         </div>
     </div>
 </nav>
+
+<script src="../js/products.js"></script>
+<script>
+    $("#bread").click(function (){
+        loadBread();
+    });
+    $("#pastries").click(function (){
+        loadPastries();
+    });
+    $("#rolls").click(function (){
+        loadRolls();
+    });
+    $("#confectionery").click(function (){
+        loadConfectionery();
+    });
+    $("#poultry").click(function (){
+        loadPoultry();
+    });
+    $("#pork").click(function (){
+        loadPork();
+    });
+    $("#beef").click(function (){
+        loadBeef();
+    });
+    $("#seafood").click(function (){
+        loadSeafood();
+    });
+    $("#fruits").click(function (){
+        loadFruits();
+    });
+    $("#herbs").click(function (){
+        loadHerbs();
+    });
+    $("#salads").click(function (){
+        loadSalads();
+    });
+    $("#vegetables").click(function (){
+        loadVegetables();
+    });
+    $("#meatSub").click(function (){
+        loadMeatSub();
+    });
+    $("#milkSub").click(function (){
+        loadMilkSub();
+    });
+    $("#cheeseSub").click(function (){
+        loadCheeseSub();
+    });
+    $("#tofu").click(function (){
+        loadTofuVar();
+    });
+    $("#juices").click(function (){
+        loadJuices();
+    });
+    $("#smoothies").click(function (){
+        loadSmoothies();
+    });
+    $("#milkAndHotChocolate").click(function (){
+        loadMilkAndHotChocolate();
+    });
+    $("#alcohol").click(function (){
+        loadAlcoholicBev();
+    });
+    $("#healthProducts").click(function (){
+        loadHealthProd();
+    });
+    $("#naturalCosmetics").click(function (){
+        loadNaturalCosmetics();
+    });
+
+    function loadPage(){
+        window.location.href = "../sites/products.html";
+    }
+</script>
