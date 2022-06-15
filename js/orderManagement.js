@@ -39,8 +39,8 @@ function loadOrders(userID){
                 //create buttons
                 let btnActionsColumn = "#btnActions" + response[i].orderID;
                 let buttonsColumn = $(btnActionsColumn);
-                buttonsColumn.append("<a><button id=\'orderDetailsButton" + response[i].orderID + "\' class=\'btn btn-primary\' onclick=\'showOrderDetails(" + response[i].orderPackage + ")\'>Details</button></a>")
-                //buttonsColumn.append("<a><button id=\'deleteButton" + response[i].id + "\' class=\'btn btn-danger\' onclick=\'deleteUser(" + response[i].id + ")\'>Delete</button></a>")
+                //buttonsColumn.append("<a><button id=\'orderDetailsButton" + response[i].orderID + "\' class=\'btn btn-primary\' onclick=\'showOrderDetails(" + response[i].orderPackage + ")\'>Details</button></a>")
+                buttonsColumn.append("<a><button id=\'deleteButton" + response[i].orderID + "\' class=\'btn btn-danger\' onclick=\'deleteProduct(" + response[i].orderID + ")\'>Delete</button></a>")
 
                 //add data
                 $("#userID" + response[i].orderID).append(response[i].userID);
@@ -67,7 +67,24 @@ function loadOrders(userID){
 
 }
 
-function showOrderDetails(orderPackage){
+function deleteProduct(orderId){
+//delete from db
+    $.ajax({
+        type: "POST",
+        url: "../config/orderDeleteHandler.php",
+        cache: false,
+        data: {method: "deleteProduct", order_id: orderId},
+        dataType: "json",
+        success: function (response) {
+            console.log(response);
+        },
+        error: function () {
 
+            console.log("error")
+        }
+    });
+
+    //reload page
+    location.reload();
 }
 

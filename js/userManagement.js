@@ -10,12 +10,7 @@ function loadUsers(){
         success: function (response) {
             //test log
             //console.log(response);
-
-            console.log(response[2].username);
-
-            console.log(response[0].id);
-
-            console.log(response.length);
+            //console.log(response[2].id);
 
             //insert elements
 
@@ -82,7 +77,8 @@ function loadUsers(){
 }
 
 function showOrders(id){
-
+    //redirect with parameters
+    window.location = "../sites/orderManagement.html?userid=" + id;
 }
 
 
