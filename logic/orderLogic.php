@@ -61,4 +61,26 @@ class OrderLogic
         return $combinedArray;
     }
 
+    //delete product from order
+    function deleteProductOrder($order_id)
+    {
+        //db connection
+        require_once('../config/dbaccess.php');
+        $db_obj = new mysqli($host, $user, $password, $database);
+        if ($db_obj->connect_error) {
+            die("Connection failed: " . $db_obj->connect_error);
+        }
+
+        $delete = "DELETE FROM orders where order_id='$order_id'";
+        $stmt = $db_obj->prepare($delete);
+
+        //execute statement
+        $stmt->execute();
+        //close statement
+        $stmt->close();
+
+        //close db connection
+        $db_obj->close();
+    }
+
 }

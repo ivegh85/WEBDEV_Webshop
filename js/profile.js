@@ -1,171 +1,67 @@
+/*get username from cookie
+const loggedInUser = readSessionCookie(getCookie()).username;
+const strLoggedInUser = loggedInUser.toString();
+let stringifyLoggedInUser = JSON.stringify(loggedInUser)
 
-function getUserQuantity(){
-    //get user quantity from db query
-    return 10;
-
-}
-
-
-function loadTableElements(){
-
-    //get user quantity
-    let userQty = getUserQuantity();
-
-    //while counter
-    let cnt = 0;
-
-    // user id counter
-    let userIDCounter = cnt;
-
-    while(cnt < userQty) {
-        //get actual user id
-        let temp = 0;
-        let userID = getUserID(12+cnt);
-
-        /*while (temp !== userID){
-        setTimeout(function (){
-                    userID = getUserID(userID);
-                    }, 500);
-            temp++;
-        }*/
-
-
-        userIDCounter = userID;
-        console.log("userID: " + userID);
-
-        //---------------------------------------------------
-
-        //to delete (when getUserID function was implemented)
-        //userID = cnt;
-
-        //---------------------------------------------------
-
-        //create dynamic row for every user
-        let tableVar = "#userTable" + cnt
-        let userTable = $(tableVar);
-
-        //create table elements
-        userTable.append("<td id=\'userID" + cnt +"\'> </td>");
-        userTable.append("<td id=\'username" + cnt +"\'> </td>");
-        userTable.append("<td id=\'mail" + cnt +"\'> </td>");
-        userTable.append("<td id=\'role" + cnt +"\'> </td>");
-        userTable.append("<td id=\'createdAt" + cnt +"\'> </td>");
-        userTable.append("<td id=\'btnActions" + cnt +"\'> </td>");
-
-        //create buttons
-        let btnActionsColumn = "#btnActions" + cnt;
-        let buttonsColumn = $(btnActionsColumn);
-        buttonsColumn.append("<a><button id=\'resetButton" + cnt +"\' class=\'btn btn-primary\' onclick=\'resetPassword(" + userID + ")\'>Password reset</button></a>")
-        buttonsColumn.append("<a><button id=\'editButton" + cnt +"\' class=\'btn btn-primary\'onclick=\'editUser(" + userID + ")\'>Edit</button></a>")
-        buttonsColumn.append("<a><button id=\'deactivateButton" + cnt +"\' class=\'btn btn-danger\' onclick=\'deactivateUser(" + userID + ")\'>Deactivate</button></a>")
-        buttonsColumn.append("<a><button id=\'deleteButton" + cnt +"\' class=\'btn btn-danger\' onclick=\'deleteUser(" + userID + ")\'>Delete</button></a>")
-
-        //create a new table for next user
-        let nextCnt = cnt+1;
-        userTable.after("<tr id=\'userTable" + nextCnt + "\'>");
-
-        //---------------------------------------------------
-
-        //load user data into elements
-        insertUserData(12+cnt);
-        //insertUserDataManageSite(userData);
-
-        //---------------------------------------------------
-        //while counter
-        cnt++;
-    }
-}
-
-function getUserID(posNb) {
-    //get user ID from db query
-
-    let userID = posNb;
-    let actualUserID;
+console.log(loggedInUser)
+console.log(strLoggedInUser)
+*/
+function loadProfile (loggedInUser) {
 
         $.ajax({
-            type: "GET",
-            url: "../config/userIdHandler.php",
+            url: '../config/userDataHandler.php',
+            type: 'GET',
             cache: false,
-            data: {method: "getID", userID: userID},
-            dataType: "json",
+            datatype: "json",
+            data: {
+                loggedInUser: loggedInUser,
+            },
             success: function (response) {
-                //test log
-                console.log("successlog: " + response.id);
 
-                actualUserID = response.id;
+                for (let i = 0; i < response.length; i++) {
 
+                    //create dynamic row for every user
+                    let tableVar = "#profileTable" + i;
+                    let userTable = $(tableVar);
+
+                    //create table elements
+                    userTable.append("<td id=\'userID" + response[i].id + "\'> </td>");
+                    userTable.append("<td id=\'username" + response[i].id + "\'> </td>");
+                    userTable.append("<td id=\'firstname" + response[i].id + "\'> </td>");
+                    userTable.append("<td id=\'surname" + response[i].id + "\'> </td>");
+                    userTable.append("<td id=\'mail" + response[i].id + "\'> </td>");
+                    userTable.append("<td id=\'Address" + response[i].id + "\'> </td>");
+                    userTable.append("<td id=\'City" + response[i].id + "\'> </td>");
+                    userTable.append("<td id=\'Postalcode" + response[i].id + "\'> </td>");
+                    userTable.append("<td id=\'createdAt" + response[i].id + "\'> </td>");
+                    userTable.append("<td id=\'status" + response[i].id + "\'> </td>");
+                    userTable.append("<td id=\'btnActions" + response[i].id + "\'> </td>");
+
+                    //create buttons
+                    let btnActionsColumn = "#btnActions" + response[i].id;
+                    let buttonsColumn = $(btnActionsColumn);
+                    buttonsColumn.append("<a><button id=\'orderDetailsButton" + response[i].id + "\' class=\'btn btn-primary\' onclick=\'loadOrders(" + response[i].id + ")\'>Details</button></a>")
+
+                    //add data
+                    $("#userID" + response[i].id).append(response[i].id);
+                    $("#username" + response[i].id).append(response[i].username);
+                    $("#firstname" + response[i].id).append(response[i].firstname);
+                    $("#surname" + response[i].id).append(response[i].surname);
+                    $("#mail" + response[i].id).append(response[i].usermail);
+                    $("#Address" + response[i].id).append(response[i].address);
+                    $("#Postalcode" + response[i].id).append(response[i].postalcode);
+                    $("#City" + response[i].id).append(response[i].city);
+                    $("#createdAt" + response[i].id).append(response[i].createDate);
+                    $("#status" + response[i].id).append(response[i].status);
+
+                    loadOrdersWithOutButton(response[i].id);
+                }
             },
             error: function () {
-                posNb++;
-                console.log("Error Cnt: " + posNb);
-                actualUserID = posNb;
+
+                console.log("error")
             }
         });
-
-    //return user ID
-    return actualUserID;
 }
 
 
-function insertUserData(id){
-    //data from db (query)
-
-    let cnt = id - 12;
-
-    $.ajax({
-        type: "GET",
-        url: "../config/userDataHandler.php",
-        cache: false,
-        data: {method: "getUserData", userID: id},
-        dataType: "json",
-        success: function (response) {
-            //test log
-            console.log(response);
-
-
-            //insert elements
-
-            //create dynamic row for every user
-
-            //create table elements
-            let tableVar = "#userTable" + cnt
-            let userTable = $(tableVar);
-            $("#userID" + cnt).append(response.id);
-            $("#username" + cnt).append(response.username);
-            $("#mail" + cnt).append(response.usermail);
-            $("#role" + cnt).append(response.role);
-            $("#createdAt" + cnt).append(response.createDate);
-
-
-        },
-        error: function () {
-
-            console.log("error")
-        }
-    });
-
-}
-
-function insertUserDataManageSite(userData){
-    //insert user data into elements
-
-
-
-}
-
-
-function resetPassword(id){
-
-}
-
-function editUser(id){
-
-}
-
-function deactivateUser(id){
-
-}
-
-function deleteUser(id){
-
-}

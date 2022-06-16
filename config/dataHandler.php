@@ -61,11 +61,11 @@ class DataHandler{
     }
 
 
-    public function registerUser($bool){
+    public function registerUserElement($uname){
 
         //create and return array
         return array(
-            "success" => $bool
+            "username" => $uname
 
         );
 
