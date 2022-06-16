@@ -27,11 +27,12 @@ class ProductLogic
         $db_product_name = '';
         $db_description = '';
         $db_price = '';
+        $db_rating = '';
         $db_category = '';
         $db_sub_category = '';
 
         //get data from db
-        $sql = "SELECT product_id, productname, description, price, category, subcategory, image FROM products";
+        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products";
         $result = $db_obj->query($sql);
 
         $responseElement = '';
@@ -42,11 +43,12 @@ class ProductLogic
             $db_product_name = $row["productname"];
             $db_description = $row["description"];
             $db_price = $row["price"];
+            $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
             $db_image = "/webshop/res/img/products/".$row["image"];
 
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image);
+            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
             $combinedArray = $combinedArray2;
@@ -73,12 +75,13 @@ class ProductLogic
         $db_product_name = '';
         $db_description = '';
         $db_price = '';
+        $db_rating = '';
         $db_category = '';
         $db_sub_category = '';
         $db_image = '';
 
         //get data from db
-        $sql = "SELECT product_id, productname, description, price, category, subcategory, image FROM products WHERE subcategory= 'bread'";
+        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products WHERE subcategory= 'bread'";
         $result = $db_obj->query($sql);
 
         $responseElement = '';
@@ -89,11 +92,12 @@ class ProductLogic
             $db_product_name = $row["productname"];
             $db_description = $row["description"];
             $db_price = $row["price"];
+            $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
             $db_image = "/webshop/res/img/products/".$row["image"];
 
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image);
+            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
             $combinedArray = $combinedArray2;
@@ -120,12 +124,13 @@ class ProductLogic
         $db_product_name = '';
         $db_description = '';
         $db_price = '';
+        $db_rating = '';
         $db_category = '';
         $db_sub_category = '';
         $db_image = '';
 
         //get data from db
-        $sql = "SELECT product_id, productname, description, price, category, subcategory, image FROM products WHERE subcategory= 'pork'";
+        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products WHERE subcategory= 'pork'";
         $result = $db_obj->query($sql);
 
         $responseElement = '';
@@ -136,11 +141,12 @@ class ProductLogic
             $db_product_name = $row["productname"];
             $db_description = $row["description"];
             $db_price = $row["price"];
+            $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
             $db_image = "/webshop/res/img/products/".$row["image"];
 
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image);
+            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
             $combinedArray = $combinedArray2;
@@ -167,12 +173,13 @@ class ProductLogic
         $db_product_name = '';
         $db_description = '';
         $db_price = '';
+        $db_rating = '';
         $db_category = '';
         $db_sub_category = '';
         $db_image = '';
 
         //get data from db
-        $sql = "SELECT product_id, productname, description, price, category, subcategory, image FROM products WHERE subcategory= 'pastries'";
+        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products WHERE subcategory= 'pastries'";
         $result = $db_obj->query($sql);
 
         $responseElement = '';
@@ -183,11 +190,12 @@ class ProductLogic
             $db_product_name = $row["productname"];
             $db_description = $row["description"];
             $db_price = $row["price"];
+            $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
             $db_image = "/webshop/res/img/products/".$row["image"];
 
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image);
+            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
             $combinedArray = $combinedArray2;
@@ -214,12 +222,13 @@ class ProductLogic
         $db_product_name = '';
         $db_description = '';
         $db_price = '';
+        $db_rating = '';
         $db_category = '';
         $db_sub_category = '';
         $db_image = '';
 
         //get data from db
-        $sql = "SELECT product_id, productname, description, price, category, subcategory, image FROM products WHERE subcategory= 'rolls'";
+        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products WHERE subcategory= 'rolls'";
         $result = $db_obj->query($sql);
 
         $responseElement = '';
@@ -230,11 +239,12 @@ class ProductLogic
             $db_product_name = $row["productname"];
             $db_description = $row["description"];
             $db_price = $row["price"];
+            $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
             $db_image = "/webshop/res/img/products/".$row["image"];
 
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image);
+            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
             $combinedArray = $combinedArray2;
@@ -262,12 +272,13 @@ class ProductLogic
         $db_product_name = '';
         $db_description = '';
         $db_price = '';
+        $db_rating = '';
         $db_category = '';
         $db_sub_category = '';
         $db_image = '';
 
         //get data from db
-        $sql = "SELECT product_id, productname, description, price, category, subcategory, image FROM products WHERE subcategory= 'confectionery'";
+        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products WHERE subcategory= 'confectionery'";
         $result = $db_obj->query($sql);
 
         $responseElement = '';
@@ -278,11 +289,12 @@ class ProductLogic
             $db_product_name = $row["productname"];
             $db_description = $row["description"];
             $db_price = $row["price"];
+            $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
             $db_image = "/webshop/res/img/products/".$row["image"];
 
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image);
+            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
             $combinedArray = $combinedArray2;
@@ -310,12 +322,13 @@ class ProductLogic
         $db_product_name = '';
         $db_description = '';
         $db_price = '';
+        $db_rating = '';
         $db_category = '';
         $db_sub_category = '';
         $db_image = '';
 
         //get data from db
-        $sql = "SELECT product_id, productname, description, price, category, subcategory, image FROM products WHERE subcategory= 'poultry'";
+        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products WHERE subcategory= 'poultry'";
         $result = $db_obj->query($sql);
 
         $responseElement = '';
@@ -326,11 +339,12 @@ class ProductLogic
             $db_product_name = $row["productname"];
             $db_description = $row["description"];
             $db_price = $row["price"];
+            $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
             $db_image = "/webshop/res/img/products/".$row["image"];
 
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image);
+            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
             $combinedArray = $combinedArray2;
@@ -358,12 +372,13 @@ class ProductLogic
         $db_product_name = '';
         $db_description = '';
         $db_price = '';
+        $db_rating = '';
         $db_category = '';
         $db_sub_category = '';
         $db_image = '';
 
         //get data from db
-        $sql = "SELECT product_id, productname, description, price, category, subcategory, image FROM products WHERE subcategory= 'beef'";
+        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products WHERE subcategory= 'beef'";
         $result = $db_obj->query($sql);
 
         $responseElement = '';
@@ -374,11 +389,12 @@ class ProductLogic
             $db_product_name = $row["productname"];
             $db_description = $row["description"];
             $db_price = $row["price"];
+            $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
             $db_image = "/webshop/res/img/products/".$row["image"];
 
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image);
+            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
             $combinedArray = $combinedArray2;
@@ -405,12 +421,13 @@ class ProductLogic
         $db_product_name = '';
         $db_description = '';
         $db_price = '';
+        $db_rating = '';
         $db_category = '';
         $db_sub_category = '';
         $db_image = '';
 
         //get data from db
-        $sql = "SELECT product_id, productname, description, price, category, subcategory, image FROM products WHERE subcategory= 'seafood'";
+        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products WHERE subcategory= 'seafood'";
         $result = $db_obj->query($sql);
 
         $responseElement = '';
@@ -421,11 +438,12 @@ class ProductLogic
             $db_product_name = $row["productname"];
             $db_description = $row["description"];
             $db_price = $row["price"];
+            $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
             $db_image = "/webshop/res/img/products/".$row["image"];
 
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image);
+            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
             $combinedArray = $combinedArray2;
@@ -453,12 +471,13 @@ class ProductLogic
         $db_product_name = '';
         $db_description = '';
         $db_price = '';
+        $db_rating = '';
         $db_category = '';
         $db_sub_category = '';
         $db_image = '';
 
         //get data from db
-        $sql = "SELECT product_id, productname, description, price, category, subcategory, image FROM products WHERE subcategory= 'fruits'";
+        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products WHERE subcategory= 'fruits'";
         $result = $db_obj->query($sql);
 
         $responseElement = '';
@@ -469,11 +488,12 @@ class ProductLogic
             $db_product_name = $row["productname"];
             $db_description = $row["description"];
             $db_price = $row["price"];
+            $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
             $db_image = "/webshop/res/img/products/".$row["image"];
 
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image);
+            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
             $combinedArray = $combinedArray2;
@@ -500,12 +520,13 @@ class ProductLogic
         $db_product_name = '';
         $db_description = '';
         $db_price = '';
+        $db_rating = '';
         $db_category = '';
         $db_sub_category = '';
         $db_image = '';
 
         //get data from db
-        $sql = "SELECT product_id, productname, description, price, category, subcategory, image FROM products WHERE subcategory= 'herbs'";
+        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products WHERE subcategory= 'herbs'";
         $result = $db_obj->query($sql);
 
         $responseElement = '';
@@ -516,11 +537,12 @@ class ProductLogic
             $db_product_name = $row["productname"];
             $db_description = $row["description"];
             $db_price = $row["price"];
+            $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
             $db_image = "/webshop/res/img/products/".$row["image"];
 
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image);
+            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
             $combinedArray = $combinedArray2;
@@ -548,12 +570,13 @@ class ProductLogic
         $db_product_name = '';
         $db_description = '';
         $db_price = '';
+        $db_rating = '';
         $db_category = '';
         $db_sub_category = '';
         $db_image = '';
 
         //get data from db
-        $sql = "SELECT product_id, productname, description, price, category, subcategory, image FROM products WHERE subcategory= 'salads'";
+        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products WHERE subcategory= 'salads'";
         $result = $db_obj->query($sql);
 
         $responseElement = '';
@@ -564,11 +587,12 @@ class ProductLogic
             $db_product_name = $row["productname"];
             $db_description = $row["description"];
             $db_price = $row["price"];
+            $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
             $db_image = "/webshop/res/img/products/".$row["image"];
 
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image);
+            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
             $combinedArray = $combinedArray2;
@@ -596,12 +620,13 @@ class ProductLogic
         $db_product_name = '';
         $db_description = '';
         $db_price = '';
+        $db_rating = '';
         $db_category = '';
         $db_sub_category = '';
         $db_image = '';
 
         //get data from db
-        $sql = "SELECT product_id, productname, description, price, category, subcategory, image FROM products WHERE subcategory= 'vegetables'";
+        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products WHERE subcategory= 'vegetables'";
         $result = $db_obj->query($sql);
 
         $responseElement = '';
@@ -612,11 +637,12 @@ class ProductLogic
             $db_product_name = $row["productname"];
             $db_description = $row["description"];
             $db_price = $row["price"];
+            $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
             $db_image = "/webshop/res/img/products/".$row["image"];
 
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image);
+            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
             $combinedArray = $combinedArray2;
@@ -644,12 +670,13 @@ class ProductLogic
         $db_product_name = '';
         $db_description = '';
         $db_price = '';
+        $db_rating = '';
         $db_category = '';
         $db_sub_category = '';
         $db_image = '';
 
         //get data from db
-        $sql = "SELECT product_id, productname, description, price, category, subcategory, image FROM products WHERE subcategory= 'meat substitutes'";
+        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products WHERE subcategory= 'meat substitutes'";
         $result = $db_obj->query($sql);
 
         $responseElement = '';
@@ -660,11 +687,12 @@ class ProductLogic
             $db_product_name = $row["productname"];
             $db_description = $row["description"];
             $db_price = $row["price"];
+            $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
             $db_image = "/webshop/res/img/products/".$row["image"];
 
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image);
+            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
             $combinedArray = $combinedArray2;
@@ -691,12 +719,13 @@ class ProductLogic
         $db_product_name = '';
         $db_description = '';
         $db_price = '';
+        $db_rating = '';
         $db_category = '';
         $db_sub_category = '';
         $db_image = '';
 
         //get data from db
-        $sql = "SELECT product_id, productname, description, price, category, subcategory, image FROM products WHERE subcategory= 'milk substitutes'";
+        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products WHERE subcategory= 'milk substitutes'";
         $result = $db_obj->query($sql);
 
         $responseElement = '';
@@ -707,11 +736,12 @@ class ProductLogic
             $db_product_name = $row["productname"];
             $db_description = $row["description"];
             $db_price = $row["price"];
+            $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
             $db_image = "/webshop/res/img/products/".$row["image"];
 
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image);
+            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
             $combinedArray = $combinedArray2;
@@ -739,12 +769,13 @@ class ProductLogic
         $db_product_name = '';
         $db_description = '';
         $db_price = '';
+        $db_rating = '';
         $db_category = '';
         $db_sub_category = '';
         $db_image = '';
 
         //get data from db
-        $sql = "SELECT product_id, productname, description, price, category, subcategory, image FROM products WHERE subcategory= 'cheese substitutes'";
+        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products WHERE subcategory= 'cheese substitutes'";
         $result = $db_obj->query($sql);
 
         $responseElement = '';
@@ -755,11 +786,12 @@ class ProductLogic
             $db_product_name = $row["productname"];
             $db_description = $row["description"];
             $db_price = $row["price"];
+            $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
             $db_image = "/webshop/res/img/products/".$row["image"];
 
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image);
+            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
             $combinedArray = $combinedArray2;
@@ -786,12 +818,13 @@ class ProductLogic
         $db_product_name = '';
         $db_description = '';
         $db_price = '';
+        $db_rating = '';
         $db_category = '';
         $db_sub_category = '';
         $db_image = '';
 
         //get data from db
-        $sql = "SELECT product_id, productname, description, price, category, subcategory, image FROM products WHERE subcategory= 'tofu variations'";
+        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products WHERE subcategory= 'tofu variations'";
         $result = $db_obj->query($sql);
 
         $responseElement = '';
@@ -802,11 +835,12 @@ class ProductLogic
             $db_product_name = $row["productname"];
             $db_description = $row["description"];
             $db_price = $row["price"];
+            $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
             $db_image = "/webshop/res/img/products/".$row["image"];
 
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image);
+            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
             $combinedArray = $combinedArray2;
@@ -833,12 +867,13 @@ class ProductLogic
         $db_product_name = '';
         $db_description = '';
         $db_price = '';
+        $db_rating = '';
         $db_category = '';
         $db_sub_category = '';
         $db_image = '';
 
         //get data from db
-        $sql = "SELECT product_id, productname, description, price, category, subcategory, image FROM products WHERE subcategory= 'juices'";
+        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products WHERE subcategory= 'juices'";
         $result = $db_obj->query($sql);
 
         $responseElement = '';
@@ -849,11 +884,12 @@ class ProductLogic
             $db_product_name = $row["productname"];
             $db_description = $row["description"];
             $db_price = $row["price"];
+            $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
             $db_image = "/webshop/res/img/products/".$row["image"];
 
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image);
+            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
             $combinedArray = $combinedArray2;
@@ -880,12 +916,13 @@ class ProductLogic
         $db_product_name = '';
         $db_description = '';
         $db_price = '';
+        $db_rating = '';
         $db_category = '';
         $db_sub_category = '';
         $db_image = '';
 
         //get data from db
-        $sql = "SELECT product_id, productname, description, price, category, subcategory, image FROM products WHERE subcategory= 'smoothies'";
+        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products WHERE subcategory= 'smoothies'";
         $result = $db_obj->query($sql);
 
         $responseElement = '';
@@ -896,11 +933,12 @@ class ProductLogic
             $db_product_name = $row["productname"];
             $db_description = $row["description"];
             $db_price = $row["price"];
+            $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
             $db_image = "/webshop/res/img/products/".$row["image"];
 
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image);
+            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
             $combinedArray = $combinedArray2;
@@ -927,12 +965,13 @@ class ProductLogic
         $db_product_name = '';
         $db_description = '';
         $db_price = '';
+        $db_rating = '';
         $db_category = '';
         $db_sub_category = '';
         $db_image = '';
 
         //get data from db
-        $sql = "SELECT product_id, productname, description, price, category, subcategory, image FROM products WHERE subcategory= 'milk and hot chocolate'";
+        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products WHERE subcategory= 'milk and hot chocolate'";
         $result = $db_obj->query($sql);
 
         $responseElement = '';
@@ -943,11 +982,12 @@ class ProductLogic
             $db_product_name = $row["productname"];
             $db_description = $row["description"];
             $db_price = $row["price"];
+            $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
             $db_image = "/webshop/res/img/products/".$row["image"];
 
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image);
+            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
             $combinedArray = $combinedArray2;
@@ -975,12 +1015,13 @@ class ProductLogic
         $db_product_name = '';
         $db_description = '';
         $db_price = '';
+        $db_rating = '';
         $db_category = '';
         $db_sub_category = '';
         $db_image = '';
 
         //get data from db
-        $sql = "SELECT product_id, productname, description, price, category, subcategory, image FROM products WHERE subcategory= 'alcoholic beverages'";
+        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products WHERE subcategory= 'alcoholic beverages'";
         $result = $db_obj->query($sql);
 
         $responseElement = '';
@@ -991,11 +1032,12 @@ class ProductLogic
             $db_product_name = $row["productname"];
             $db_description = $row["description"];
             $db_price = $row["price"];
+            $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
             $db_image = "/webshop/res/img/products/".$row["image"];
 
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image);
+            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
             $combinedArray = $combinedArray2;
@@ -1022,12 +1064,13 @@ class ProductLogic
         $db_product_name = '';
         $db_description = '';
         $db_price = '';
+        $db_rating = '';
         $db_category = '';
         $db_sub_category = '';
         $db_image = '';
 
         //get data from db
-        $sql = "SELECT product_id, productname, description, price, category, subcategory, image FROM products WHERE subcategory= 'health products'";
+        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products WHERE subcategory= 'health products'";
         $result = $db_obj->query($sql);
 
         $responseElement = '';
@@ -1038,11 +1081,12 @@ class ProductLogic
             $db_product_name = $row["productname"];
             $db_description = $row["description"];
             $db_price = $row["price"];
+            $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
             $db_image = "/webshop/res/img/products/".$row["image"];
 
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image);
+            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
             $combinedArray = $combinedArray2;
@@ -1070,12 +1114,13 @@ class ProductLogic
         $db_product_name = '';
         $db_description = '';
         $db_price = '';
+        $db_rating = '';
         $db_category = '';
         $db_sub_category = '';
         $db_image = '';
 
         //get data from db
-        $sql = "SELECT product_id, productname, description, price, category, subcategory, image FROM products WHERE subcategory= 'natural cosmetics'";
+        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products WHERE subcategory= 'natural cosmetics'";
         $result = $db_obj->query($sql);
 
         $responseElement = '';
@@ -1086,11 +1131,12 @@ class ProductLogic
             $db_product_name = $row["productname"];
             $db_description = $row["description"];
             $db_price = $row["price"];
+            $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
             $db_image = "/webshop/res/img/products/".$row["image"];
 
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image);
+            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
             $combinedArray = $combinedArray2;
@@ -1117,12 +1163,13 @@ class ProductLogic
         $db_product_name = '';
         $db_description = '';
         $db_price = '';
+        $db_rating = '';
         $db_category = '';
         $db_sub_category = '';
         $db_image = '';
 
         //get data from db
-        $sql = "SELECT product_id, productname, description, price, category, subcategory, image FROM products";
+        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products";
         $result = $db_obj->query($sql);
 
         $responseElement = '';
@@ -1133,11 +1180,12 @@ class ProductLogic
             $db_product_name = $row["productname"];
             $db_description = $row["description"];
             $db_price = $row["price"];
+            $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
             $db_image = "/webshop/res/img/products/".$row["image"];
 
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_category, $db_sub_category, $db_image);
+            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
             $combinedArray = $combinedArray2;

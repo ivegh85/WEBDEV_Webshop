@@ -14,7 +14,6 @@ function loadBread(){
             $('#productdata').hide();
 
             $.each(response, function(i, p) {
-                //console.log(p["name"], ",", p["free_bikes"], ",", p["free_boxes"]);
                 $("#productdata").append(
                 "<div class=\"d-flex justify-content-between p-3\">"+
                 "<div class=\"col\">"+
@@ -23,8 +22,9 @@ function loadBread(){
                 "<b>"+p["subcategory"]+ "</b>"+"<br>"+
                 "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
                 "<h4>"+p["productname"]+"</h4>"+
-                "<h5>"+"<b>"+"€ "+p["price"]+"<br>"+"<br>"+
-                "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</h5>"+"</div>"+"</div>"+"</div>"+"</div>");
+                "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
+                "<p>"+"Rating: "+p["rating"]+"</p>"+
+                "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -51,7 +51,6 @@ function loadPork(){
             $('#productdata').hide();
 
             $.each(response, function(i, p) {
-                //console.log(p["name"], ",", p["free_bikes"], ",", p["free_boxes"]);
                 $("#productdata").append(
                     "<div class=\"d-flex justify-content-between p-3\">"+
                     "<div class=\"col\">"+
@@ -60,8 +59,9 @@ function loadPork(){
                     "<b>"+p["subcategory"]+ "</b>"+"<br>"+
                     "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
                     "<h4>"+p["productname"]+"</h4>"+
-                    "<h5>"+"<b>"+"€ "+p["price"]+"<br>"+"<br>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</h5>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
+                    "<p>"+"Rating: "+p["rating"]+"</p>"+
+                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -87,7 +87,6 @@ function loadPastries(){
             $('#productdata').hide();
 
             $.each(response, function(i, p) {
-                //console.log(p["name"], ",", p["free_bikes"], ",", p["free_boxes"]);
                 $("#productdata").append(
                     "<div class=\"d-flex justify-content-between p-3\">"+
                     "<div class=\"col\">"+
@@ -96,8 +95,9 @@ function loadPastries(){
                     "<b>"+p["subcategory"]+ "</b>"+"<br>"+
                     "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
                     "<h4>"+p["productname"]+"</h4>"+
-                    "<h5>"+"<b>"+"€ "+p["price"]+"<br>"+"<br>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</h5>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
+                    "<p>"+"Rating: "+p["rating"]+"</p>"+
+                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -123,7 +123,6 @@ function loadRolls(){
             $('#productdata').hide();
 
             $.each(response, function(i, p) {
-                //console.log(p["name"], ",", p["free_bikes"], ",", p["free_boxes"]);
                 $("#productdata").append(
                     "<div class=\"d-flex justify-content-between p-3\">"+
                     "<div class=\"col\">"+
@@ -132,8 +131,9 @@ function loadRolls(){
                     "<b>"+p["subcategory"]+ "</b>"+"<br>"+
                     "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
                     "<h4>"+p["productname"]+"</h4>"+
-                    "<h5>"+"<b>"+"€ "+p["price"]+"<br>"+"<br>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</h5>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
+                    "<p>"+"Rating: "+p["rating"]+"</p>"+
+                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -159,7 +159,6 @@ function loadConfectionery(){
             $('#productdata').hide();
 
             $.each(response, function(i, p) {
-                //console.log(p["name"], ",", p["free_bikes"], ",", p["free_boxes"]);
                 $("#productdata").append(
                     "<div class=\"d-flex justify-content-between p-3\">"+
                     "<div class=\"col\">"+
@@ -168,8 +167,9 @@ function loadConfectionery(){
                     "<b>"+p["subcategory"]+ "</b>"+"<br>"+
                     "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
                     "<h4>"+p["productname"]+"</h4>"+
-                    "<h5>"+"<b>"+"€ "+p["price"]+"<br>"+"<br>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</h5>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
+                    "<p>"+"Rating: "+p["rating"]+"</p>"+
+                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -195,7 +195,6 @@ function loadPoultry(){
             $('#productdata').hide();
 
             $.each(response, function(i, p) {
-                //console.log(p["name"], ",", p["free_bikes"], ",", p["free_boxes"]);
                 $("#productdata").append(
                     "<div class=\"d-flex justify-content-between p-3\">"+
                     "<div class=\"col\">"+
@@ -204,8 +203,9 @@ function loadPoultry(){
                     "<b>"+p["subcategory"]+ "</b>"+"<br>"+
                     "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
                     "<h4>"+p["productname"]+"</h4>"+
-                    "<h5>"+"<b>"+"€ "+p["price"]+"<br>"+"<br>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</h5>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
+                    "<p>"+"Rating: "+p["rating"]+"</p>"+
+                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -231,7 +231,6 @@ function loadBeef(){
             $('#productdata').hide();
 
             $.each(response, function(i, p) {
-                //console.log(p["name"], ",", p["free_bikes"], ",", p["free_boxes"]);
                 $("#productdata").append(
                     "<div class=\"d-flex justify-content-between p-3\">"+
                     "<div class=\"col\">"+
@@ -240,8 +239,9 @@ function loadBeef(){
                     "<b>"+p["subcategory"]+ "</b>"+"<br>"+
                     "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
                     "<h4>"+p["productname"]+"</h4>"+
-                    "<h5>"+"<b>"+"€ "+p["price"]+"<br>"+"<br>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</h5>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
+                    "<p>"+"Rating: "+p["rating"]+"</p>"+
+                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -268,7 +268,6 @@ function loadSeafood(){
             $('#productdata').hide();
 
             $.each(response, function(i, p) {
-                //console.log(p["name"], ",", p["free_bikes"], ",", p["free_boxes"]);
                 $("#productdata").append(
                     "<div class=\"d-flex justify-content-between p-3\">"+
                     "<div class=\"col\">"+
@@ -277,8 +276,9 @@ function loadSeafood(){
                     "<b>"+p["subcategory"]+ "</b>"+"<br>"+
                     "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
                     "<h4>"+p["productname"]+"</h4>"+
-                    "<h5>"+"<b>"+"€ "+p["price"]+"<br>"+"<br>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</h5>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
+                    "<p>"+"Rating: "+p["rating"]+"</p>"+
+                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -304,7 +304,6 @@ function loadFruits(){
             $('#productdata').hide();
 
             $.each(response, function(i, p) {
-                //console.log(p["name"], ",", p["free_bikes"], ",", p["free_boxes"]);
                 $("#productdata").append(
                     "<div class=\"d-flex justify-content-between p-3\">"+
                     "<div class=\"col\">"+
@@ -313,8 +312,9 @@ function loadFruits(){
                     "<b>"+p["subcategory"]+ "</b>"+"<br>"+
                     "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
                     "<h4>"+p["productname"]+"</h4>"+
-                    "<h5>"+"<b>"+"€ "+p["price"]+"<br>"+"<br>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</h5>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
+                    "<p>"+"Rating: "+p["rating"]+"</p>"+
+                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -340,7 +340,6 @@ function loadHerbs(){
             $('#productdata').hide();
 
             $.each(response, function(i, p) {
-                //console.log(p["name"], ",", p["free_bikes"], ",", p["free_boxes"]);
                 $("#productdata").append(
                     "<div class=\"d-flex justify-content-between p-3\">"+
                     "<div class=\"col\">"+
@@ -349,8 +348,9 @@ function loadHerbs(){
                     "<b>"+p["subcategory"]+ "</b>"+"<br>"+
                     "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
                     "<h4>"+p["productname"]+"</h4>"+
-                    "<h5>"+"<b>"+"€ "+p["price"]+"<br>"+"<br>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</h5>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
+                    "<p>"+"Rating: "+p["rating"]+"</p>"+
+                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -376,7 +376,6 @@ function loadSalads(){
             $('#productdata').hide();
 
             $.each(response, function(i, p) {
-                //console.log(p["name"], ",", p["free_bikes"], ",", p["free_boxes"]);
                 $("#productdata").append(
                     "<div class=\"d-flex justify-content-between p-3\">"+
                     "<div class=\"col\">"+
@@ -385,8 +384,9 @@ function loadSalads(){
                     "<b>"+p["subcategory"]+ "</b>"+"<br>"+
                     "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
                     "<h4>"+p["productname"]+"</h4>"+
-                    "<h5>"+"<b>"+"€ "+p["price"]+"<br>"+"<br>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</h5>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
+                    "<p>"+"Rating: "+p["rating"]+"</p>"+
+                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -412,7 +412,6 @@ function loadVegetables(){
             $('#productdata').hide();
 
             $.each(response, function(i, p) {
-                //console.log(p["name"], ",", p["free_bikes"], ",", p["free_boxes"]);
                 $("#productdata").append(
                     "<div class=\"d-flex justify-content-between p-3\">"+
                     "<div class=\"col\">"+
@@ -421,8 +420,9 @@ function loadVegetables(){
                     "<b>"+p["subcategory"]+ "</b>"+"<br>"+
                     "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
                     "<h4>"+p["productname"]+"</h4>"+
-                    "<h5>"+"<b>"+"€ "+p["price"]+"<br>"+"<br>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</h5>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
+                    "<p>"+"Rating: "+p["rating"]+"</p>"+
+                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -449,7 +449,6 @@ function loadMeatSub(){
             $('#productdata').hide();
 
             $.each(response, function(i, p) {
-                //console.log(p["name"], ",", p["free_bikes"], ",", p["free_boxes"]);
                 $("#productdata").append(
                     "<div class=\"d-flex justify-content-between p-3\">"+
                     "<div class=\"col\">"+
@@ -458,8 +457,9 @@ function loadMeatSub(){
                     "<b>"+p["subcategory"]+ "</b>"+"<br>"+
                     "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
                     "<h4>"+p["productname"]+"</h4>"+
-                    "<h5>"+"<b>"+"€ "+p["price"]+"<br>"+"<br>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</h5>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
+                    "<p>"+"Rating: "+p["rating"]+"</p>"+
+                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -485,7 +485,6 @@ function loadMilkSub(){
             $('#productdata').hide();
 
             $.each(response, function(i, p) {
-                //console.log(p["name"], ",", p["free_bikes"], ",", p["free_boxes"]);
                 $("#productdata").append(
                     "<div class=\"d-flex justify-content-between p-3\">"+
                     "<div class=\"col\">"+
@@ -494,8 +493,9 @@ function loadMilkSub(){
                     "<b>"+p["subcategory"]+ "</b>"+"<br>"+
                     "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
                     "<h4>"+p["productname"]+"</h4>"+
-                    "<h5>"+"<b>"+"€ "+p["price"]+"<br>"+"<br>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</h5>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
+                    "<p>"+"Rating: "+p["rating"]+"</p>"+
+                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -522,7 +522,6 @@ function loadCheeseSub(){
             $('#productdata').hide();
 
             $.each(response, function(i, p) {
-                //console.log(p["name"], ",", p["free_bikes"], ",", p["free_boxes"]);
                 $("#productdata").append(
                     "<div class=\"d-flex justify-content-between p-3\">"+
                     "<div class=\"col\">"+
@@ -531,8 +530,9 @@ function loadCheeseSub(){
                     "<b>"+p["subcategory"]+ "</b>"+"<br>"+
                     "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
                     "<h4>"+p["productname"]+"</h4>"+
-                    "<h5>"+"<b>"+"€ "+p["price"]+"<br>"+"<br>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</h5>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
+                    "<p>"+"Rating: "+p["rating"]+"</p>"+
+                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -558,7 +558,6 @@ function loadTofuVar(){
             $('#productdata').hide();
 
             $.each(response, function(i, p) {
-                //console.log(p["name"], ",", p["free_bikes"], ",", p["free_boxes"]);
                 $("#productdata").append(
                     "<div class=\"d-flex justify-content-between p-3\">"+
                     "<div class=\"col\">"+
@@ -567,8 +566,9 @@ function loadTofuVar(){
                     "<b>"+p["subcategory"]+ "</b>"+"<br>"+
                     "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
                     "<h4>"+p["productname"]+"</h4>"+
-                    "<h5>"+"<b>"+"€ "+p["price"]+"<br>"+"<br>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</h5>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
+                    "<p>"+"Rating: "+p["rating"]+"</p>"+
+                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -595,7 +595,6 @@ function loadJuices(){
             $('#productdata').hide();
 
             $.each(response, function(i, p) {
-                //console.log(p["name"], ",", p["free_bikes"], ",", p["free_boxes"]);
                 $("#productdata").append(
                     "<div class=\"d-flex justify-content-between p-3\">"+
                     "<div class=\"col\">"+
@@ -604,8 +603,9 @@ function loadJuices(){
                     "<b>"+p["subcategory"]+ "</b>"+"<br>"+
                     "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
                     "<h4>"+p["productname"]+"</h4>"+
-                    "<h5>"+"<b>"+"€ "+p["price"]+"<br>"+"<br>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</h5>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
+                    "<p>"+"Rating: "+p["rating"]+"</p>"+
+                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -631,7 +631,6 @@ function loadSmoothies(){
             $('#productdata').hide();
 
             $.each(response, function(i, p) {
-                //console.log(p["name"], ",", p["free_bikes"], ",", p["free_boxes"]);
                 $("#productdata").append(
                     "<div class=\"d-flex justify-content-between p-3\">"+
                     "<div class=\"col\">"+
@@ -640,8 +639,9 @@ function loadSmoothies(){
                     "<b>"+p["subcategory"]+ "</b>"+"<br>"+
                     "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
                     "<h4>"+p["productname"]+"</h4>"+
-                    "<h5>"+"<b>"+"€ "+p["price"]+"<br>"+"<br>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</h5>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
+                    "<p>"+"Rating: "+p["rating"]+"</p>"+
+                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -667,7 +667,6 @@ function loadMilkAndHotChocolate(){
             $('#productdata').hide();
 
             $.each(response, function(i, p) {
-                //console.log(p["name"], ",", p["free_bikes"], ",", p["free_boxes"]);
                 $("#productdata").append(
                     "<div class=\"d-flex justify-content-between p-3\">"+
                     "<div class=\"col\">"+
@@ -676,8 +675,9 @@ function loadMilkAndHotChocolate(){
                     "<b>"+p["subcategory"]+ "</b>"+"<br>"+
                     "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
                     "<h4>"+p["productname"]+"</h4>"+
-                    "<h5>"+"<b>"+"€ "+p["price"]+"<br>"+"<br>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</h5>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
+                    "<p>"+"Rating: "+p["rating"]+"</p>"+
+                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -703,7 +703,6 @@ function loadAlcoholicBev(){
             $('#productdata').hide();
 
             $.each(response, function(i, p) {
-                //console.log(p["name"], ",", p["free_bikes"], ",", p["free_boxes"]);
                 $("#productdata").append(
                     "<div class=\"d-flex justify-content-between p-3\">"+
                     "<div class=\"col\">"+
@@ -712,8 +711,9 @@ function loadAlcoholicBev(){
                     "<b>"+p["subcategory"]+ "</b>"+"<br>"+
                     "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
                     "<h4>"+p["productname"]+"</h4>"+
-                    "<h5>"+"<b>"+"€ "+p["price"]+"<br>"+"<br>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</h5>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
+                    "<p>"+"Rating: "+p["rating"]+"</p>"+
+                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -739,7 +739,6 @@ function loadHealthProd(){
             $('#productdata').hide();
 
             $.each(response, function(i, p) {
-                //console.log(p["name"], ",", p["free_bikes"], ",", p["free_boxes"]);
                 $("#productdata").append(
                     "<div class=\"d-flex justify-content-between p-3\">"+
                     "<div class=\"col\">"+
@@ -748,8 +747,9 @@ function loadHealthProd(){
                     "<b>"+p["subcategory"]+ "</b>"+"<br>"+
                     "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
                     "<h4>"+p["productname"]+"</h4>"+
-                    "<h5>"+"<b>"+"€ "+p["price"]+"<br>"+"<br>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</h5>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
+                    "<p>"+"Rating: "+p["rating"]+"</p>"+
+                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -775,7 +775,6 @@ function loadNaturalCosmetics(){
             $('#productdata').hide();
 
             $.each(response, function(i, p) {
-                //console.log(p["name"], ",", p["free_bikes"], ",", p["free_boxes"]);
                 $("#productdata").append(
                     "<div class=\"d-flex justify-content-between p-3\">"+
                     "<div class=\"col\">"+
@@ -784,8 +783,9 @@ function loadNaturalCosmetics(){
                     "<b>"+p["subcategory"]+ "</b>"+"<br>"+
                     "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
                     "<h4>"+p["productname"]+"</h4>"+
-                    "<h5>"+"<b>"+"€ "+p["price"]+"<br>"+"<br>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</h5>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
+                    "<p>"+"Rating: "+p["rating"]+"</p>"+
+                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -811,7 +811,6 @@ function loadAllProducts(){
             $('#productdata').hide();
 
             $.each(response, function(i, p) {
-                //console.log(p["name"], ",", p["free_bikes"], ",", p["free_boxes"]);
                 $("#productdata").append(
                     "<div class=\"d-flex justify-content-between p-3\">"+
                     "<div class=\"col\">"+
@@ -820,8 +819,9 @@ function loadAllProducts(){
                     "<b>"+p["subcategory"]+ "</b>"+"<br>"+
                     "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
                     "<h4>"+p["productname"]+"</h4>"+
-                    "<h5>"+"<b>"+"€ "+p["price"]+"<br>"+"<br>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</h5>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
+                    "<p>"+"Rating: "+p["rating"]+"</p>"+
+                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
