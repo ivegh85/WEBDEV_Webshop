@@ -305,7 +305,7 @@ class RequestLogic
         return $stmt;
 
     }
-
+/*
     function registerRequest($newUserName, $newPassword, $newEmail, $newTitle, $newFirstName, $newLastName,
                              $newAddress, $newCity, $newPostal)
     {
@@ -360,5 +360,6 @@ class RequestLogic
         }
 
     }
+*/
 }
 

@@ -40,7 +40,7 @@ function loadProfile (loggedInUser) {
                     //create buttons
                     let btnActionsColumn = "#btnActions" + response[i].id;
                     let buttonsColumn = $(btnActionsColumn);
-                    buttonsColumn.append("<a><button id=\'changeDetailsButton" + response[i].id + "\' class=\'btn btn-primary\' onclick=\'showOrderDetails(" + response[i].orderPackage + ")\'>Details</button></a>")
+                    buttonsColumn.append("<a><button id=\'orderDetailsButton" + response[i].id + "\' class=\'btn btn-primary\' onclick=\'loadOrders(" + response[i].id + ")\'>Details</button></a>")
 
                     //add data
                     $("#userID" + response[i].id).append(response[i].id);
@@ -54,6 +54,7 @@ function loadProfile (loggedInUser) {
                     $("#createdAt" + response[i].id).append(response[i].createDate);
                     $("#status" + response[i].id).append(response[i].status);
 
+                    loadOrdersWithOutButton(response[i].id);
                 }
             },
             error: function () {

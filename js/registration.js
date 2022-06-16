@@ -2,7 +2,6 @@
 
 $(document).ready(function (){
 
-
     $("#btnRegisterUserClicked").click(function (){
         //interrupt submit in case input is missing or incorrect
         (function () {
@@ -28,8 +27,8 @@ $(document).ready(function (){
     });
 });
 
-const password=document.getElementById('password');
-const password2=document.getElementById('password2');
+const password = document.getElementById('password');
+const password2 = document.getElementById('password2');
 password2.addEventListener('change',matchRegistrationPassword);
 
 //register user function
@@ -46,6 +45,8 @@ function registerUser() {
         let newAddress = document.getElementById("address").value;
         let newCity = document.getElementById("city").value;
         let newPostal = document.getElementById("postalCode").value;
+        //let newPaymentType = document.getElementById("postalCode").value;
+        //let newCardNumber = document.getElementById("paymentType").value;
 
 
         //data validation not yet implemented
@@ -56,14 +57,14 @@ function registerUser() {
             url: "../config/registrationHandler.php",
             data: {
                 username: newUserName, pw: newPassword, email: newEmail, title: newTitle,
-                fn: newFirstName, ln: newLastName, address: newAddress, city: newCity, zip: newPostal
+                fn: newFirstName, ln: newLastName, address: newAddress, city: newCity, zip: newPostal,
             },
             dataType: "json",
             success: function (response) {
                 //test log
                 console.log(response);
 
-                if (response === true) {
+                if (response[0].username !== null) {
                     //window.alert("User was created successfully!")
                     //window.location.href= "../sites/login.html"
                     console.log("User was created successfully!")
@@ -78,7 +79,7 @@ function registerUser() {
                     }, 1500);
 
                 } else {
-                    //window.alert("User is already registered, try again with a different username & email!")
+                    window.alert("User is already registered, try again with a different username & email!")
                     //window.location.href= "../index.html"
                     console.log("User is already registered, try again with a different username & email!")
 
@@ -90,7 +91,6 @@ function registerUser() {
             },
             error: function () {
                 //show error message if no response (no successful login)
-                console.log("mysterious error message")
 
                 $(".successMsg").remove();
                 $("#registrationMessage").append("<p class='errorMsg'>An error occurred!</p>");
@@ -103,7 +103,7 @@ function registerUser() {
 
 function matchRegistrationPassword() {
 
-    if (password.value !== password2.value || password.value === "" || password2.value ===""){
+    if (password.value !== password2.value){
         password.setCustomValidity("The supplied passwords are empty or do not match.")
         password2.setCustomValidity("The supplied passwords are empty or do not match.")
         return false;
