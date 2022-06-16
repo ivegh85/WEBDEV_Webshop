@@ -8,11 +8,6 @@ console.log(strLoggedInUser)
 */
 function loadProfile (loggedInUser) {
 
-    console.log(loggedInUser)
-    if (loggedInUser == null) {
-        window.location.href = '../index.html';
-    } else {
-
         $.ajax({
             url: '../config/userDataHandler.php',
             type: 'GET',
@@ -42,6 +37,11 @@ function loadProfile (loggedInUser) {
                     userTable.append("<td id=\'status" + response[i].id + "\'> </td>");
                     userTable.append("<td id=\'btnActions" + response[i].id + "\'> </td>");
 
+                    //create buttons
+                    let btnActionsColumn = "#btnActions" + response[i].id;
+                    let buttonsColumn = $(btnActionsColumn);
+                    buttonsColumn.append("<a><button id=\'changeDetailsButton" + response[i].id + "\' class=\'btn btn-primary\' onclick=\'showOrderDetails(" + response[i].orderPackage + ")\'>Details</button></a>")
+
                     //add data
                     $("#userID" + response[i].id).append(response[i].id);
                     $("#username" + response[i].id).append(response[i].username);
@@ -61,6 +61,6 @@ function loadProfile (loggedInUser) {
                 console.log("error")
             }
         });
-    }
 }
+
 

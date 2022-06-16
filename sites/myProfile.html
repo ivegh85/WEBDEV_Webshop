@@ -80,6 +80,16 @@
   loadNavbar();
 
   //load profile data
-  loadProfile(readSessionCookie(getCookie()).username);
+  let loggedInUser = readSessionCookie(getCookie()).username
+
+  console.log(loggedInUser)
+
+  if (loggedInUser !== null) {
+    loadProfile(loggedInUser);
+  } else {
+    window.location.href = '../index.html';
+  }
+
+
 </script>
 </html>
