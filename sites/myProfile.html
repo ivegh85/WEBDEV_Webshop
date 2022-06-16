@@ -36,8 +36,12 @@
 
             <th>User ID</th>
             <th>Username</th>
+            <th>Firstname</th>
+            <th>Surname</th>
             <th>E-Mail</th>
-            <th>Role</th>
+            <th>Address</th>
+            <th>Postalcode</th>
+            <th>City</th>
             <th>Created at</th>
             <th>Status</th>
             <th>User Management</th>
@@ -75,5 +79,7 @@
   //load navbar
   loadNavbar();
 
+  //load profile data
+  loadProfile(readSessionCookie(getCookie()).username);
 </script>
 </html>

@@ -1,17 +1,16 @@
 <?php
 
-include ("../logic/ProfileLogic.php");
+include("../logic/ProfileLogic.php");
 
-$profileName = "";
-$method = "";
+$loggedInUser = "";
+//$method = "";
 
 //set data receiving from ajax function
-isset($_GET["method"]) ? $method = $_GET["method"] : false;
-isset($_GET["loggedInUser"]) ? $profileName = $_GET["loggedInUser"] : false;
+//isset($_GET["method"]) ? $method = $_GET["method"] : false;
+isset($_GET["loggedInUser"]) ? $loggedInUser = $_GET["loggedInUser"] : false;
 
 $logic = new ProfileLogic();
-
-$result = $logic->getUserProfile($profileName);
+$result = $logic->getUserProfile($loggedInUser);
 
 if ($result == null) {
     response("GET", 400, null);
