@@ -88,9 +88,12 @@
                 <ul class="navbar-nav ml-auto nav-flex-icons">
                     <li class="nav-item">
                         <a class="nav-link waves-effect waves-light" href="sites/cart.html" >
-                            <img src="res/img/icons/cart_empty.png" alt="" width="30" height="24">
+                            <img src="./res/img/icons/cart_empty.png" alt="" width="30" height="24">
                         </a>
                     </li>
+                </ul>
+                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                    <a class="nav-link active" aria-current="page" href="../sites/cart.html" id="card-quantity" onload="addCart()"></a>
                 </ul>
             </ul>
 
@@ -174,4 +177,22 @@
     function loadPage(){
         window.location.href = "./sites/products.html";
     }
+
+    function readCartQuantity(productId){
+        $.ajax({
+            type: "GET",
+            url: "../config/cartQuantityDataHandler.php",
+            cache: false,
+            data: {productid: productId},
+            dataType: "json",
+            success: function (response) {
+                var expires = (new Date(Date.now()+ 86400*1000)).toUTCString();
+                document.cookie =  "cart=" + response['cartToken'] + ";expires=" + expires + ";path=/";
+                document.getElementById('card-quantity').innerHTML = response['cartQuantity'];
+
+            },
+        });
+
+    }
+    readCartQuantity();
 </script>
