@@ -56,8 +56,15 @@ function registerUser() {
             async: false,
             url: "../config/registrationHandler.php",
             data: {
-                username: newUserName, pw: newPassword, email: newEmail, title: newTitle,
-                fn: newFirstName, ln: newLastName, address: newAddress, city: newCity, zip: newPostal,
+                username: newUserName,
+                pw: newPassword,
+                email: newEmail,
+                title: newTitle,
+                fn: newFirstName,
+                ln: newLastName,
+                address: newAddress,
+                city: newCity,
+                zip: newPostal,
             },
             dataType: "json",
             success: function (response) {

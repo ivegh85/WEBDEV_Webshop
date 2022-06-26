@@ -121,6 +121,16 @@ class DataHandler{
         );
     }
 
+    public function updateUserElement($uname){
+
+        //create and return array
+        return array(
+            "username" => $uname
+
+        );
+
+    }
+
 
 
 

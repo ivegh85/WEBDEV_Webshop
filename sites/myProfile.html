@@ -22,7 +22,7 @@
 <div class="container-fluid shadow border mt-3 mb-3 ">
   <div class="row mt-auto mb-auto pb-3 justify-content-center">
 
-    <h2 class="display-6 text-center pb-3">My Profile</h2>
+    <h2 class="display-6 text-center pb-3">My Profile Overview</h2>
 
     <div class="table-scroll">
 
@@ -44,7 +44,6 @@
             <th>City</th>
             <th>Created at</th>
             <th>Status</th>
-            <th>User Management</th>
           </tr>
           </thead>
 
@@ -53,9 +52,94 @@
           </tr>
 
         </table>
+
+        </div>
       </div>
 
+
+    <h2 class="display-6 text-center pb-3">Change Profile Data</h2>
+
+    <div class="container-fluid d-flex justify-content-center mt-auto">
+
+      <div class="col-md-8 d-flex justify-content-center mt-auto" >
+
+        <form method="post" class="row g-3 needs-validation" id="profileData" novalidate>
+
+          <div class="col-md-3">
+            <label for="usernameUpdate" class="form-label">Username:</label>
+            <input type="text" class="form-control" id="usernameUpdate" required>
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label" for="passwordUpdate">Password:</label>
+            <input type="password" class="form-control" id="passwordUpdate" required>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">The supplied passwords are empty or do not match.</div>
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label" for="emailUpdate">E-Mail:</label>
+            <input type="email" class="form-control" id="emailUpdate" required>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Please choose valid Email.</div>
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label" for="titleUpdate">Salutation</label>
+            <select name="title" id="titleUpdate" class="form-select" required>
+              <option disabled selected value >-- Please select --</option>
+              <option value="Mr.">Mr</option>
+              <option value="Mrs.">Mrs.</option>
+              <option value="Diverse">Diverse</option>
+            </select>
+            <div class="invalid-feedback">Please select a salutation.</div>
+          </div>
+
+          <div class="col-md-5">
+            <label class="form-label" for="firstNameUpdate">First Name:</label>
+            <input type="text" name="firstName" id="firstNameUpdate" class="form-control" required>
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+
+          <div class="col-md-5">
+            <label class="form-label" for="lastNameUpdate">Last Name:</label>
+            <input type="text" name="lastName" id="lastNameUpdate" class="form-control" required>
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label" for="addressUpdate">Address:</label>
+            <input type="text" name="address" id="addressUpdate" class="form-control" required>
+            <div class="invalid-feedback">Please provide a valid address.</div>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label" for="cityUpdate">City:</label>
+            <input type="text" name="city" id="cityUpdate" class="form-control" required>
+            <div class="invalid-feedback">Please provide a valid city.</div>
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label" for="postalCodeUpdate">Postal Code:</label>
+            <input type="text" name="postalCode" id="postalCodeUpdate" class="form-control" required>
+            <div class="invalid-feedback">Please provide a valid zip.</div>
+          </div>
+
+
+          <div class="col-12">
+            <button class="btn btn-primary" type="submit" id ="btnRegisterUserClicked">Submit form</button>
+          </div>
+          <div class="text-center">
+            <div id="updateMessage"></div>
+          </div>
+        </form>
+      </div>
+    </div>
+
       <h2 class="display-6 text-center pb-3">Order History</h2>
+
+    <div class="table-scroll">
 
       <!-- responsive table display -->
       <div class="col-md-12 align-middle table-responsive ">
