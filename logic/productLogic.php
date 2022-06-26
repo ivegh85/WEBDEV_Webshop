@@ -46,7 +46,7 @@ class ProductLogic
             $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/".$row["image"];
+            $db_image = "/webshop/res/img/products/" . $row["image"];
 
             $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
@@ -95,7 +95,7 @@ class ProductLogic
             $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/".$row["image"];
+            $db_image = "/webshop/res/img/products/" . $row["image"];
 
             $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
@@ -144,7 +144,7 @@ class ProductLogic
             $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/".$row["image"];
+            $db_image = "/webshop/res/img/products/" . $row["image"];
 
             $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
@@ -193,7 +193,7 @@ class ProductLogic
             $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/".$row["image"];
+            $db_image = "/webshop/res/img/products/" . $row["image"];
 
             $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
@@ -242,7 +242,7 @@ class ProductLogic
             $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/".$row["image"];
+            $db_image = "/webshop/res/img/products/" . $row["image"];
 
             $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
@@ -292,7 +292,7 @@ class ProductLogic
             $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/".$row["image"];
+            $db_image = "/webshop/res/img/products/" . $row["image"];
 
             $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
@@ -342,7 +342,7 @@ class ProductLogic
             $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/".$row["image"];
+            $db_image = "/webshop/res/img/products/" . $row["image"];
 
             $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
@@ -392,7 +392,7 @@ class ProductLogic
             $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/".$row["image"];
+            $db_image = "/webshop/res/img/products/" . $row["image"];
 
             $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
@@ -441,7 +441,7 @@ class ProductLogic
             $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/".$row["image"];
+            $db_image = "/webshop/res/img/products/" . $row["image"];
 
             $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
@@ -491,7 +491,7 @@ class ProductLogic
             $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/".$row["image"];
+            $db_image = "/webshop/res/img/products/" . $row["image"];
 
             $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
@@ -540,7 +540,7 @@ class ProductLogic
             $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/".$row["image"];
+            $db_image = "/webshop/res/img/products/" . $row["image"];
 
             $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
@@ -590,7 +590,7 @@ class ProductLogic
             $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/".$row["image"];
+            $db_image = "/webshop/res/img/products/" . $row["image"];
 
             $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
@@ -640,7 +640,7 @@ class ProductLogic
             $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/".$row["image"];
+            $db_image = "/webshop/res/img/products/" . $row["image"];
 
             $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
@@ -690,7 +690,7 @@ class ProductLogic
             $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/".$row["image"];
+            $db_image = "/webshop/res/img/products/" . $row["image"];
 
             $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
@@ -739,7 +739,7 @@ class ProductLogic
             $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/".$row["image"];
+            $db_image = "/webshop/res/img/products/" . $row["image"];
 
             $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
@@ -789,7 +789,7 @@ class ProductLogic
             $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/".$row["image"];
+            $db_image = "/webshop/res/img/products/" . $row["image"];
 
             $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
@@ -838,7 +838,7 @@ class ProductLogic
             $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/".$row["image"];
+            $db_image = "/webshop/res/img/products/" . $row["image"];
 
             $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
@@ -887,7 +887,7 @@ class ProductLogic
             $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/".$row["image"];
+            $db_image = "/webshop/res/img/products/" . $row["image"];
 
             $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
@@ -936,7 +936,7 @@ class ProductLogic
             $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/".$row["image"];
+            $db_image = "/webshop/res/img/products/" . $row["image"];
 
             $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
@@ -985,7 +985,7 @@ class ProductLogic
             $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/".$row["image"];
+            $db_image = "/webshop/res/img/products/" . $row["image"];
 
             $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
@@ -1035,7 +1035,7 @@ class ProductLogic
             $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/".$row["image"];
+            $db_image = "/webshop/res/img/products/" . $row["image"];
 
             $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
@@ -1084,7 +1084,7 @@ class ProductLogic
             $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/".$row["image"];
+            $db_image = "/webshop/res/img/products/" . $row["image"];
 
             $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
@@ -1134,7 +1134,7 @@ class ProductLogic
             $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/".$row["image"];
+            $db_image = "/webshop/res/img/products/" . $row["image"];
 
             $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
@@ -1183,7 +1183,7 @@ class ProductLogic
             $db_rating = $row["rating"];
             $db_category = $row["category"];
             $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/".$row["image"];
+            $db_image = "/webshop/res/img/products/" . $row["image"];
 
             $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
 
@@ -1196,5 +1196,82 @@ class ProductLogic
 
 
         return $combinedArray;
+    }
+
+    function updateProducts($productsJson)
+    {
+        require('../config/dbaccess.php');
+        $db_obj = new mysqli($host, $user, $password, $database);
+        if ($db_obj->connect_error) {
+            die("Connection failed: " . $db_obj->connect_error);
+        }
+
+        $editedProducts = "SELECT * FROM products WHERE product_id = ? LIMIT 1";
+        $stmt = $db_obj->prepare($editedProducts);
+
+        //"s" stands for string (string datatype is expected) ... i for integer, d for double
+        //followed by the variables which will be bound to the parameters
+        $stmt->bind_param("i", $productsJson);
+        $stmt->execute();
+        $editedProducts_res = $stmt->get_result(); // get the mysqli result
+
+        exit(var_dump($editedProducts_res, true));
+
+        if ($editedProducts_res->num_rows > 0) {
+
+            $productUpdate = json_decode($productsJson, true);
+            $productUpdateNew = [];
+            foreach ($productUpdate as $product) {
+                $newProductId = $product['productId'];
+                $newProductname = $product['productname'];
+                $newDescription = $product['description'];
+                $newPrice = $product['price'];
+                $newRating = $product['rating'];
+                $newCategory = $product['category'];
+                $newSubcategory = $product['subcategory'];
+                $newImage = $product['image'];
+
+                array_push($productUpdateNew, $product);
+
+            }
+        }
+
+
+
+
+        $sql = "UPDATE `products` SET product_id = 'productId', productname = 'productname', description = 'description', price = 'price', rating = 'rating', category = 'category', subcategory = subcategory, image = 'image' WHERE product_id = ?";
+
+        //use prepare function
+        $stmt = $db_obj->prepare($sql);
+
+        //"s" stands for string (string datatype is expected) ... i for integer, d for double
+        //followed by the variables which will be bound to the parameters
+
+        $stmt->bind_param("issddsss", $newProductId, $newProductname, $newDescription, $newPrice, $newRating, $newCategory, $newSubcategory, $newImage);
+        $stmt->execute();
+
+        $sql_res = $stmt->get_result(); // get the mysqli result
+
+
+        if ($sql_res->num_rows > 0) {
+
+            $productUpdate = $sql_res->fetch_assoc();
+
+
+            $db_obj->close();
+        }
+        function response($method, $httpStatus, $data)
+        {
+            header('Content-Type: application/json');
+            switch ($method) {
+                case "GET":
+                    http_response_code($httpStatus);
+                    echo(json_encode($data));
+                    break;
+                default:
+                    http_response_code(405);
+                    echo("Method not supported yet!");
+            }
+        }
     }
 }

@@ -34,6 +34,7 @@
 <div class="container mt-4">
 
     <div class="container-fluid shadow border mt-3 mb-3 ">
+        <br>
         <div class="row mt-auto mb-auto pb-3 justify-content-center">
 
             <h2 class="display-6 text-center pb-3">Cart</h2>
@@ -44,37 +45,24 @@
                 <div class="col-md-12 align-middle table-responsive ">
 
                     <table id="productTable" class="table table-bordered table-hover table-striped align-middle" >
-
                         <thead>
 
                         <tr >
                             <th></th>
-                            <th>Product</th>
-                            <th>Quantity</th>
+                            <th style="text-align: center">Product</th>
+                            <th style="text-align: center">Quantity</th>
                             <th>Price</th>
+                            <th style="text-align: center">Delete</th>
                         </tr>
 
                         </thead>
-
-
-                        <!--here showing results in the table -->
-                        <!-- <td id="userID"> </td>
-                         <td id="username"></td>
-                         <td id="status"></td>
-                         <td id="mail"> </td>
-                         <td id="role"> </td>
-                         <td id="createdAt"> </td>-->
-
-
-
-
-
-
                     </table>
-                    <p id="productPrice"></p>
+                    <br>
+                    <h3 style="text-align: center">Number of products</h3><h5 style="text-align: center" id="cartQuantity"></h5>
+                    <h3 style="text-align: center">Total in EUR</h3><h5 style="text-align: center" id="productPrice"></h5>
 
-                </div>
-                <a href="../sites/checkout.html"><button class="btn btn-primary">Checkout</button></a>
+                </div><br>
+                <div style="text-align: center" ><a href="../sites/checkout.html" ><button style="font-size : 25px; height: 70px; width: 180px;" class="btn btn-primary">Checkout</button></a></div>
             </div>
         </div>
     </div>
@@ -85,7 +73,7 @@
 <!-- Content -->
 
 <!--<div include-footer="./sites/footer.html"></div>-->
-
+<div class="loadFooter"></div>
 </body>
 
 <!-- js -->
@@ -102,24 +90,8 @@
 <script>
     //load navbar
     loadNavbar();
-    //$(".loadNavbar").load("./loadNavbarDef.html");
+    loadFooter();
 
-    function sumCart(productId){
-        $.ajax({
-            type: "GET",
-            url: "../config/cartSumDataHandler.php",
-            cache: false,
-            data: {productid: productId},
-            dataType: "json",
-            success: function (response) {
-
-                var expires = (new Date(Date.now()+ 86400*1000)).toUTCString();
-                document.cookie =  "cart=" + response['cartToken'] + ";expires=" + expires + ";path=/";
-                document.getElementById('productPrice').innerHTML = response['cartSum'];
-            }
-        });
-    }
-    sumCart()
 </script>
 <script src="../js/cart.js"></script>
 </html>

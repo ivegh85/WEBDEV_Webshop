@@ -66,6 +66,10 @@
 
             </ul>
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                <li class="nav-item" visibility ="all" id="navEditProducts">
+                    <a class="nav-link active" aria-current="page" href="../sites/productManagement.html">Add Products</a>
+            </ul>
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                 <li class="nav-item" visibility ="all" id="navEditCustomers">
                     <a class="nav-link active" aria-current="page" href="../sites/userManagement.html">Edit Customers</a>
             </ul>
@@ -99,10 +103,10 @@
     </div>
 </nav>
 
-<script src="../js/products.js"></script>
+<script src="../js/productManagement.js"></script>
 <script>
     $("#bread").click(function (){
-        loadBread();
+        loadBreadEdit();
     });
     $("#pastries").click(function (){
         loadPastries();

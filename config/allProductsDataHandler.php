@@ -9,7 +9,7 @@ $method = "";
 isset($_GET["method"]) ? $method = $_GET["method"] : false;
 
 $logic = new ProductLogic();
-$result = $logic->getAllProductsData();
+$result = $logic->getAllProductData();
 
 if ($result == null) {
     response("GET", 400, null);

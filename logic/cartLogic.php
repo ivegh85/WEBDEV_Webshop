@@ -10,10 +10,11 @@ class cartLogic
     function __construct()
     {
         $this->dataHandler = new DataHandler();
-    }
-    function readCart($token){
 
-        require_once('../config/dbaccess.php');
+    }
+    function readCart($token,$returnType = 'response'){
+        require('../config/dbaccess.php');
+
         $db_obj = new mysqli($host, $user, $password, $database);
         if ($db_obj->connect_error) {
             die("Connection failed: " . $db_obj->connect_error);
@@ -64,7 +65,11 @@ class cartLogic
             }
         $showCartEntries = json_encode(($showCart));
         $result = $this->dataHandler->ShowCartElement($showCartEntries);
+        if($returnType == 'response')
         $this->response("GET", 200, $result);
+        else{
+            return $showCartEntries;
+        }
 
         }
 
@@ -75,7 +80,7 @@ class cartLogic
     function readCartQuantity($token)
     {
 
-        require_once('../config/dbaccess.php');
+        require('../config/dbaccess.php');
         $db_obj = new mysqli($host, $user, $password, $database);
         if ($db_obj->connect_error) {
             die("Connection failed: " . $db_obj->connect_error);
@@ -112,58 +117,33 @@ class cartLogic
         }
     }
 
-    function sumCartQuantity($token)
+    function updateCart($token,$cartJson)
     {
 
-        require_once('../config/dbaccess.php');
+        require('../config/dbaccess.php');
         $db_obj = new mysqli($host, $user, $password, $database);
         if ($db_obj->connect_error) {
             die("Connection failed: " . $db_obj->connect_error);
         }
-        $cartSum = 0;
-        $checkCartExists = "SELECT * FROM cart WHERE sessionid = ? LIMIT 1";
-        $stmt = $db_obj->prepare($checkCartExists);
+        $sql = "UPDATE `cart` SET product = ? WHERE sessionid = ?";
+
+        //use prepare function
+        $stmt = $db_obj->prepare($sql);
 
         //"s" stands for string (string datatype is expected) ... i for integer, d for double
         //followed by the variables which will be bound to the parameters
-        $stmt->bind_param("s", $token);
+
+        $stmt->bind_param("ss", $cartJson,$token);
         $stmt->execute();
-        $checkCartExists_res = $stmt->get_result(); // get the mysqli result
 
 
-        if ($checkCartExists_res->num_rows > 0) {
-
-            $entryCart = $checkCartExists_res->fetch_assoc();
-
-            $productArray = json_decode($entryCart['product'],true);
-            foreach($productArray as $product){
-                $readProductId = $entryCart['productId'];
-                $readProducts = "SELECT * FROM products WHERE product_id = ?";
-
-                $stmt = $db_obj->prepare($readProducts);
-                $stmt->bind_param("i", $readProductId);
-                $stmt->execute();
-                $readProducts_res = $stmt->get_result();
-                $cartSum = $readProducts_res->fetch_assoc();
-                $cartSum += $product['quantity']*$product['price'];
-            }
-
-            $result = $this->dataHandler->ShowCartElement($token);
-            $this->response("GET", 200, $result);
-
-
-
-        }else{
-
-            $result = $this->dataHandler->ShowCartElement($token, 0);
-            $this->response("GET", 200, $result);
-        }
+        $db_obj->close();
     }
 
     function addToCart($token,$productId)
     {
         $cartQuantity = 0;
-        require_once('../config/dbaccess.php');
+        require('../config/dbaccess.php');
         $db_obj = new mysqli($host, $user, $password, $database);
         if ($db_obj->connect_error) {
             die("Connection failed: " . $db_obj->connect_error);
@@ -249,5 +229,68 @@ class cartLogic
                 http_response_code(405);
                 echo("Method not supported yet!");
         }
+    }
+    public function checkLoggedIn(){
+        $session = isset($_COOKIE['session']) ? $_COOKIE['session'] : '';
+        if(empty($session))return false;
+        $sessionToken = json_decode($session)->token;
+        require('../config/dbaccess.php');
+        $db_obj = new mysqli($host, $user, $password, $database);
+        if ($db_obj->connect_error) {
+            die("Connection failed: " . $db_obj->connect_error);
+        }
+
+        $checkCartExists = "SELECT * FROM session WHERE token = ? LIMIT 1";
+        $stmt = $db_obj->prepare($checkCartExists);
+
+        //"s" stands for string (string datatype is expected) ... i for integer, d for double
+        //followed by the variables which will be bound to the parameters
+        $stmt->bind_param("s", $sessionToken);
+        $stmt->execute();
+        $checkCartExists_res = $stmt->get_result(); // get the mysqli result
+
+
+        if ($checkCartExists_res->num_rows > 0) return true;
+
+
+        return false;
+
+    }
+    public function getUserInfo(){
+        $session = isset($_COOKIE['session']) ? $_COOKIE['session'] : '';
+        if(empty($session))return false;
+        $sessionToken = json_decode($session)->token;
+        require('../config/dbaccess.php');
+        $db_obj = new mysqli($host, $user, $password, $database);
+        if ($db_obj->connect_error) {
+            die("Connection failed: " . $db_obj->connect_error);
+        }
+
+        $userInfo = "SELECT * FROM session WHERE token = ? LIMIT 1";
+        $stmt = $db_obj->prepare($userInfo);
+
+        //"s" stands for string (string datatype is expected) ... i for integer, d for double
+        //followed by the variables which will be bound to the parameters
+        $stmt->bind_param("s", $sessionToken);
+        $stmt->execute();
+        $userInfo_res = $stmt->get_result(); // get the mysqli result
+
+
+        if ($userInfo_res->num_rows > 0) {
+            $userId = $userInfo_res->fetch_assoc()['user_id'];
+            $userInfo = "SELECT usermail,title,firstname,surname,postalcode,city,address FROM users WHERE user_id = ? LIMIT 1";
+            $stmt = $db_obj->prepare($userInfo);
+
+            //"s" stands for string (string datatype is expected) ... i for integer, d for double
+            //followed by the variables which will be bound to the parameters
+            $stmt->bind_param("i",$userId );
+            $stmt->execute();
+            $userInfo_res = $stmt->get_result(); // get the mysqli result
+            return $userInfo_res->fetch_assoc();
+        }
+
+
+        return false;
+
     }
 }

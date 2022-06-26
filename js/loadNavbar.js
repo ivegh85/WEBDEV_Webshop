@@ -54,7 +54,9 @@ function loadNavbar(){
         $(".loadNavbar").load("../sites/loadNavbarDef.html");
     }
 }
-
+function loadFooter() {
+    $(".loadFooter").load("../sites/loadFooter.html");
+}
 //navbar display according to permissions
 function loadNavbarIdx(){
 

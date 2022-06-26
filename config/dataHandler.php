@@ -112,21 +112,16 @@ class DataHandler{
             "createDate" => $db_created_at,
             "status" => $db_state
         );
-}
+    }
 
 
 //order management
-public function orderElement($order_id, $order_package, $user_id, $product_id, $product, $product_price, $created_at){
+    public function orderElement($userId, $cart){
         return array(
-            "orderID" => $order_id,
-            "orderPackage" => $order_package,
-            "userID" => $user_id,
-            "productID" => $product_id,
-            "product" => $product,
-            "productPrice" => $product_price,
-            "orderDate" => $created_at
+            "user_id" => $userId,
+            "cart" => $cart,
         );
-}
+    }
 
 
 
