@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Products</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="loadNavbar"></div>
+<div class="content">
+    <!-- actual body -->
+
+    <div id="pageContent"></div>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div id="productcategory"></div>
+            <h1 class="display-6 text-center pb-3">Add Products</h1>
+            <div class="row row-cols-1 row-cols-md-5 g-3" id="productdata"></div>
+            <div class="d-flex justify-content-between p-3">
+            <div class="col">
+            <div class="card text-center h-100" style="width: 15rem;">
+            <div class="card-body">
+                <div><b><p>Subcategory</p></b><select>
+                                        <option disabled selected value>Choose a subcategory</option>
+                            <optgroup label="Bread & Pastries">
+                                        <option value="Bread">Bread</option>
+                                        <option value="Pastries">Pastries</option>
+                                        <option value="Rolls">Rolls</option>
+                                        <option value="Confectionery">Confectionery</option>
+                            <optgroup label="Meat & Fish">
+                                        <option value="Poultry">Poultry</option>
+                                        <option value="Pork">Pork</option>
+                                        <option value="Beef">Beef</option>
+                                        <option value="Seafood">Seafood</option>
+                            <optgroup label="Fruits & Vegetables">
+                                        <option value="Fruits">Fruits</option>
+                                        <option value="Herbs">Herbs</option>
+                                        <option value="Salads">Salads</option>
+                                        <option value="Vegetables">Vegetables</option>
+                            <optgroup label="Vegan & Drinks">
+                                        <option value="Meat Substitutes">Meat Substitutes</option>
+                                        <option value="Milk Substitutes">Milk Substitutes</option>
+                                        <option value="Cheese Substitutes">Cheese Substitutes</option>
+                                        <option value="Tofu Variations">Tofu Variations</option>
+                                        <option value="Juices">Juices</option>
+                                        <option value="Smoothies">Smoothies</option>
+                                        <option value="Milk and Hot Chocolate">Milk and Hot Chocolate</option>
+                                        <option value="Alcoholic Beverages">Alcoholic Beverages</option>
+                            <optgroup label="Health & Care">
+                                        <option value="Health Products">Health Products</option>
+                                        <option value="Natural Cosmetics">Natural Cosmetics</option></select><br>
+                    <div><b><p style="text-align: center">Product Image</p></b><img></img>
+                        <div><b><p style="text-align: center">Name:</p></b><input style="text-align: center" name ='productname'></input>
+                            <div><b><p style="text-align: center">Description:</p></b><input style="text-align: center" name ="productdescription"></input>
+                                <div><b><p style="text-align: center">€</p></b><input style="text-align: center" type='number' ></input>
+                                    <div><b><p style="text-align: center">Rating</p></b><input type='number' style="text-align: center" name ='rating' ></input><br>
+                                        <br><button href="#" class="btn btn-primary">Add Product</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+        </div>
+    </div>
+    <div class="loadFooter"></div>
+</div>
+</body>
+<!-- js -->
+<!-- include jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- include js file -->
+<!--<script src="../js/script.js"></script>-->
+<script src="../js/loadNavbar.js"></script>
+<!-- include js bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+<script>
+    //load navbar
+    loadNavbar();
+    loadFooter();
+
+
+</script>
+</html>
