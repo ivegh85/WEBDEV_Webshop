@@ -71,4 +71,57 @@ class ProfileLogic
                 return $combinedArray;
 
     }
+
+    //update User Profile
+    function updateUserProfile($userNameUpdate, $passwordUpdate, $emailUpdate, $titleUpdate, $firstNameUpdate, $lastNameUpdate,
+                               $addressUpdate, $cityUpdate, $postalCodeUpdate) {
+
+        //db connection
+        require_once('../config/dbaccess.php');
+        $db_obj = new mysqli($host, $user, $password, $database);
+        if ($db_obj->connect_error) {
+            die("Connection failed: " . $db_obj->connect_error);
+        }
+
+        //insert data to db
+        //$sql = "UPDATE `users` SET `password`='$passwordUpdate',`usermail`='$emailUpdate',`title`='$titleUpdate',`firstname`='$firstNameUpdate',`surname`='$lastNameUpdate',`postalcode`='$postalCodeUpdate',`city`='$cityUpdate',`address`='$addressUpdate' WHERE username = '$userNameUpdate'";
+        $sql = "UPDATE `users` SET `password`=?,`usermail`=?,`title`=?,`firstname`=?,`surname`=?,`postalcode`=?,`city`=?,`address`=? WHERE username = '$userNameUpdate'";
+        //$sql = "UPDATE `users` SET `password`='?',`usermail`='?',`title`='?',`firstname`='?',`surname`='?',`postalcode`='?',`city`='?',`address`='?' WHERE username = '$userNameUpdate'";
+        $stmt = $db_obj->prepare($sql);
+
+        $stmt->bind_param("sssssiss", $pass, $mail, $title, $fname, $sname, $pcode, $city, $address);
+
+        $hash_pw = password_hash($passwordUpdate, PASSWORD_DEFAULT);
+
+        $pass = $hash_pw;
+        $mail = $emailUpdate;
+        $title = $titleUpdate;
+        $fname = $firstNameUpdate;
+        $sname = $lastNameUpdate;
+        $pcode = $postalCodeUpdate;
+        $city = $cityUpdate;
+        $address = $addressUpdate;
+
+        //execute statement
+        $stmt->execute();
+
+        //close statement
+        $stmt->close();
+
+        $responseElement = '';
+        $combinedArray[] = '';
+
+        $responseElement = $this->dataHandler->updateUserElement($mail);
+
+        $combinedArray2[] = array_merge($responseElement, $combinedArray);
+        $combinedArray = $combinedArray2;
+
+
+        //close db connection
+        $db_obj->close();
+
+
+        return $combinedArray;
+
+    }
 }

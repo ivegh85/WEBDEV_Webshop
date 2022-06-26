@@ -117,6 +117,16 @@ public function orderElement($order_id, $order_package, $user_id, $product_id, $
         );
 }
 
+    public function updateUserElement($uname){
+
+        //create and return array
+        return array(
+            "username" => $uname
+
+        );
+
+    }
+
 
 
 
