@@ -1,5 +1,5 @@
 <?php
-include("../logic/requestLogic.php");
+include("../logic/RegistrationLogic.php");
 
 $newUserName= "";
 $newPassword= "";
@@ -10,6 +10,8 @@ $newLastName= "";
 $newAddress= "";
 $newCity= "";
 $newPostal= "";
+$newPaymentType= "";
+$newCardNumber= "";
 
 
 //set data receiving from ajax function
@@ -23,16 +25,18 @@ isset($_POST["ln"]) ? $newLastName = $_POST["ln"] : false;
 isset($_POST["address"]) ? $newAddress = $_POST["address"] : false;
 isset($_POST["city"]) ? $newCity = $_POST["city"] : false;
 isset($_POST["zip"]) ? $newPostal = $_POST["zip"] : false;
+//isset($_POST["pt"]) ? $newPaymentType = $_POST["pt"] : false;
+//isset($_POST["cn"]) ? $newCardNumber = $_POST["cn"] : false;
 
-$logic = new RequestLogic();
+$logic = new RegistrationLogic();
 
 $result = $logic->registerRequest($newUserName, $newPassword, $newEmail, $newTitle, $newFirstName, $newLastName,
-    $newAddress, $newCity, $newPostal);
+    $newAddress, $newCity, $newPostal, $newPaymentType, $newCardNumber);
 
-if ($result == false) {
-    response( "POST",400, false);
+if ($result == null) {
+    response( "POST",400, null);
 } else {
-    response( "POST",200, true);
+    response( "POST",200, $result);
 }
 
 function response($method, $httpStatus, $data)
