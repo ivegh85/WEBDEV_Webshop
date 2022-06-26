@@ -66,6 +66,10 @@
 
             </ul>
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                <li class="nav-item" visibility ="all" id="navEditProducts">
+                    <a class="nav-link active" aria-current="page" href="../sites/productManagement.html">Add Products</a>
+            </ul>
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                 <li class="nav-item" visibility ="all" id="navEditCustomers">
                     <a class="nav-link active" aria-current="page" href="../sites/userManagement.html">Edit Customers</a>
             </ul>
@@ -90,6 +94,9 @@
                     </a>
                 </li>
             </ul>
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                <a class="nav-link active" aria-current="page" href="../sites/cart.html" id="card-quantity" onload="addCart()"></a>
+            </ul>
             </ul>
 
             <form class="d-flex">
@@ -100,10 +107,10 @@
     </div>
 </nav>
 
-<script src="../js/products.js"></script>
+<script src="../js/productManagement.js"></script>
 <script>
     $("#bread").click(function (){
-        loadBread();
+        loadBreadEdit();
     });
     $("#pastries").click(function (){
         loadPastries();
@@ -172,4 +179,22 @@
     function loadPage(){
         window.location.href = "../sites/products.html";
     }
+
+    function readCartQuantity(productId){
+        $.ajax({
+            type: "GET",
+            url: "../config/cartquantitydatahandler.php",
+            cache: false,
+            data: {productid: productId},
+            dataType: "json",
+            success: function (response) {
+                var expires = (new Date(Date.now()+ 86400*1000)).toUTCString();
+                document.cookie =  "cart=" + response['cartToken'] + ";expires=" + expires + ";path=/";
+                document.getElementById('card-quantity').innerHTML = response['cartQuantity'];
+
+            },
+        });
+
+    }
+    readCartQuantity();
 </script>

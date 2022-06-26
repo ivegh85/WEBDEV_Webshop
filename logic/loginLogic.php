@@ -64,12 +64,12 @@ class LoginLogic
                         //admin user: admin/root!2022
 
                         //create session (write to db)
-                        $sql = "INSERT INTO `session` (`token`,`role`,`permanent`) VALUES (?, ?, ?)";
+                        $sql = "INSERT INTO `session` (`token`,`role`,`permanent`,`user_id`) VALUES (?, ?, ?,?)";
                         //use prepare function
                         $stmt = $db_obj->prepare($sql);
                         //"s" stands for string (string datatype is expected) ... i for integer, d for double
                         //followed by the variables which will be bound to the parameters
-                        $stmt->bind_param("sss", $token, $role, $permanent);
+                        $stmt->bind_param("sssi", $token, $role, $permanent,$db_user_id);
                         //Generate a random token for a user session (source: https://thisinterestsme.com/generating-random-token-php/)
                         $pretoken = openssl_random_pseudo_bytes(16);
                         //Convert the binary data into hexadecimal representation.

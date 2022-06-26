@@ -1,4 +1,20 @@
 //breadAndPastries
+function addCart(productId){
+    $.ajax({
+        type: "GET",
+        url: "../config/cartDataHandler.php",
+        cache: false,
+        data: {productid: productId},
+        dataType: "json",
+        success: function (response) {
+            var expires = (new Date(Date.now()+ 86400*1000)).toUTCString();
+            document.cookie =  "cart=" + response['cartToken'] + ";expires=" + expires + ";path=/";
+            document.getElementById('card-quantity').innerHTML = response['cartQuantity'];
+
+        },
+    });
+}
+
 function loadBread(){
     $.ajax({
         type: "GET",
@@ -24,7 +40,7 @@ function loadBread(){
                 "<h4>"+p["productname"]+"</h4>"+
                 "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
                 "<p>"+"Rating: "+p["rating"]+"</p>"+
-                "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
+                "<button href=\"#\" onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -61,7 +77,7 @@ function loadPork(){
                     "<h4>"+p["productname"]+"</h4>"+
                     "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
                     "<p>"+"Rating: "+p["rating"]+"</p>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<button href=\"#\" onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -97,7 +113,7 @@ function loadPastries(){
                     "<h4>"+p["productname"]+"</h4>"+
                     "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
                     "<p>"+"Rating: "+p["rating"]+"</p>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<button href=\"#\" onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -133,7 +149,7 @@ function loadRolls(){
                     "<h4>"+p["productname"]+"</h4>"+
                     "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
                     "<p>"+"Rating: "+p["rating"]+"</p>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<button href=\"#\" onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -169,7 +185,7 @@ function loadConfectionery(){
                     "<h4>"+p["productname"]+"</h4>"+
                     "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
                     "<p>"+"Rating: "+p["rating"]+"</p>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<button href=\"#\" onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -205,7 +221,7 @@ function loadPoultry(){
                     "<h4>"+p["productname"]+"</h4>"+
                     "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
                     "<p>"+"Rating: "+p["rating"]+"</p>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<button href=\"#\" onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -241,7 +257,7 @@ function loadBeef(){
                     "<h4>"+p["productname"]+"</h4>"+
                     "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
                     "<p>"+"Rating: "+p["rating"]+"</p>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<button href=\"#\" onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -278,7 +294,7 @@ function loadSeafood(){
                     "<h4>"+p["productname"]+"</h4>"+
                     "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
                     "<p>"+"Rating: "+p["rating"]+"</p>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<button href=\"#\" onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -314,7 +330,7 @@ function loadFruits(){
                     "<h4>"+p["productname"]+"</h4>"+
                     "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
                     "<p>"+"Rating: "+p["rating"]+"</p>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<button href=\"#\" onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -350,7 +366,7 @@ function loadHerbs(){
                     "<h4>"+p["productname"]+"</h4>"+
                     "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
                     "<p>"+"Rating: "+p["rating"]+"</p>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<button href=\"#\" onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -386,7 +402,7 @@ function loadSalads(){
                     "<h4>"+p["productname"]+"</h4>"+
                     "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
                     "<p>"+"Rating: "+p["rating"]+"</p>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<button href=\"#\" onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -422,7 +438,7 @@ function loadVegetables(){
                     "<h4>"+p["productname"]+"</h4>"+
                     "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
                     "<p>"+"Rating: "+p["rating"]+"</p>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<button href=\"#\" onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -459,7 +475,7 @@ function loadMeatSub(){
                     "<h4>"+p["productname"]+"</h4>"+
                     "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
                     "<p>"+"Rating: "+p["rating"]+"</p>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<button href=\"#\" onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -495,7 +511,7 @@ function loadMilkSub(){
                     "<h4>"+p["productname"]+"</h4>"+
                     "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
                     "<p>"+"Rating: "+p["rating"]+"</p>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<button href=\"#\" onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -532,7 +548,7 @@ function loadCheeseSub(){
                     "<h4>"+p["productname"]+"</h4>"+
                     "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
                     "<p>"+"Rating: "+p["rating"]+"</p>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<button href=\"#\" onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -568,7 +584,7 @@ function loadTofuVar(){
                     "<h4>"+p["productname"]+"</h4>"+
                     "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
                     "<p>"+"Rating: "+p["rating"]+"</p>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<button href=\"#\" onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -605,7 +621,7 @@ function loadJuices(){
                     "<h4>"+p["productname"]+"</h4>"+
                     "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
                     "<p>"+"Rating: "+p["rating"]+"</p>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<button href=\"#\" onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -641,7 +657,7 @@ function loadSmoothies(){
                     "<h4>"+p["productname"]+"</h4>"+
                     "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
                     "<p>"+"Rating: "+p["rating"]+"</p>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<button href=\"#\" onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -677,7 +693,7 @@ function loadMilkAndHotChocolate(){
                     "<h4>"+p["productname"]+"</h4>"+
                     "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
                     "<p>"+"Rating: "+p["rating"]+"</p>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<button href=\"#\" onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -713,7 +729,7 @@ function loadAlcoholicBev(){
                     "<h4>"+p["productname"]+"</h4>"+
                     "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
                     "<p>"+"Rating: "+p["rating"]+"</p>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<button href=\"#\" onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -749,7 +765,7 @@ function loadHealthProd(){
                     "<h4>"+p["productname"]+"</h4>"+
                     "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
                     "<p>"+"Rating: "+p["rating"]+"</p>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<button href=\"#\" onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -785,7 +801,7 @@ function loadNaturalCosmetics(){
                     "<h4>"+p["productname"]+"</h4>"+
                     "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
                     "<p>"+"Rating: "+p["rating"]+"</p>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<button href=\"#\" onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -821,7 +837,7 @@ function loadAllProducts(){
                     "<h4>"+p["productname"]+"</h4>"+
                     "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
                     "<p>"+"Rating: "+p["rating"]+"</p>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">"+"Add To Cart"+"</a>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<button href=\"#\" onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
