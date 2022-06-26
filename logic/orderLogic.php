@@ -2,7 +2,7 @@
 
 include("../config/dataHandler.php");
 
-class OrderLogic
+class orderLogic
 {
 
     private $dataHandler;
@@ -13,52 +13,28 @@ class OrderLogic
     }
 
     //data from all users
-    function userOrderData($user_id)
+    function addToOrder($userId, $cartId)
     {
-        //db connection
-        require_once('../config/dbaccess.php');
+        require('../config/dbaccess.php');
         $db_obj = new mysqli($host, $user, $password, $database);
         if ($db_obj->connect_error) {
             die("Connection failed: " . $db_obj->connect_error);
         }
 
-        //declare variables
-        $db_order_id = '';
-        $db_order_package = '';
-        $db_user_id = '';
-        $db_product_id = '';
-        $db_product = '';
-        $db_product_price = '';
-        $db_created_at = '';
+        $checkUserId = "SELECT * FROM users WHERE user_id = ? LIMIT 1";
+        $stmt = $db_obj->prepare($checkUserId);
 
-        //get data from db
-        $sql = "SELECT order_id, order_package, user_id, product_id, product, product_price, created_at FROM orders WHERE user_id='$user_id'";
-        $result = $db_obj->query($sql);
+        //"s" stands for string (string datatype is expected) ... i for integer, d for double
+        //followed by the variables which will be bound to the parameters
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $checkUserId_res = $stmt->get_result(); // get the mysqli result
 
-        $responseElement = '';
-        $combinedArray[] = '';
+        if ($checkUserId_res->num_rows > 0) {
 
-        while ($row = $result->fetch_assoc()) {
-            $db_order_id = $row["order_id"];
-            $db_order_package = $row["order_package"];
-            $db_user_id = $row["user_id"];
-            $db_product_id = $row["product_id"];
-            $db_product = $row["product"];
-            $db_product_price = $row["product_price"];
-            $db_created_at = $row["created_at"];
-
-            $responseElement = $this->dataHandler->orderElement($db_order_id, $db_order_package, $db_user_id, $db_product_id, $db_product, $db_product_price, $db_created_at);
-
-            $combinedArray2[] = array_merge($responseElement, $combinedArray);
-            $combinedArray = $combinedArray2;
-
+            $entryOrder = $checkUserId_res->fetch_assoc();
         }
 
-        //close db connection
-        $db_obj->close();
-
-
-        return $combinedArray;
     }
 
     //delete product from order
@@ -82,5 +58,4 @@ class OrderLogic
         //close db connection
         $db_obj->close();
     }
-
 }

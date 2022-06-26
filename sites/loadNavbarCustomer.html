@@ -72,7 +72,7 @@
             </ul>
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                 <li class="nav-item" id="navLogout">
-                    <a class="nav-link active" aria-current="page" href="../sites/logout.html">Logout</a> <!-- link deleted -->
+                    <a class="nav-link" aria-current="page" href="../sites/logout.html">Logout</a> <!-- link deleted -->
                 </li>
 
 
@@ -96,6 +96,9 @@
                             <img src="../res/img/icons/cart_empty.png" alt="" width="30" height="24">
                         </a>
                     </li>
+                </ul>
+                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                    <a class="nav-link active" aria-current="page" href="../sites/cart.html" id="card-quantity" onload="addCart()"></a>
                 </ul>
             </ul>
 
@@ -179,5 +182,23 @@
     function loadPage(){
         window.location.href = "../sites/products.html";
     }
+
+    function readCartQuantity(productId){
+        $.ajax({
+            type: "GET",
+            url: "../config/cartquantitydatahandler.php",
+            cache: false,
+            data: {productid: productId},
+            dataType: "json",
+            success: function (response) {
+                var expires = (new Date(Date.now()+ 86400*1000)).toUTCString();
+                document.cookie =  "cart=" + response['cartToken'] + ";expires=" + expires + ";path=/";
+                document.getElementById('card-quantity').innerHTML = response['cartQuantity'];
+
+            },
+        });
+
+    }
+    readCartQuantity();
 </script>
 

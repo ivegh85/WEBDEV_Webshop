@@ -34,6 +34,7 @@
 <div class="container mt-4">
 
     <div class="container-fluid shadow border mt-3 mb-3 ">
+        <br>
         <div class="row mt-auto mb-auto pb-3 justify-content-center">
 
             <h2 class="display-6 text-center pb-3">Cart</h2>
@@ -43,39 +44,28 @@
                 <!-- responsive table display -->
                 <div class="col-md-12 align-middle table-responsive ">
 
-                    <table class="table table-bordered table-hover table-striped align-middle" >
+                    <table id="productTable" class="table table-bordered table-hover table-striped align-middle" >
                         <thead>
 
-                        <tr>
-                            <th>Product</th>
-                            <th>Quantity</th>
+                        <tr >
+                            <th></th>
+                            <th style="text-align: center">Product</th>
+                            <th style="text-align: center">Quantity</th>
                             <th>Price</th>
+                            <th style="text-align: center">Delete</th>
                         </tr>
+
                         </thead>
-
-                        <tr id="userTable0">
-                            <!--here showing results in the table -->
-                            <!-- <td id="userID"> </td>
-                             <td id="username"></td>
-                             <td id="status"></td>
-                             <td id="mail"> </td>
-                             <td id="role"> </td>
-                             <td id="createdAt"> </td>-->
-
-
-
-
-                        </tr>
-
                     </table>
-                </div>
+                    <br>
+                    <h3 style="text-align: center">Number of products</h3><h5 style="text-align: center" id="cartQuantity"></h5>
+                    <h3 style="text-align: center">Total in EUR</h3><h5 style="text-align: center" id="productPrice"></h5>
 
+                </div><br>
+                <div style="text-align: center" ><a href="../sites/checkout.html" ><button style="font-size : 25px; height: 70px; width: 180px;" class="btn btn-primary">Checkout</button></a></div>
             </div>
         </div>
     </div>
-
-
-
 </div>
 
 <div id="pageContent"></div>
@@ -83,7 +73,7 @@
 <!-- Content -->
 
 <!--<div include-footer="./sites/footer.html"></div>-->
-
+<div class="loadFooter"></div>
 </body>
 
 <!-- js -->
@@ -100,8 +90,8 @@
 <script>
     //load navbar
     loadNavbar();
-    //$(".loadNavbar").load("./loadNavbarDef.html");
+    loadFooter();
 
 </script>
-
+<script src="../js/cart.js"></script>
 </html>

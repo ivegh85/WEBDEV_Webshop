@@ -28,6 +28,7 @@
 <!-- Navbar -->
 <!--<div include-navbar-index="./sites/navBarIndex.html"></div>-->
 <div class="loadNavbar"></div>
+<div class="content">
 <div id="pageContent"></div>
 <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
@@ -68,7 +69,7 @@
     </button>
 </div>
 
-<p style="text-align:center;"><img src="../res/img/BioSuperMarket.png" width="374" height="223" class="center"></p>
+<p style="text-align:center;"><img src="../res/img/BioSuperMarket.png" width="374" height="223" class="center"></p><br>
 <!-- Body -->
 
 
@@ -76,7 +77,8 @@
 <!-- Content -->
 
 <!--<div include-footer="./sites/footer.html"></div>-->
-
+<div class="loadFooter"></div>
+</div>
 </body>
 
 <!-- js -->
@@ -93,6 +95,7 @@
 <script>
     //load navbar
     loadNavbar();
+    loadFooter();
     //$(".loadNavbar").load("./loadNavbarDef.html");
 
 </script>
