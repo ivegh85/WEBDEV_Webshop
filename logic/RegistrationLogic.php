@@ -74,7 +74,7 @@ class RegistrationLogic
 
             //close statement
             $stmtUsers->close();
-            $stmtPayment->close();
+            //$stmtPayment->close();
 
             $responseElement = $this->dataHandler->registerUserElement($uname);
 

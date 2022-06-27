@@ -19,6 +19,7 @@ console.log(strLoggedInUser)
 
 function loadProfile (loggedInUser) {
 
+
     $.ajax({
         url: '../config/userProfileHandler.php',
         type: 'GET',
