@@ -19,75 +19,76 @@ console.log(strLoggedInUser)
 
 function loadProfile (loggedInUser) {
 
-        $.ajax({
-            url: '../config/userDataHandler.php',
-            type: 'GET',
-            cache: false,
-            datatype: "json",
-            data: {
-                loggedInUser: loggedInUser,
-            },
-            success: function (response) {
 
-                for (let i = 0; i < response.length; i++) {
+    $.ajax({
+        url: '../config/userProfileHandler.php',
+        type: 'GET',
+        cache: false,
+        datatype: "json",
+        data: {
+            loggedInUser: loggedInUser,
+        },
+        success: function (response) {
 
-                    //create dynamic row for every user
-                    let tableVar = "#profileTable" + i;
-                    let userTable = $(tableVar);
+            for (let i = 0; i < response.length; i++) {
 
-                    //create table elements
-                    userTable.append("<td id=\'userID" + response[i].id + "\'> </td>");
-                    userTable.append("<td id=\'username" + response[i].id + "\'> </td>");
-                    userTable.append("<td id=\'firstname" + response[i].id + "\'> </td>");
-                    userTable.append("<td id=\'surname" + response[i].id + "\'> </td>");
-                    userTable.append("<td id=\'mail" + response[i].id + "\'> </td>");
-                    userTable.append("<td id=\'Address" + response[i].id + "\'> </td>");
-                    userTable.append("<td id=\'City" + response[i].id + "\'> </td>");
-                    userTable.append("<td id=\'Postalcode" + response[i].id + "\'> </td>");
-                    userTable.append("<td id=\'createdAt" + response[i].id + "\'> </td>");
-                    userTable.append("<td id=\'status" + response[i].id + "\'> </td>");
+                //create dynamic row for every user
+                let tableVar = "#profileTable" + i;
+                let userTable = $(tableVar);
 
-
-                    //add data
-                    $("#userID" + response[i].id).append(response[i].id);
-                    $("#username" + response[i].id).append(response[i].username);
-                    $("#firstname" + response[i].id).append(response[i].firstname);
-                    $("#surname" + response[i].id).append(response[i].surname);
-                    $("#mail" + response[i].id).append(response[i].usermail);
-                    $("#Address" + response[i].id).append(response[i].address);
-                    $("#Postalcode" + response[i].id).append(response[i].postalcode);
-                    $("#City" + response[i].id).append(response[i].city);
-                    $("#createdAt" + response[i].id).append(response[i].createDate);
-                    $("#status" + response[i].id).append(response[i].status);
+                //create table elements
+                userTable.append("<td id=\'userID" + response[i].id + "\'> </td>");
+                userTable.append("<td id=\'username" + response[i].id + "\'> </td>");
+                userTable.append("<td id=\'firstname" + response[i].id + "\'> </td>");
+                userTable.append("<td id=\'surname" + response[i].id + "\'> </td>");
+                userTable.append("<td id=\'mail" + response[i].id + "\'> </td>");
+                userTable.append("<td id=\'Address" + response[i].id + "\'> </td>");
+                userTable.append("<td id=\'City" + response[i].id + "\'> </td>");
+                userTable.append("<td id=\'Postalcode" + response[i].id + "\'> </td>");
+                userTable.append("<td id=\'createdAt" + response[i].id + "\'> </td>");
+                userTable.append("<td id=\'status" + response[i].id + "\'> </td>");
 
 
-                    userNameUpdate.value = response[0].username;
-                    passwordUpdate.value = response[0].password;
-                    emailUpdate.value = response[0].usermail;
-                    titleUpdate.value = response[0].title;
-                    firstNameUpdate.value = response[0].firstname;
-                    lastNameUpdate.value = response[0].surname;
-                    addressUpdate.value = response[0].address;
-                    cityUpdate.value = response[0].city;
-                    postalCodeUpdate.value = response[0].postalcode;
-
-                    const updateForm = document.getElementById("profileData");
-                    updateForm.addEventListener('submit', function (e) {
-                        e.preventDefault();
-                        updateProfile();
-                    });
-
-                    loadOrdersWithOutButton(response[i].id);
-
-                }
+                //add data
+                $("#userID" + response[i].id).append(response[i].id);
+                $("#username" + response[i].id).append(response[i].username);
+                $("#firstname" + response[i].id).append(response[i].firstname);
+                $("#surname" + response[i].id).append(response[i].surname);
+                $("#mail" + response[i].id).append(response[i].usermail);
+                $("#Address" + response[i].id).append(response[i].address);
+                $("#Postalcode" + response[i].id).append(response[i].postalcode);
+                $("#City" + response[i].id).append(response[i].city);
+                $("#createdAt" + response[i].id).append(response[i].createDate);
+                $("#status" + response[i].id).append(response[i].status);
 
 
-            },
-            error: function () {
+                userNameUpdate.value = response[0].username;
+                passwordUpdate.value = response[0].password;
+                emailUpdate.value = response[0].usermail;
+                titleUpdate.value = response[0].title;
+                firstNameUpdate.value = response[0].firstname;
+                lastNameUpdate.value = response[0].surname;
+                addressUpdate.value = response[0].address;
+                cityUpdate.value = response[0].city;
+                postalCodeUpdate.value = response[0].postalcode;
 
-                console.log("error")
+                const updateForm = document.getElementById("profileData");
+                updateForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    updateProfile();
+                });
+
+                loadOrdersWithOutButton(response[i].id);
+
             }
-        });
+
+
+        },
+        error: function () {
+
+            console.log("error")
+        }
+    });
 
 }
 function updateProfile() {
@@ -114,7 +115,7 @@ function updateProfile() {
 
             console.log("success")
             console.log(response[0].username)
-            },
+        },
         error: function () {
 
             console.log("error")
@@ -122,6 +123,3 @@ function updateProfile() {
     });
 
 }
-
-
-
