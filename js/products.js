@@ -812,6 +812,96 @@ function loadNaturalCosmetics(){
     });
 }
 
+$("#btnAddProductClicked").click(function (){
+    //interrupt submit in case input is missing or incorrect
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        let forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })();
+    addProduct();
+});
+
+
+function addProduct() {
+
+    let newProductname = document.getElementById("productname").value;
+    let newDescription = document.getElementById("description").value;
+    let newPrice = document.getElementById("price").value;
+    let newRating = document.getElementById("rating").value;
+    let newCategory = document.getElementById("category").value;
+    let newSubcategory = document.getElementById("subcategory").value;
+
+    let oldImage = document.getElementById("imageName").value;
+    let newImage = oldImage.replace("C:\\fakepath\\", "");
+
+
+
+
+    $.ajax({
+        type: "POST",
+        async: false,
+        url: "../config/addProductDataHandler.php",
+        data: {productname: newProductname, description: newDescription, price : newPrice, rating : newRating,
+            category: newCategory, subcategory: newSubcategory, image: newImage},
+        dataType: "json",
+        success: function (response) {
+            //test log
+            console.log(response);
+
+            if(response === true){
+                //window.alert("User was created successfully!")
+                //window.location.href= "../sites/login.html"
+                console.log("Product was added successfully!")
+
+                $(".errorMsg").remove();
+                $(".successMsg").remove();
+                $("#productAddMessage").append("<p class='successMsg'>Product was added successfully!</p>");
+
+                //redirect to login
+                setTimeout(function (){
+                    window.location.href = "../sites/productManagement.html";
+                }, 1500);
+
+            } else {
+                //window.alert("User is already registered, try again with a different username & email!")
+                //window.location.href= "../index.html"
+                console.log("User is already registered, try again with a different username & email!")
+
+                $(".successMsg").remove();
+                $("#productAddMessage").append("<p class='errorMsg'>Product is already in database</p>");
+
+            }
+
+        },
+        error: function () {
+            //show error message if no response (no successful login)
+            console.log("mysterious error message")
+
+            $(".successMsg").remove();
+            $("#productAddMessage").append("<p class='errorMsg'>An error occurred!</p>");
+
+        }
+
+    });
+}
+
+
+
 function loadAllProducts(){
     $.ajax({
         type: "GET",

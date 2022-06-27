@@ -16,32 +16,43 @@
 
     <div id="pageContent"></div>
     <div class="container py-5">
-        <div class="row justify-content-center">
-            <div id="productcategory"></div>
+
+        <form method="post" class="row g-3 needs-validation" novalidate>
             <h1 class="display-6 text-center pb-3">Add Products</h1>
             <div class="row row-cols-1 row-cols-md-5 g-3" id="productdata"></div>
             <div class="d-flex justify-content-between p-3">
             <div class="col">
             <div class="card text-center h-100" style="width: 15rem;">
             <div class="card-body">
-                <div><b><p>Subcategory</p></b><select>
+
+                <p style="text-align: center"><b>Category</b></p>
+                                    <select id="category"><br>
+                                        <option disabled selected value>Choose a category</option>
+                                        <option value='Bread and Pastries'>Bread & Pastries</option>
+                                        <option value='Meat and Fish'>Meat & Fish</option>
+                                        <option value='Fruits and Vegetables'>Fruits & Vegetables</option>
+                                        <option value='Vegan and Drinks'>Vegan & Drinks</option>
+                                        <option value='Health and Care'>Health & Care</option></select>
+
+                <p style="text-align: center"><b>Subcategory</b></p>
+                <select id="subcategory"><br>
                                         <option disabled selected value>Choose a subcategory</option>
-                            <optgroup label="Bread & Pastries">
+                                        <optgroup label="Bread & Pastries"></optgroup>
                                         <option value="Bread">Bread</option>
                                         <option value="Pastries">Pastries</option>
                                         <option value="Rolls">Rolls</option>
                                         <option value="Confectionery">Confectionery</option>
-                            <optgroup label="Meat & Fish">
+                            <optgroup label="Meat & Fish"></optgroup>
                                         <option value="Poultry">Poultry</option>
                                         <option value="Pork">Pork</option>
                                         <option value="Beef">Beef</option>
                                         <option value="Seafood">Seafood</option>
-                            <optgroup label="Fruits & Vegetables">
+                            <optgroup label="Fruits & Vegetables"></optgroup>
                                         <option value="Fruits">Fruits</option>
                                         <option value="Herbs">Herbs</option>
                                         <option value="Salads">Salads</option>
                                         <option value="Vegetables">Vegetables</option>
-                            <optgroup label="Vegan & Drinks">
+                            <optgroup label="Vegan & Drinks"></optgroup>
                                         <option value="Meat Substitutes">Meat Substitutes</option>
                                         <option value="Milk Substitutes">Milk Substitutes</option>
                                         <option value="Cheese Substitutes">Cheese Substitutes</option>
@@ -50,26 +61,35 @@
                                         <option value="Smoothies">Smoothies</option>
                                         <option value="Milk and Hot Chocolate">Milk and Hot Chocolate</option>
                                         <option value="Alcoholic Beverages">Alcoholic Beverages</option>
-                            <optgroup label="Health & Care">
+                            <optgroup label="Health & Care"></optgroup>
                                         <option value="Health Products">Health Products</option>
-                                        <option value="Natural Cosmetics">Natural Cosmetics</option></select><br>
-                    <div><b><p style="text-align: center">Product Image</p></b><img></img>
-                        <div><b><p style="text-align: center">Name:</p></b><input style="text-align: center" name ='productname'></input>
-                            <div><b><p style="text-align: center">Description:</p></b><input style="text-align: center" name ="productdescription"></input>
-                                <div><b><p style="text-align: center">€</p></b><input style="text-align: center" type='number' ></input>
-                                    <div><b><p style="text-align: center">Rating</p></b><input type='number' style="text-align: center" name ='rating' ></input><br>
-                                        <br><button href="#" class="btn btn-primary">Add Product</button>
+                                        <option value="Natural Cosmetics">Natural Cosmetics</option></select>
+                <label class="form-label"></label>
+                <p style="text-align: center"><b>Product Image</b></p>
+                <div action="upload.php" method="post" enctype="multipart/form-data">
+                            <p>Select image to upload:</p>
+                            <input class="form-control form-control-sm" id="imageName" type="file">
+
+
+
+                <p style="text-align: center"><b>Product Name</b></p>
+                <input id="productname" style="text-align: center" name ='productname'></input>
+
+                <p style="text-align: center"><b>Description</b></p>
+                <input id="description" style="text-align: center" name ="productDescription"></input>
+
+                <p style="text-align: center"><b>Price in EUR</b></p>
+                <input id="price" style="text-align: center" type='number' ></input>
+
+                <p style="text-align: center"><b>Rating</b></p>
+                <input id="rating" type='number' style="text-align: center" name ='rating' ></input><br>
+                <br><button href="#" class="btn btn-primary" type="submit" id="btnAddProductClicked">Add Product</button></div>
+                                        <div id="productAddMessage"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-    </div>
-
+</form>
         </div>
     </div>
     <div class="loadFooter"></div>
@@ -81,6 +101,7 @@
 <!-- include js file -->
 <!--<script src="../js/script.js"></script>-->
 <script src="../js/loadNavbar.js"></script>
+<script src="../js/products.js"></script>
 <!-- include js bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -90,6 +111,8 @@
     //load navbar
     loadNavbar();
     loadFooter();
+
+
 
 
 </script>

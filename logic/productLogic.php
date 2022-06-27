@@ -1198,7 +1198,7 @@ class ProductLogic
         return $combinedArray;
     }
 
-    function updateProducts($productsJson)
+    function updateProducts($permanentProductId, $updatedProductname, $updatedDescription, $updatedPrice, $updatedRating, $updatedCategory, $updatedSubcategory, $updatedImage)
     {
         require('../config/dbaccess.php');
         $db_obj = new mysqli($host, $user, $password, $database);
@@ -1206,72 +1206,72 @@ class ProductLogic
             die("Connection failed: " . $db_obj->connect_error);
         }
 
-        $editedProducts = "SELECT * FROM products WHERE product_id = ? LIMIT 1";
-        $stmt = $db_obj->prepare($editedProducts);
+        $sql = "UPDATE products SET productname = '$updatedProductname', description = '$updatedDescription', price = '$updatedPrice', rating = '$updatedRating', category = '$updatedCategory', subcategory = '$updatedSubcategory', image = '$updatedImage' WHERE product_id = '$permanentProductId'";
+
+        $db_obj->query($sql);
+
+        //close db connection
+        $db_obj->close();
+        return true;
+        //use prepare function
+
 
         //"s" stands for string (string datatype is expected) ... i for integer, d for double
         //followed by the variables which will be bound to the parameters
-        $stmt->bind_param("i", $productsJson);
-        $stmt->execute();
-        $editedProducts_res = $stmt->get_result(); // get the mysqli result
 
-        exit(var_dump($editedProducts_res, true));
 
-        if ($editedProducts_res->num_rows > 0) {
 
-            $productUpdate = json_decode($productsJson, true);
-            $productUpdateNew = [];
-            foreach ($productUpdate as $product) {
-                $newProductId = $product['productId'];
-                $newProductname = $product['productname'];
-                $newDescription = $product['description'];
-                $newPrice = $product['price'];
-                $newRating = $product['rating'];
-                $newCategory = $product['category'];
-                $newSubcategory = $product['subcategory'];
-                $newImage = $product['image'];
+        $productId = $permanentProductId;
+        $productname = $updatedProductname;
+        $description = $updatedDescription;
+        $price = $updatedPrice;
+        $rating = $updatedRating;
+        $category = $updatedCategory;
+        $subcategory = $updatedSubcategory;
+        $image = $updatedImage;
 
-                array_push($productUpdateNew, $product);
 
-            }
+    }
+
+    function addToProducts($newProductname, $newDescription, $newPrice, $newRating, $newCategory, $newSubcategory, $newImage)
+    {
+
+        //db connection
+        require_once('../config/dbaccess.php');
+        $db_obj = new mysqli($host, $user, $password, $database);
+        if ($db_obj->connect_error) {
+            die("Connection failed: " . $db_obj->connect_error);
         }
 
 
-
-
-        $sql = "UPDATE `products` SET product_id = 'productId', productname = 'productname', description = 'description', price = 'price', rating = 'rating', category = 'category', subcategory = subcategory, image = 'image' WHERE product_id = ?";
+        $sql = "INSERT INTO `products` (`productname`,`description`,`price`,`rating`,`category`,`subcategory`, `image`) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         //use prepare function
         $stmt = $db_obj->prepare($sql);
 
         //"s" stands for string (string datatype is expected) ... i for integer, d for double
         //followed by the variables which will be bound to the parameters
+        $stmt->bind_param("ssddsss", $productname, $description, $price, $rating, $category, $subcategory, $image);
 
-        $stmt->bind_param("issddsss", $newProductId, $newProductname, $newDescription, $newPrice, $newRating, $newCategory, $newSubcategory, $newImage);
+        $productname = $newProductname;
+        $description = $newDescription;
+        $price = $newPrice;
+        $rating = $newRating;
+        $category = $newCategory;
+        $subcategory = $newSubcategory;
+        $image = $newImage;
+
+
+        //execute statement
         $stmt->execute();
 
-        $sql_res = $stmt->get_result(); // get the mysqli result
+        //close statement
+        $stmt->close();
 
-
-        if ($sql_res->num_rows > 0) {
-
-            $productUpdate = $sql_res->fetch_assoc();
-
-
-            $db_obj->close();
-        }
-        function response($method, $httpStatus, $data)
-        {
-            header('Content-Type: application/json');
-            switch ($method) {
-                case "GET":
-                    http_response_code($httpStatus);
-                    echo(json_encode($data));
-                    break;
-                default:
-                    http_response_code(405);
-                    echo("Method not supported yet!");
-            }
-        }
+        //close connection
+        $db_obj->close();
+        return true;
     }
 }
+
+

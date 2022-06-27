@@ -18,16 +18,19 @@ function loadBreadEdit(){
                     "<div class=\"col\">"+
                     "<div class=\"card text-center h-100\" style=\"width: 15rem;\">"+
                     "<div class=\"card-body\">"+
-                    "<b><p>Category</p></b>"+"<div><select>"+
+                    "<b><p>Product ID</p></b>"+
+                    "<div><input id='productId' type=\"hidden\" value=\"" + p["productId"] +"\">"+ p['productId'] + "</input></div>" +
+                    "<b><p>Category</p></b>"+"<div><select id=\"category\">"+
                     "                    <option>"+ p['category'] + "</option>" +
-                    "                    <option value=\"Bread & Pastries\">Bread & Pastries</option>\n" +
-                    "                    <option value=\"Meat & Fish\">Meat & Fish</option>" +
-                    "                    <option value=\"Fruits & Vegetables\">Fruits & Vegetables</option>\n" +
-                    "                    <option value=\"Vegan & Drinks\">Vegan & Drinks</option>\n" +
-                    "                    <option value=\"Health & Care\">Health & Care</option></select></div>" + "<br>" +
-                    "<b><p>Subcategory</p></b>"+"<div><select>"+
+                    "                    <option value=\"Bread and Pastries\">Bread & Pastries</option>\n" +
+                    "                    <option value=\"Meat and Fish\">Meat & Fish</option>" +
+                    "                    <option value=\"Fruits and Vegetables\">Fruits & Vegetables</option>\n" +
+                    "                    <option value=\"Vegan and Drinks\">Vegan & Drinks</option>\n" +
+                    "                    <option value=\"Health and Care\">Health & Care</option></select></div>" +
+                    "<b><p>Subcategory</p></b>"+"<div><select id=\"subcategory\">"+
                     "                    <option>"+ p['subcategory'] + "</option>" +
                     "        <optgroup label=\"Bread & Pastries\">" +
+                    "                    <option value=\"Bread\">Bread</option>\n" +
                     "                    <option value=\"Pastries\">Pastries</option>\n" +
                     "                    <option value=\"Rolls\">Rolls</option>" +
                     "                    <option value=\"Confectionery\">Confectionery</option>\n" +
@@ -53,13 +56,14 @@ function loadBreadEdit(){
                     "        <optgroup label=\"Health & Care\">"+
                     "                    <option value=\"Pastries\">Health Products</option>\n" +
                     "                    <option value=\"Pastries\">Natural Cosmetics</option></select></div>" + "<br>" +
-                    "<div><input type=\"hidden\" value=\"" + p["productId"] +"\"></input></div>" +
+
                     "<div><b><p style=\"text-align: center\">Product Image</p></b>"+"<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
-                    "<div><input type=\"hidden\" value=\"" + p['image'] +"\"></input></div>" +
-                    "<div><b><p style=\"text-align: center\">Name:</p></b>"+"<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\"></input>"+
-                    "<div><b><p style=\"text-align  center\">Description:</p></b>"+"<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\"></input>"+
-                    "<div><b><p style=\"text-align: center\">Price in EUR:</p></b>"+"<input style=\"text-align: center\" type='number' value=" + parseFloat(p["price"]) + "></input>"+
-                    "<div><b><p style=\"text-align: center\">Rating:</p></b>"+ "<input type='number' style=\"text-align: center\" name ='rating' value=" + parseFloat(p["rating"]) + "></input>"+"<br>"+
+                    "<p>Select image to upload:</p>"+
+                    "<input className=\"form-control form-control-sm\" id=\"imageName\" type=\"file\">" +
+                    "<div><b><p style=\"text-align: center\">Name:</p></b>"+"<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\" id=\"productname\"></input>"+
+                    "<div><b><p style=\"text-align  center\">Description:</p></b>"+"<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\" id=\"description\"></input>"+
+                    "<div><b><p style=\"text-align: center\">Price in EUR:</p></b>"+"<input style=\"text-align: center\" type='number' id=\"price\" value=" + parseFloat(p["price"]) + " ></input>"+
+                    "<div><b><p style=\"text-align: center\">Rating:</p></b>"+ "<input type='number' style=\"text-align: center\" name ='rating' id=\"rating\" value=" + parseFloat(p["rating"]) + " ></input>"+"<br>"+
                     "<br>"+"<button href=\"#\" onclick=\"updateProducts(this);\" class=\"btn btn-primary\">"+"Save Changes"+"</button>"+"<br>"+
                     "<br>"+"<button href=\"#\" onclick=\"deleteProducts(this);\" class=\"btn btn-danger\">"+"Delete"+"</button>"+
                     "</div>"+"</div>"+"</div>"+"</div>"+"</div>"+"</div>"+"</div>"+"</div>"+"</div>");
@@ -74,70 +78,69 @@ function loadBreadEdit(){
 }
 
 
+function deleteProducts(element) {
 
-
-
-function deleteProducts(element){
-    element.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.innerHTML = '';
-
-    var allCartElements = document.getElementsByName('cartElement');
-    var deleteCartArray = new Array(6).fill(null);
-    allCartElements.forEach(function (element) {
-
-        var inputProductImage = element.getElementsByTagName('img')
-        var inputSubcategory = element.getElementsByTagName('select');
-        var allInputsOfCardElement = element.getElementsByTagName('input');
-        //console.log(allInputsOfCardElement);
-
-        deleteCartArray.push({
-            productID: allInputsOfCardElement[0],
-            subcategory: inputSubcategory[1],
-            image: allInputsOfCardElement[2],
-            productname: allInputsOfCardElement[3],
-            description: allInputsOfCardElement[4],
-            price: allInputsOfCardElement[5],
-            rating: allInputsOfCardElement[6],
-        });
-    });
-    console.log(deleteCartArray);
 }
 
 function updateProducts() {
-    var allCartElements = document.getElementsByName('cartElement');
-    var newCartArray = [];
-    allCartElements.forEach(function (element) {
 
-        var inputProductImage = element.getElementsByTagName('img')
-        var inputCategories = element.getElementsByTagName('select');
-        var allInputsOfCardElement = element.getElementsByTagName('input');
-        //console.log(allInputsOfCardElement);
+    let permanentProductId = document.getElementById("productId").value;
+    let updatedProductname = document.getElementById("productname").value;
+    let updatedDescription = document.getElementById("description").value;
+    let updatedPrice = document.getElementById("price").value;
+    let updatedRating = document.getElementById("rating").value;
+    let updatedCategory = document.getElementById("category").value;
+    let updatedSubcategory = document.getElementById("subcategory").value;
 
-        newCartArray.push({
-            category: inputCategories[0].value,
-            subcategory: inputCategories[1].value,
-            productId: allInputsOfCardElement[0].value,
-            image: allInputsOfCardElement[1].value,
-            productname: allInputsOfCardElement[2].value,
-            description: allInputsOfCardElement[3].value,
-            price: allInputsOfCardElement[4].value,
-            rating: allInputsOfCardElement[5].value,
-        });
-    });
-    console.log(newCartArray);
+    let oldImage = document.getElementById("imageName").value;
+    let updatedImage = oldImage.replace("C:\\fakepath\\", "");
 
     $.ajax({
         type: "POST",
+        async: false,
         url: "../config/productUpdateDataHandler.php",
-        cache: false,
-        data: {products: JSON.stringify(newCartArray)},
+        data: {productId:permanentProductId, productname:updatedProductname, description:updatedDescription, price :updatedPrice, rating :updatedRating,
+            category:updatedCategory, subcategory:updatedSubcategory, image:updatedImage},
         dataType: "json",
         success: function (response) {
-
+            //test log
             console.log(response);
 
+            if(response === true){
+                //window.alert("User was created successfully!")
+                //window.location.href= "../sites/login.html"
+                console.log("Product was added successfully!")
+
+                $(".errorMsg").remove();
+                $(".successMsg").remove();
+                $("#productAddMessage").append("<p class='successMsg'>Product was updated successfully!</p>");
+
+                //redirect to login
+                setTimeout(function (){
+                    window.location.href = "../sites/products.html";
+                }, 1500);
+
+            } else {
+                //window.alert("User is already registered, try again with a different username & email!")
+                //window.location.href= "../index.html"
+
+                $(".successMsg").remove();
+                $("#productAddMessage").append("<p class='errorMsg'>Product exists already</p>");
+
+            }
+
+        },
+        error: function () {
+            //show error message if no response (no successful login)
+            console.log("mysterious error message")
+
+            $(".successMsg").remove();
+            $("#productAddMessage").append("<p class='errorMsg'>An error occurred!</p>");
 
         }
+
     });
+}
 
 
     function loadPorkEdit() {
@@ -899,5 +902,5 @@ function updateProducts() {
             }
         });
     }
-}
+
 

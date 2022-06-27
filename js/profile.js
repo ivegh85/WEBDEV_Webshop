@@ -1,140 +1,85 @@
+let userNameUpdate = document.getElementById("usernameUpdate");
+let passwordUpdate = document.getElementById("passwordUpdate")
+let emailUpdate = document.getElementById("emailUpdate");
+let titleUpdate = document.getElementById("titleUpdate");
+let firstNameUpdate = document.getElementById("firstNameUpdate");
+let lastNameUpdate = document.getElementById("lastNameUpdate");
+let addressUpdate = document.getElementById("addressUpdate");
+let cityUpdate = document.getElementById("cityUpdate");
+let postalCodeUpdate = document.getElementById("postalCodeUpdate");
 
-function getUserQuantity(){
-    //get user quantity from db query
-    return 10;
+/*get username from cookie
+const loggedInUser = readSessionCookie(getCookie()).username;
+const strLoggedInUser = loggedInUser.toString();
+let stringifyLoggedInUser = JSON.stringify(loggedInUser)
 
-}
+console.log(loggedInUser)
+console.log(strLoggedInUser)
+*/
 
-
-function loadTableElements(){
-
-    //get user quantity
-    let userQty = getUserQuantity();
-
-    //while counter
-    let cnt = 0;
-
-    // user id counter
-    let userIDCounter = cnt;
-
-    while(cnt < userQty) {
-        //get actual user id
-        let temp = 0;
-        let userID = getUserID(12+cnt);
-
-        /*while (temp !== userID){
-        setTimeout(function (){
-                    userID = getUserID(userID);
-                    }, 500);
-            temp++;
-        }*/
-
-
-        userIDCounter = userID;
-        console.log("userID: " + userID);
-
-        //---------------------------------------------------
-
-        //to delete (when getUserID function was implemented)
-        //userID = cnt;
-
-        //---------------------------------------------------
-
-        //create dynamic row for every user
-        let tableVar = "#userTable" + cnt
-        let userTable = $(tableVar);
-
-        //create table elements
-        userTable.append("<td id=\'userID" + cnt +"\'> </td>");
-        userTable.append("<td id=\'username" + cnt +"\'> </td>");
-        userTable.append("<td id=\'mail" + cnt +"\'> </td>");
-        userTable.append("<td id=\'role" + cnt +"\'> </td>");
-        userTable.append("<td id=\'createdAt" + cnt +"\'> </td>");
-        userTable.append("<td id=\'btnActions" + cnt +"\'> </td>");
-
-        //create buttons
-        let btnActionsColumn = "#btnActions" + cnt;
-        let buttonsColumn = $(btnActionsColumn);
-        buttonsColumn.append("<a><button id=\'resetButton" + cnt +"\' class=\'btn btn-primary\' onclick=\'resetPassword(" + userID + ")\'>Password reset</button></a>")
-        buttonsColumn.append("<a><button id=\'editButton" + cnt +"\' class=\'btn btn-primary\'onclick=\'editUser(" + userID + ")\'>Edit</button></a>")
-        buttonsColumn.append("<a><button id=\'deactivateButton" + cnt +"\' class=\'btn btn-danger\' onclick=\'deactivateUser(" + userID + ")\'>Deactivate</button></a>")
-        buttonsColumn.append("<a><button id=\'deleteButton" + cnt +"\' class=\'btn btn-danger\' onclick=\'deleteUser(" + userID + ")\'>Delete</button></a>")
-
-        //create a new table for next user
-        let nextCnt = cnt+1;
-        userTable.after("<tr id=\'userTable" + nextCnt + "\'>");
-
-        //---------------------------------------------------
-
-        //load user data into elements
-        insertUserData(12+cnt);
-        //insertUserDataManageSite(userData);
-
-        //---------------------------------------------------
-        //while counter
-        cnt++;
-    }
-}
-
-function getUserID(posNb) {
-    //get user ID from db query
-
-    let userID = posNb;
-    let actualUserID;
-
-        $.ajax({
-            type: "GET",
-            url: "../config/userIdHandler.php",
-            cache: false,
-            data: {method: "getID", userID: userID},
-            dataType: "json",
-            success: function (response) {
-                //test log
-                console.log("successlog: " + response.id);
-
-                actualUserID = response.id;
-
-            },
-            error: function () {
-                posNb++;
-                console.log("Error Cnt: " + posNb);
-                actualUserID = posNb;
-            }
-        });
-
-    //return user ID
-    return actualUserID;
-}
-
-
-function insertUserData(id){
-    //data from db (query)
-
-    let cnt = id - 12;
+function loadProfile (loggedInUser) {
 
     $.ajax({
-        type: "GET",
-        url: "../config/userDataHandler.php",
+        url: '../config/userProfileHandler.php',
+        type: 'GET',
         cache: false,
-        data: {method: "getUserData", userID: id},
-        dataType: "json",
+        datatype: "json",
+        data: {
+            loggedInUser: loggedInUser,
+        },
         success: function (response) {
-            //test log
-            console.log(response);
+
+            for (let i = 0; i < response.length; i++) {
+
+                //create dynamic row for every user
+                let tableVar = "#profileTable" + i;
+                let userTable = $(tableVar);
+
+                //create table elements
+                userTable.append("<td id=\'userID" + response[i].id + "\'> </td>");
+                userTable.append("<td id=\'username" + response[i].id + "\'> </td>");
+                userTable.append("<td id=\'firstname" + response[i].id + "\'> </td>");
+                userTable.append("<td id=\'surname" + response[i].id + "\'> </td>");
+                userTable.append("<td id=\'mail" + response[i].id + "\'> </td>");
+                userTable.append("<td id=\'Address" + response[i].id + "\'> </td>");
+                userTable.append("<td id=\'City" + response[i].id + "\'> </td>");
+                userTable.append("<td id=\'Postalcode" + response[i].id + "\'> </td>");
+                userTable.append("<td id=\'createdAt" + response[i].id + "\'> </td>");
+                userTable.append("<td id=\'status" + response[i].id + "\'> </td>");
 
 
-            //insert elements
+                //add data
+                $("#userID" + response[i].id).append(response[i].id);
+                $("#username" + response[i].id).append(response[i].username);
+                $("#firstname" + response[i].id).append(response[i].firstname);
+                $("#surname" + response[i].id).append(response[i].surname);
+                $("#mail" + response[i].id).append(response[i].usermail);
+                $("#Address" + response[i].id).append(response[i].address);
+                $("#Postalcode" + response[i].id).append(response[i].postalcode);
+                $("#City" + response[i].id).append(response[i].city);
+                $("#createdAt" + response[i].id).append(response[i].createDate);
+                $("#status" + response[i].id).append(response[i].status);
 
-            //create dynamic row for every user
 
-            //create table elements
-            let tableVar = "#userTable" + cnt
-            let userTable = $(tableVar);
-            $("#userID" + cnt).append(response.id);
-            $("#username" + cnt).append(response.username);
-            $("#mail" + cnt).append(response.usermail);
-            $("#role" + cnt).append(response.role);
-            $("#createdAt" + cnt).append(response.createDate);
+                userNameUpdate.value = response[0].username;
+                passwordUpdate.value = response[0].password;
+                emailUpdate.value = response[0].usermail;
+                titleUpdate.value = response[0].title;
+                firstNameUpdate.value = response[0].firstname;
+                lastNameUpdate.value = response[0].surname;
+                addressUpdate.value = response[0].address;
+                cityUpdate.value = response[0].city;
+                postalCodeUpdate.value = response[0].postalcode;
+
+                const updateForm = document.getElementById("profileData");
+                updateForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    updateProfile();
+                });
+
+                loadOrdersWithOutButton(response[i].id);
+
+            }
 
 
         },
@@ -145,27 +90,35 @@ function insertUserData(id){
     });
 
 }
+function updateProfile() {
 
-function insertUserDataManageSite(userData){
-    //insert user data into elements
+    console.log("firstname:" + firstNameUpdate.value);
 
+    $.ajax({
+        url: '../config/userUpdateHandler.php',
+        type: 'POST',
+        cache: false,
+        datatype: "json",
+        data: {
+            username: userNameUpdate.value,
+            pw: passwordUpdate.value,
+            email: emailUpdate.value,
+            title: titleUpdate.value,
+            fn: firstNameUpdate.value,
+            ln: lastNameUpdate.value,
+            address: addressUpdate.value,
+            city: cityUpdate.value,
+            zip: postalCodeUpdate.value,
+        },
+        success: function (response) {
 
+            console.log("success")
+            console.log(response[0].username)
+        },
+        error: function () {
 
-}
-
-
-function resetPassword(id){
-
-}
-
-function editUser(id){
-
-}
-
-function deactivateUser(id){
-
-}
-
-function deleteUser(id){
+            console.log("error")
+        }
+    });
 
 }
