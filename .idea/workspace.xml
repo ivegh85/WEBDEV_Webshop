@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="91774ba5-15fe-47df-ad00-c58cda29dc16" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Webshop.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Webshop.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/archiv/loadLogin.html" beforeDir="false" afterPath="$PROJECT_DIR$/archiv/loadLogin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/dataHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/dataHandler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/orderDataHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/orderDataHandler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/cart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/checkout.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/checkout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/loadNavbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/loadNavbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/orderManagement.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/productManagement.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/productManagement.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/products.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/products.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/profileData.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/registration.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/registration.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/archiv/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/userManagement.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/userManagement.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logic/ProfileLogic.php" beforeDir="false" afterPath="$PROJECT_DIR$/logic/ProfileLogic.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logic/RegistrationLogic.php" beforeDir="false" afterPath="$PROJECT_DIR$/logic/RegistrationLogic.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logic/cartLogic.php" beforeDir="false" afterPath="$PROJECT_DIR$/logic/cartLogic.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logic/loginLogic.php" beforeDir="false" afterPath="$PROJECT_DIR$/logic/loginLogic.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logic/orderLogic.php" beforeDir="false" afterPath="$PROJECT_DIR$/logic/orderLogic.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logic/productLogic.php" beforeDir="false" afterPath="$PROJECT_DIR$/logic/productLogic.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logic/requestLogic.php" beforeDir="false" afterPath="$PROJECT_DIR$/logic/requestLogic.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logic/userLogic.php" beforeDir="false" afterPath="$PROJECT_DIR$/logic/userLogic.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/res/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/Products/Roggenbrot.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sites/checkout.html" beforeDir="false" afterPath="$PROJECT_DIR$/sites/checkout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sites/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/sites/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sites/loadNavbarAdmin.html" beforeDir="false" afterPath="$PROJECT_DIR$/sites/loadNavbarAdmin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sites/loadNavbarCustomer.html" beforeDir="false" afterPath="$PROJECT_DIR$/sites/loadNavbarCustomer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sites/loadNavbarDef.html" beforeDir="false" afterPath="$PROJECT_DIR$/sites/loadNavbarDef.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sites/loadNavbarIndex.html" beforeDir="false" afterPath="$PROJECT_DIR$/sites/loadNavbarIndex.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sites/logout.html" beforeDir="false" afterPath="$PROJECT_DIR$/sites/logout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sites/myProfile.html" beforeDir="false" afterPath="$PROJECT_DIR$/sites/myProfile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sites/productManagement.html" beforeDir="false" afterPath="$PROJECT_DIR$/sites/productManagement.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sites/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/sites/products.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sites/userManagement.html" beforeDir="false" afterPath="$PROJECT_DIR$/sites/userManagement.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2BILH4c4HboauBrN65PiVeyG6cy" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="91774ba5-15fe-47df-ad00-c58cda29dc16" name="Changes" comment="" />
+      <created>1656588568156</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1656588568156</updated>
+      <workItem from="1656588573353" duration="4175000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

@@ -1,3 +1,5 @@
+
+//edit product data for breads
 function loadBreadEdit(){
     $.ajax({
         type: "GET",
@@ -15,7 +17,7 @@ function loadBreadEdit(){
             $.each(response, function(i, p) {
                 $("#productdata").append(
                     "<div name=\"cartElement\" class=\"d-flex justify-content-between p-3\">"+
-                    "<div class=\"col\">"+
+                    "<div class=\"col\" id=\"productCard\">"+
                     "<div class=\"card text-center h-100\" style=\"width: 15rem;\">"+
                     "<div class=\"card-body\">"+
                     "<b><p>Product ID</p></b>"+
@@ -57,16 +59,24 @@ function loadBreadEdit(){
                     "                    <option value=\"Pastries\">Health Products</option>\n" +
                     "                    <option value=\"Pastries\">Natural Cosmetics</option></select></div>" + "<br>" +
 
-                    "<div><b><p style=\"text-align: center\">Product Image</p></b>"+"<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
-                    "<p>Select image to upload:</p>"+
-                    "<input className=\"form-control form-control-sm\" id=\"imageName\" type=\"file\">" +
-                    "<div><b><p style=\"text-align: center\">Name:</p></b>"+"<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\" id=\"productname\"></input>"+
-                    "<div><b><p style=\"text-align  center\">Description:</p></b>"+"<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\" id=\"description\"></input>"+
-                    "<div><b><p style=\"text-align: center\">Price in EUR:</p></b>"+"<input style=\"text-align: center\" type='number' id=\"price\" value=" + parseFloat(p["price"]) + " ></input>"+
-                    "<div><b><p style=\"text-align: center\">Rating:</p></b>"+ "<input type='number' style=\"text-align: center\" name ='rating' id=\"rating\" value=" + parseFloat(p["rating"]) + " ></input>"+"<br>"+
+                    "<b><p style=\"text-align: center\">Product Image</p></b>"+"<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
+                    "<p>Change image:</p>"+
+                    "<input class=\"form-control form-control-sm\" id=\"imageName\" type=\"file\" value ='" + p["image"] + "'>" +
+
+                    "<b><p style=\"text-align: center\">Name:</p></b>"+
+                    "<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\" id=\"productname\"></input>"+
+
+                    "<b><p style=\"text-align  center\">Description:</p></b>"+
+                    "<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\" id=\"description\"></input>"+
+
+                    "<b><p style=\"text-align: center\">Price in EUR:</p></b>"+
+                    "<input style=\"text-align: center\" type='number' id=\"price\" value=" + parseFloat(p["price"]) + " ></input>"+
+
+                    "<b><p style=\"text-align: center\">Rating:</p></b>"+
+                    "<input type='number' style=\"text-align: center\" name ='rating' id=\"rating\" value=" + parseFloat(p["rating"]) + " ></input>"+"<br>"+
                     "<br>"+"<button href=\"#\" onclick=\"updateProducts(this);\" class=\"btn btn-primary\">"+"Save Changes"+"</button>"+"<br>"+
-                    "<br>"+"<button href=\"#\" onclick=\"deleteProducts(this);\" class=\"btn btn-danger\">"+"Delete"+"</button>"+
-                    "</div>"+"</div>"+"</div>"+"</div>"+"</div>"+"</div>"+"</div>"+"</div>"+"</div>");
+                    "<br>"+"<button href=\"#\" onclick=\"deleteProducts(this);\" class=\"btn btn-danger\ id=\"delete\">"+"Delete"+"</button>"+
+                    "</div>"+"</div>"+"</div>"+"</div>"+"</form>");
             });
             $('#productdata').show();
 
@@ -77,11 +87,72 @@ function loadBreadEdit(){
     });
 }
 
+// delete products
+function deleteProducts() {
 
-function deleteProducts(element) {
+    let permanentProductId = document.getElementById("productId").innerHTML ='';
+    let updatedProductname = document.getElementById("productname").innerHTML ='';
+    let updatedDescription = document.getElementById("description").innerHTML ='';
+    let updatedPrice = document.getElementById("price").innerHTML ='';
+    let updatedRating = document.getElementById("rating").innerHTML ='';
+    let updatedCategory = document.getElementById("category").innerHTML ='';
+    let updatedSubcategory = document.getElementById("subcategory").innerHTML ='';
+    let updatedImage = document.getElementById("imageName").innerHTML ='';
+
+
+
+
+    console.log(deleteProducts())
+
+    $.ajax({
+        type: "POST",
+        async: false,
+        url: "../config/productUpdateDataHandler.php",
+        data: {productId:permanentProductId, productname:updatedProductname, description:updatedDescription, price :updatedPrice, rating :updatedRating,
+            category:updatedCategory, subcategory:updatedSubcategory, image:updatedImage},
+        dataType: "json",
+        success: function (response) {
+            //test log
+            console.log(response);
+
+            if(response === true){
+                //window.alert("User was created successfully!")
+                //window.location.href= "../sites/login.html"
+                console.log("Product was added successfully!")
+
+                $(".errorMsg").remove();
+                $(".successMsg").remove();
+                $("#productDeleteMessage").append("<p class='successMsg'>Product was deleted successfully!</p>");
+
+                //redirect to login
+                setTimeout(function (){
+                    window.location.href = "../sites/products.html";
+                }, 1500);
+
+            } else {
+                //window.alert("User is already registered, try again with a different username & email!")
+                //window.location.href= "../index.html"
+
+                $(".successMsg").remove();
+                $("#productDeleteMessage").append("<p class='errorMsg'>Product does not exists anymore</p>");
+
+            }
+
+        },
+        error: function () {
+            //show error message if no response (no successful login)
+            console.log("mysterious error message")
+
+            $(".successMsg").remove();
+            $("#productDeleteMessage").append("<p class='errorMsg'>An error occurred!</p>");
+
+        }
+
+    });
 
 }
 
+//update products
 function updateProducts() {
 
     let permanentProductId = document.getElementById("productId").value;
@@ -142,7 +213,7 @@ function updateProducts() {
     });
 }
 
-
+//edit product data for pork
     function loadPorkEdit() {
         $.ajax({
             type: "GET",
@@ -157,18 +228,69 @@ function updateProducts() {
                 $('#productdata').empty();
                 $('#productdata').hide();
 
-                $.each(response, function (i, p) {
+                $.each(response, function(i, p) {
                     $("#productdata").append(
-                        "<div class=\"d-flex justify-content-between p-3\">" +
-                        "<div class=\"col\">" +
-                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">" +
-                        "<div class=\"card-body\">" +
-                        "<b>" + p["subcategory"] + "</b>" + "<br>" +
-                        "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
-                        "<h4>" + p["productname"] + "</h4>" +
-                        "<h5>" + "<b>" + "€ " + p["price"] + "</h5>" +
-                        "<p>" + "Rating: " + p["rating"] + "</p>" +
-                        "<button href=\"#\" onclick=\" ('" + p["productId"] + "');\" class=\"btn btn-primary\">" + "Add To Cart" + "</button>" + "</div>" + "</div>" + "</div>" + "</div>");
+                        "<div name=\"cartElement\" class=\"d-flex justify-content-between p-3\">"+
+                        "<div class=\"col\">"+
+                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">"+
+                        "<div class=\"card-body\">"+
+                        "<b><p>Product ID</p></b>"+
+                        "<div><input id='productId' type=\"hidden\" value=\"" + p["productId"] +"\">"+ p['productId'] + "</input></div>" +
+                        "<b><p>Category</p></b>"+"<div><select id=\"category\">"+
+                        "                    <option>"+ p['category'] + "</option>" +
+                        "                    <option value=\"Bread and Pastries\">Bread & Pastries</option>\n" +
+                        "                    <option value=\"Meat and Fish\">Meat & Fish</option>" +
+                        "                    <option value=\"Fruits and Vegetables\">Fruits & Vegetables</option>\n" +
+                        "                    <option value=\"Vegan and Drinks\">Vegan & Drinks</option>\n" +
+                        "                    <option value=\"Health and Care\">Health & Care</option></select></div>" +
+                        "<b><p>Subcategory</p></b>"+"<div><select id=\"subcategory\">"+
+                        "                    <option>"+ p['subcategory'] + "</option>" +
+                        "        <optgroup label=\"Bread & Pastries\">" +
+                        "                    <option value=\"Bread\">Bread</option>\n" +
+                        "                    <option value=\"Pastries\">Pastries</option>\n" +
+                        "                    <option value=\"Rolls\">Rolls</option>" +
+                        "                    <option value=\"Confectionery\">Confectionery</option>\n" +
+                        "        <optgroup label=\"Meat & Fish\">"+
+                        "                    <option value=\"Poultry\">Poultry</option>\n" +
+                        "                    <option value=\"Pork\">Pork</option>\n" +
+                        "                    <option value=\"Beef\">Beef</option>\n" +
+                        "                    <option value=\"Seafood\">Seafood</option>\n" +
+                        "        <optgroup label=\"Fruits & Vegetables\">"+
+                        "                    <option value=\"Fruits\">Fruits</option>\n" +
+                        "                    <option value=\"Herbs\">Herbs</option>\n" +
+                        "                    <option value=\"Salads\">Salads</option>\n" +
+                        "                    <option value=\"Vegetables\">Vegetables</option>\n" +
+                        "        <optgroup label=\"Vegan & Drinks\">"+
+                        "                    <option value=\"Meat Substitutes\">Meat Substitutes</option>\n" +
+                        "                    <option value=\"Milk Substitutes\">Milk Substitutes</option>\n" +
+                        "                    <option value=\"Cheese Substitutes\">Cheese Substitutes</option>\n" +
+                        "                    <option value=\"Tofu Variations\">Tofu Variations</option>\n" +
+                        "                    <option value=\"Juices\">Juices</option>\n" +
+                        "                    <option value=\"Smoothies\">Smoothies</option>\n" +
+                        "                    <option value=\"Milk and Hot Chocolate\">Milk and Hot Chocolate</option>\n" +
+                        "                    <option value=\"Alcoholic Beverages\">Alcoholic Beverages</option>\n" +
+                        "        <optgroup label=\"Health & Care\">"+
+                        "                    <option value=\"Pastries\">Health Products</option>\n" +
+                        "                    <option value=\"Pastries\">Natural Cosmetics</option></select></div>" + "<br>" +
+
+                        "<b><p style=\"text-align: center\">Product Image</p></b>"+"<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
+                        "<p>Change image:</p>"+
+                        "<input class=\"form-control form-control-sm\" id=\"imageName\" type=\"file\" value ='" + p["image"] + "'>" +
+
+                        "<b><p style=\"text-align: center\">Name:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\" id=\"productname\"></input>"+
+
+                        "<b><p style=\"text-align  center\">Description:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\" id=\"description\"></input>"+
+
+                        "<b><p style=\"text-align: center\">Price in EUR:</p></b>"+
+                        "<input style=\"text-align: center\" type='number' id=\"price\" value=" + parseFloat(p["price"]) + " ></input>"+
+
+                        "<b><p style=\"text-align: center\">Rating:</p></b>"+
+                        "<input type='number' style=\"text-align: center\" name ='rating' id=\"rating\" value=" + parseFloat(p["rating"]) + " ></input>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"updateProducts(this);\" class=\"btn btn-primary\">"+"Save Changes"+"</button>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"deleteProducts(this);\" class=\"btn btn-danger\">"+"Delete"+"</button>"+
+                        "</div>"+"</div>"+"</div>"+"</div>"+"</form>");
                 });
                 $('#productdata').show();
 
@@ -178,7 +300,7 @@ function updateProducts() {
             }
         });
     }
-
+//edit product data for pastries
     function loadPastriesEdit() {
         $.ajax({
             type: "GET",
@@ -193,18 +315,69 @@ function updateProducts() {
                 $('#productdata').empty();
                 $('#productdata').hide();
 
-                $.each(response, function (i, p) {
+                $.each(response, function(i, p) {
                     $("#productdata").append(
-                        "<div class=\"d-flex justify-content-between p-3\">" +
-                        "<div class=\"col\">" +
-                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">" +
-                        "<div class=\"card-body\">" +
-                        "<b>" + p["subcategory"] + "</b>" + "<br>" +
-                        "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
-                        "<h4>" + p["productname"] + "</h4>" +
-                        "<h5>" + "<b>" + "€ " + p["price"] + "</h5>" +
-                        "<p>" + "Rating: " + p["rating"] + "</p>" +
-                        "<button href=\"#\" onclick=\" ('" + p["productId"] + "');\" class=\"btn btn-primary\">" + "Add To Cart" + "</button>" + "</div>" + "</div>" + "</div>" + "</div>");
+                        "<div name=\"cartElement\" class=\"d-flex justify-content-between p-3\">"+
+                        "<div class=\"col\">"+
+                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">"+
+                        "<div class=\"card-body\">"+
+                        "<b><p>Product ID</p></b>"+
+                        "<div><input id='productId' type=\"hidden\" value=\"" + p["productId"] +"\">"+ p['productId'] + "</input></div>" +
+                        "<b><p>Category</p></b>"+"<div><select id=\"category\">"+
+                        "                    <option>"+ p['category'] + "</option>" +
+                        "                    <option value=\"Bread and Pastries\">Bread & Pastries</option>\n" +
+                        "                    <option value=\"Meat and Fish\">Meat & Fish</option>" +
+                        "                    <option value=\"Fruits and Vegetables\">Fruits & Vegetables</option>\n" +
+                        "                    <option value=\"Vegan and Drinks\">Vegan & Drinks</option>\n" +
+                        "                    <option value=\"Health and Care\">Health & Care</option></select></div>" +
+                        "<b><p>Subcategory</p></b>"+"<div><select id=\"subcategory\">"+
+                        "                    <option>"+ p['subcategory'] + "</option>" +
+                        "        <optgroup label=\"Bread & Pastries\">" +
+                        "                    <option value=\"Bread\">Bread</option>\n" +
+                        "                    <option value=\"Pastries\">Pastries</option>\n" +
+                        "                    <option value=\"Rolls\">Rolls</option>" +
+                        "                    <option value=\"Confectionery\">Confectionery</option>\n" +
+                        "        <optgroup label=\"Meat & Fish\">"+
+                        "                    <option value=\"Poultry\">Poultry</option>\n" +
+                        "                    <option value=\"Pork\">Pork</option>\n" +
+                        "                    <option value=\"Beef\">Beef</option>\n" +
+                        "                    <option value=\"Seafood\">Seafood</option>\n" +
+                        "        <optgroup label=\"Fruits & Vegetables\">"+
+                        "                    <option value=\"Fruits\">Fruits</option>\n" +
+                        "                    <option value=\"Herbs\">Herbs</option>\n" +
+                        "                    <option value=\"Salads\">Salads</option>\n" +
+                        "                    <option value=\"Vegetables\">Vegetables</option>\n" +
+                        "        <optgroup label=\"Vegan & Drinks\">"+
+                        "                    <option value=\"Meat Substitutes\">Meat Substitutes</option>\n" +
+                        "                    <option value=\"Milk Substitutes\">Milk Substitutes</option>\n" +
+                        "                    <option value=\"Cheese Substitutes\">Cheese Substitutes</option>\n" +
+                        "                    <option value=\"Tofu Variations\">Tofu Variations</option>\n" +
+                        "                    <option value=\"Juices\">Juices</option>\n" +
+                        "                    <option value=\"Smoothies\">Smoothies</option>\n" +
+                        "                    <option value=\"Milk and Hot Chocolate\">Milk and Hot Chocolate</option>\n" +
+                        "                    <option value=\"Alcoholic Beverages\">Alcoholic Beverages</option>\n" +
+                        "        <optgroup label=\"Health & Care\">"+
+                        "                    <option value=\"Pastries\">Health Products</option>\n" +
+                        "                    <option value=\"Pastries\">Natural Cosmetics</option></select></div>" + "<br>" +
+
+                        "<b><p style=\"text-align: center\">Product Image</p></b>"+"<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
+                        "<p>Change image:</p>"+
+                        "<input class=\"form-control form-control-sm\" id=\"imageName\" type=\"file\" value ='" + p["image"] + "'>" +
+
+                        "<b><p style=\"text-align: center\">Name:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\" id=\"productname\"></input>"+
+
+                        "<b><p style=\"text-align  center\">Description:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\" id=\"description\"></input>"+
+
+                        "<b><p style=\"text-align: center\">Price in EUR:</p></b>"+
+                        "<input style=\"text-align: center\" type='number' id=\"price\" value=" + parseFloat(p["price"]) + " ></input>"+
+
+                        "<b><p style=\"text-align: center\">Rating:</p></b>"+
+                        "<input type='number' style=\"text-align: center\" name ='rating' id=\"rating\" value=" + parseFloat(p["rating"]) + " ></input>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"updateProducts(this);\" class=\"btn btn-primary\">"+"Save Changes"+"</button>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"deleteProducts(this);\" class=\"btn btn-danger\">"+"Delete"+"</button>"+
+                        "</div>"+"</div>"+"</div>"+"</div>"+"</form>");
                 });
                 $('#productdata').show();
 
@@ -214,7 +387,7 @@ function updateProducts() {
             }
         });
     }
-
+//edit product data for rolls
     function loadRollsEdit() {
         $.ajax({
             type: "GET",
@@ -229,18 +402,69 @@ function updateProducts() {
                 $('#productdata').empty();
                 $('#productdata').hide();
 
-                $.each(response, function (i, p) {
+                $.each(response, function(i, p) {
                     $("#productdata").append(
-                        "<div class=\"d-flex justify-content-between p-3\">" +
-                        "<div class=\"col\">" +
-                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">" +
-                        "<div class=\"card-body\">" +
-                        "<b>" + p["subcategory"] + "</b>" + "<br>" +
-                        "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
-                        "<h4>" + p["productname"] + "</h4>" +
-                        "<h5>" + "<b>" + "€ " + p["price"] + "</h5>" +
-                        "<p>" + "Rating: " + p["rating"] + "</p>" +
-                        "<button href=\"#\" onclick=\" ('" + p["productId"] + "');\" class=\"btn btn-primary\">" + "Add To Cart" + "</button>" + "</div>" + "</div>" + "</div>" + "</div>");
+                        "<div name=\"cartElement\" class=\"d-flex justify-content-between p-3\">"+
+                        "<div class=\"col\">"+
+                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">"+
+                        "<div class=\"card-body\">"+
+                        "<b><p>Product ID</p></b>"+
+                        "<div><input id='productId' type=\"hidden\" value=\"" + p["productId"] +"\">"+ p['productId'] + "</input></div>" +
+                        "<b><p>Category</p></b>"+"<div><select id=\"category\">"+
+                        "                    <option>"+ p['category'] + "</option>" +
+                        "                    <option value=\"Bread and Pastries\">Bread & Pastries</option>\n" +
+                        "                    <option value=\"Meat and Fish\">Meat & Fish</option>" +
+                        "                    <option value=\"Fruits and Vegetables\">Fruits & Vegetables</option>\n" +
+                        "                    <option value=\"Vegan and Drinks\">Vegan & Drinks</option>\n" +
+                        "                    <option value=\"Health and Care\">Health & Care</option></select></div>" +
+                        "<b><p>Subcategory</p></b>"+"<div><select id=\"subcategory\">"+
+                        "                    <option>"+ p['subcategory'] + "</option>" +
+                        "        <optgroup label=\"Bread & Pastries\">" +
+                        "                    <option value=\"Bread\">Bread</option>\n" +
+                        "                    <option value=\"Pastries\">Pastries</option>\n" +
+                        "                    <option value=\"Rolls\">Rolls</option>" +
+                        "                    <option value=\"Confectionery\">Confectionery</option>\n" +
+                        "        <optgroup label=\"Meat & Fish\">"+
+                        "                    <option value=\"Poultry\">Poultry</option>\n" +
+                        "                    <option value=\"Pork\">Pork</option>\n" +
+                        "                    <option value=\"Beef\">Beef</option>\n" +
+                        "                    <option value=\"Seafood\">Seafood</option>\n" +
+                        "        <optgroup label=\"Fruits & Vegetables\">"+
+                        "                    <option value=\"Fruits\">Fruits</option>\n" +
+                        "                    <option value=\"Herbs\">Herbs</option>\n" +
+                        "                    <option value=\"Salads\">Salads</option>\n" +
+                        "                    <option value=\"Vegetables\">Vegetables</option>\n" +
+                        "        <optgroup label=\"Vegan & Drinks\">"+
+                        "                    <option value=\"Meat Substitutes\">Meat Substitutes</option>\n" +
+                        "                    <option value=\"Milk Substitutes\">Milk Substitutes</option>\n" +
+                        "                    <option value=\"Cheese Substitutes\">Cheese Substitutes</option>\n" +
+                        "                    <option value=\"Tofu Variations\">Tofu Variations</option>\n" +
+                        "                    <option value=\"Juices\">Juices</option>\n" +
+                        "                    <option value=\"Smoothies\">Smoothies</option>\n" +
+                        "                    <option value=\"Milk and Hot Chocolate\">Milk and Hot Chocolate</option>\n" +
+                        "                    <option value=\"Alcoholic Beverages\">Alcoholic Beverages</option>\n" +
+                        "        <optgroup label=\"Health & Care\">"+
+                        "                    <option value=\"Pastries\">Health Products</option>\n" +
+                        "                    <option value=\"Pastries\">Natural Cosmetics</option></select></div>" + "<br>" +
+
+                        "<b><p style=\"text-align: center\">Product Image</p></b>"+"<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
+                        "<p>Change image:</p>"+
+                        "<input class=\"form-control form-control-sm\" id=\"imageName\" type=\"file\" value ='" + p["image"] + "'>" +
+
+                        "<b><p style=\"text-align: center\">Name:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\" id=\"productname\"></input>"+
+
+                        "<b><p style=\"text-align  center\">Description:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\" id=\"description\"></input>"+
+
+                        "<b><p style=\"text-align: center\">Price in EUR:</p></b>"+
+                        "<input style=\"text-align: center\" type='number' id=\"price\" value=" + parseFloat(p["price"]) + " ></input>"+
+
+                        "<b><p style=\"text-align: center\">Rating:</p></b>"+
+                        "<input type='number' style=\"text-align: center\" name ='rating' id=\"rating\" value=" + parseFloat(p["rating"]) + " ></input>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"updateProducts(this);\" class=\"btn btn-primary\">"+"Save Changes"+"</button>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"deleteProducts(this);\" class=\"btn btn-danger\">"+"Delete"+"</button>"+
+                        "</div>"+"</div>"+"</div>"+"</div>"+"</form>");
                 });
                 $('#productdata').show();
 
@@ -250,7 +474,7 @@ function updateProducts() {
             }
         });
     }
-
+//edit product data for confectionery
     function loadConfectioneryEdit() {
         $.ajax({
             type: "GET",
@@ -265,18 +489,69 @@ function updateProducts() {
                 $('#productdata').empty();
                 $('#productdata').hide();
 
-                $.each(response, function (i, p) {
+                $.each(response, function(i, p) {
                     $("#productdata").append(
-                        "<div class=\"d-flex justify-content-between p-3\">" +
-                        "<div class=\"col\">" +
-                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">" +
-                        "<div class=\"card-body\">" +
-                        "<b>" + p["subcategory"] + "</b>" + "<br>" +
-                        "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
-                        "<h4>" + p["productname"] + "</h4>" +
-                        "<h5>" + "<b>" + "€ " + p["price"] + "</h5>" +
-                        "<p>" + "Rating: " + p["rating"] + "</p>" +
-                        "<button href=\"#\" onclick=\" ('" + p["productId"] + "');\" class=\"btn btn-primary\">" + "Add To Cart" + "</button>" + "</div>" + "</div>" + "</div>" + "</div>");
+                        "<div name=\"cartElement\" class=\"d-flex justify-content-between p-3\">"+
+                        "<div class=\"col\">"+
+                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">"+
+                        "<div class=\"card-body\">"+
+                        "<b><p>Product ID</p></b>"+
+                        "<div><input id='productId' type=\"hidden\" value=\"" + p["productId"] +"\">"+ p['productId'] + "</input></div>" +
+                        "<b><p>Category</p></b>"+"<div><select id=\"category\">"+
+                        "                    <option>"+ p['category'] + "</option>" +
+                        "                    <option value=\"Bread and Pastries\">Bread & Pastries</option>\n" +
+                        "                    <option value=\"Meat and Fish\">Meat & Fish</option>" +
+                        "                    <option value=\"Fruits and Vegetables\">Fruits & Vegetables</option>\n" +
+                        "                    <option value=\"Vegan and Drinks\">Vegan & Drinks</option>\n" +
+                        "                    <option value=\"Health and Care\">Health & Care</option></select></div>" +
+                        "<b><p>Subcategory</p></b>"+"<div><select id=\"subcategory\">"+
+                        "                    <option>"+ p['subcategory'] + "</option>" +
+                        "        <optgroup label=\"Bread & Pastries\">" +
+                        "                    <option value=\"Bread\">Bread</option>\n" +
+                        "                    <option value=\"Pastries\">Pastries</option>\n" +
+                        "                    <option value=\"Rolls\">Rolls</option>" +
+                        "                    <option value=\"Confectionery\">Confectionery</option>\n" +
+                        "        <optgroup label=\"Meat & Fish\">"+
+                        "                    <option value=\"Poultry\">Poultry</option>\n" +
+                        "                    <option value=\"Pork\">Pork</option>\n" +
+                        "                    <option value=\"Beef\">Beef</option>\n" +
+                        "                    <option value=\"Seafood\">Seafood</option>\n" +
+                        "        <optgroup label=\"Fruits & Vegetables\">"+
+                        "                    <option value=\"Fruits\">Fruits</option>\n" +
+                        "                    <option value=\"Herbs\">Herbs</option>\n" +
+                        "                    <option value=\"Salads\">Salads</option>\n" +
+                        "                    <option value=\"Vegetables\">Vegetables</option>\n" +
+                        "        <optgroup label=\"Vegan & Drinks\">"+
+                        "                    <option value=\"Meat Substitutes\">Meat Substitutes</option>\n" +
+                        "                    <option value=\"Milk Substitutes\">Milk Substitutes</option>\n" +
+                        "                    <option value=\"Cheese Substitutes\">Cheese Substitutes</option>\n" +
+                        "                    <option value=\"Tofu Variations\">Tofu Variations</option>\n" +
+                        "                    <option value=\"Juices\">Juices</option>\n" +
+                        "                    <option value=\"Smoothies\">Smoothies</option>\n" +
+                        "                    <option value=\"Milk and Hot Chocolate\">Milk and Hot Chocolate</option>\n" +
+                        "                    <option value=\"Alcoholic Beverages\">Alcoholic Beverages</option>\n" +
+                        "        <optgroup label=\"Health & Care\">"+
+                        "                    <option value=\"Pastries\">Health Products</option>\n" +
+                        "                    <option value=\"Pastries\">Natural Cosmetics</option></select></div>" + "<br>" +
+
+                        "<b><p style=\"text-align: center\">Product Image</p></b>"+"<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
+                        "<p>Change image:</p>"+
+                        "<input class=\"form-control form-control-sm\" id=\"imageName\" type=\"file\" value ='" + p["image"] + "'>" +
+
+                        "<b><p style=\"text-align: center\">Name:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\" id=\"productname\"></input>"+
+
+                        "<b><p style=\"text-align  center\">Description:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\" id=\"description\"></input>"+
+
+                        "<b><p style=\"text-align: center\">Price in EUR:</p></b>"+
+                        "<input style=\"text-align: center\" type='number' id=\"price\" value=" + parseFloat(p["price"]) + " ></input>"+
+
+                        "<b><p style=\"text-align: center\">Rating:</p></b>"+
+                        "<input type='number' style=\"text-align: center\" name ='rating' id=\"rating\" value=" + parseFloat(p["rating"]) + " ></input>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"updateProducts(this);\" class=\"btn btn-primary\">"+"Save Changes"+"</button>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"deleteProducts(this);\" class=\"btn btn-danger\">"+"Delete"+"</button>"+
+                        "</div>"+"</div>"+"</div>"+"</div>"+"</form>");
                 });
                 $('#productdata').show();
 
@@ -287,6 +562,7 @@ function updateProducts() {
         });
     }
 
+//edit product data for poultry
     function loadPoultryEdit() {
         $.ajax({
             type: "GET",
@@ -301,18 +577,69 @@ function updateProducts() {
                 $('#productdata').empty();
                 $('#productdata').hide();
 
-                $.each(response, function (i, p) {
+                $.each(response, function(i, p) {
                     $("#productdata").append(
-                        "<div class=\"d-flex justify-content-between p-3\">" +
-                        "<div class=\"col\">" +
-                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">" +
-                        "<div class=\"card-body\">" +
-                        "<b>" + p["subcategory"] + "</b>" + "<br>" +
-                        "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
-                        "<h4>" + p["productname"] + "</h4>" +
-                        "<h5>" + "<b>" + "€ " + p["price"] + "</h5>" +
-                        "<p>" + "Rating: " + p["rating"] + "</p>" +
-                        "<button href=\"#\" onclick=\" ('" + p["productId"] + "');\" class=\"btn btn-primary\">" + "Add To Cart" + "</button>" + "</div>" + "</div>" + "</div>" + "</div>");
+                        "<div name=\"cartElement\" class=\"d-flex justify-content-between p-3\">"+
+                        "<div class=\"col\">"+
+                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">"+
+                        "<div class=\"card-body\">"+
+                        "<b><p>Product ID</p></b>"+
+                        "<div><input id='productId' type=\"hidden\" value=\"" + p["productId"] +"\">"+ p['productId'] + "</input></div>" +
+                        "<b><p>Category</p></b>"+"<div><select id=\"category\">"+
+                        "                    <option>"+ p['category'] + "</option>" +
+                        "                    <option value=\"Bread and Pastries\">Bread & Pastries</option>\n" +
+                        "                    <option value=\"Meat and Fish\">Meat & Fish</option>" +
+                        "                    <option value=\"Fruits and Vegetables\">Fruits & Vegetables</option>\n" +
+                        "                    <option value=\"Vegan and Drinks\">Vegan & Drinks</option>\n" +
+                        "                    <option value=\"Health and Care\">Health & Care</option></select></div>" +
+                        "<b><p>Subcategory</p></b>"+"<div><select id=\"subcategory\">"+
+                        "                    <option>"+ p['subcategory'] + "</option>" +
+                        "        <optgroup label=\"Bread & Pastries\">" +
+                        "                    <option value=\"Bread\">Bread</option>\n" +
+                        "                    <option value=\"Pastries\">Pastries</option>\n" +
+                        "                    <option value=\"Rolls\">Rolls</option>" +
+                        "                    <option value=\"Confectionery\">Confectionery</option>\n" +
+                        "        <optgroup label=\"Meat & Fish\">"+
+                        "                    <option value=\"Poultry\">Poultry</option>\n" +
+                        "                    <option value=\"Pork\">Pork</option>\n" +
+                        "                    <option value=\"Beef\">Beef</option>\n" +
+                        "                    <option value=\"Seafood\">Seafood</option>\n" +
+                        "        <optgroup label=\"Fruits & Vegetables\">"+
+                        "                    <option value=\"Fruits\">Fruits</option>\n" +
+                        "                    <option value=\"Herbs\">Herbs</option>\n" +
+                        "                    <option value=\"Salads\">Salads</option>\n" +
+                        "                    <option value=\"Vegetables\">Vegetables</option>\n" +
+                        "        <optgroup label=\"Vegan & Drinks\">"+
+                        "                    <option value=\"Meat Substitutes\">Meat Substitutes</option>\n" +
+                        "                    <option value=\"Milk Substitutes\">Milk Substitutes</option>\n" +
+                        "                    <option value=\"Cheese Substitutes\">Cheese Substitutes</option>\n" +
+                        "                    <option value=\"Tofu Variations\">Tofu Variations</option>\n" +
+                        "                    <option value=\"Juices\">Juices</option>\n" +
+                        "                    <option value=\"Smoothies\">Smoothies</option>\n" +
+                        "                    <option value=\"Milk and Hot Chocolate\">Milk and Hot Chocolate</option>\n" +
+                        "                    <option value=\"Alcoholic Beverages\">Alcoholic Beverages</option>\n" +
+                        "        <optgroup label=\"Health & Care\">"+
+                        "                    <option value=\"Pastries\">Health Products</option>\n" +
+                        "                    <option value=\"Pastries\">Natural Cosmetics</option></select></div>" + "<br>" +
+
+                        "<b><p style=\"text-align: center\">Product Image</p></b>"+"<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
+                        "<p>Change image:</p>"+
+                        "<input class=\"form-control form-control-sm\" id=\"imageName\" type=\"file\" value ='" + p["image"] + "'>" +
+
+                        "<b><p style=\"text-align: center\">Name:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\" id=\"productname\"></input>"+
+
+                        "<b><p style=\"text-align  center\">Description:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\" id=\"description\"></input>"+
+
+                        "<b><p style=\"text-align: center\">Price in EUR:</p></b>"+
+                        "<input style=\"text-align: center\" type='number' id=\"price\" value=" + parseFloat(p["price"]) + " ></input>"+
+
+                        "<b><p style=\"text-align: center\">Rating:</p></b>"+
+                        "<input type='number' style=\"text-align: center\" name ='rating' id=\"rating\" value=" + parseFloat(p["rating"]) + " ></input>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"updateProducts(this);\" class=\"btn btn-primary\">"+"Save Changes"+"</button>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"deleteProducts(this);\" class=\"btn btn-danger\">"+"Delete"+"</button>"+
+                        "</div>"+"</div>"+"</div>"+"</div>"+"</form>");
                 });
                 $('#productdata').show();
 
@@ -322,7 +649,7 @@ function updateProducts() {
             }
         });
     }
-
+//edit product data for beef
     function loadBeefEdit() {
         $.ajax({
             type: "GET",
@@ -337,18 +664,69 @@ function updateProducts() {
                 $('#productdata').empty();
                 $('#productdata').hide();
 
-                $.each(response, function (i, p) {
+                $.each(response, function(i, p) {
                     $("#productdata").append(
-                        "<div class=\"d-flex justify-content-between p-3\">" +
-                        "<div class=\"col\">" +
-                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">" +
-                        "<div class=\"card-body\">" +
-                        "<b>" + p["subcategory"] + "</b>" + "<br>" +
-                        "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
-                        "<h4>" + p["productname"] + "</h4>" +
-                        "<h5>" + "<b>" + "€ " + p["price"] + "</h5>" +
-                        "<p>" + "Rating: " + p["rating"] + "</p>" +
-                        "<button href=\"#\" onclick=\" ('" + p["productId"] + "');\" class=\"btn btn-primary\">" + "Add To Cart" + "</button>" + "</div>" + "</div>" + "</div>" + "</div>");
+                        "<div name=\"cartElement\" class=\"d-flex justify-content-between p-3\">"+
+                        "<div class=\"col\">"+
+                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">"+
+                        "<div class=\"card-body\">"+
+                        "<b><p>Product ID</p></b>"+
+                        "<div><input id='productId' type=\"hidden\" value=\"" + p["productId"] +"\">"+ p['productId'] + "</input></div>" +
+                        "<b><p>Category</p></b>"+"<div><select id=\"category\">"+
+                        "                    <option>"+ p['category'] + "</option>" +
+                        "                    <option value=\"Bread and Pastries\">Bread & Pastries</option>\n" +
+                        "                    <option value=\"Meat and Fish\">Meat & Fish</option>" +
+                        "                    <option value=\"Fruits and Vegetables\">Fruits & Vegetables</option>\n" +
+                        "                    <option value=\"Vegan and Drinks\">Vegan & Drinks</option>\n" +
+                        "                    <option value=\"Health and Care\">Health & Care</option></select></div>" +
+                        "<b><p>Subcategory</p></b>"+"<div><select id=\"subcategory\">"+
+                        "                    <option>"+ p['subcategory'] + "</option>" +
+                        "        <optgroup label=\"Bread & Pastries\">" +
+                        "                    <option value=\"Bread\">Bread</option>\n" +
+                        "                    <option value=\"Pastries\">Pastries</option>\n" +
+                        "                    <option value=\"Rolls\">Rolls</option>" +
+                        "                    <option value=\"Confectionery\">Confectionery</option>\n" +
+                        "        <optgroup label=\"Meat & Fish\">"+
+                        "                    <option value=\"Poultry\">Poultry</option>\n" +
+                        "                    <option value=\"Pork\">Pork</option>\n" +
+                        "                    <option value=\"Beef\">Beef</option>\n" +
+                        "                    <option value=\"Seafood\">Seafood</option>\n" +
+                        "        <optgroup label=\"Fruits & Vegetables\">"+
+                        "                    <option value=\"Fruits\">Fruits</option>\n" +
+                        "                    <option value=\"Herbs\">Herbs</option>\n" +
+                        "                    <option value=\"Salads\">Salads</option>\n" +
+                        "                    <option value=\"Vegetables\">Vegetables</option>\n" +
+                        "        <optgroup label=\"Vegan & Drinks\">"+
+                        "                    <option value=\"Meat Substitutes\">Meat Substitutes</option>\n" +
+                        "                    <option value=\"Milk Substitutes\">Milk Substitutes</option>\n" +
+                        "                    <option value=\"Cheese Substitutes\">Cheese Substitutes</option>\n" +
+                        "                    <option value=\"Tofu Variations\">Tofu Variations</option>\n" +
+                        "                    <option value=\"Juices\">Juices</option>\n" +
+                        "                    <option value=\"Smoothies\">Smoothies</option>\n" +
+                        "                    <option value=\"Milk and Hot Chocolate\">Milk and Hot Chocolate</option>\n" +
+                        "                    <option value=\"Alcoholic Beverages\">Alcoholic Beverages</option>\n" +
+                        "        <optgroup label=\"Health & Care\">"+
+                        "                    <option value=\"Pastries\">Health Products</option>\n" +
+                        "                    <option value=\"Pastries\">Natural Cosmetics</option></select></div>" + "<br>" +
+
+                        "<b><p style=\"text-align: center\">Product Image</p></b>"+"<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
+                        "<p>Change image:</p>"+
+                        "<input class=\"form-control form-control-sm\" id=\"imageName\" type=\"file\" value ='" + p["image"] + "'>" +
+
+                        "<b><p style=\"text-align: center\">Name:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\" id=\"productname\"></input>"+
+
+                        "<b><p style=\"text-align  center\">Description:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\" id=\"description\"></input>"+
+
+                        "<b><p style=\"text-align: center\">Price in EUR:</p></b>"+
+                        "<input style=\"text-align: center\" type='number' id=\"price\" value=" + parseFloat(p["price"]) + " ></input>"+
+
+                        "<b><p style=\"text-align: center\">Rating:</p></b>"+
+                        "<input type='number' style=\"text-align: center\" name ='rating' id=\"rating\" value=" + parseFloat(p["rating"]) + " ></input>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"updateProducts(this);\" class=\"btn btn-primary\">"+"Save Changes"+"</button>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"deleteProducts(this);\" class=\"btn btn-danger\">"+"Delete"+"</button>"+
+                        "</div>"+"</div>"+"</div>"+"</div>"+"</form>");
                 });
                 $('#productdata').show();
 
@@ -359,7 +737,7 @@ function updateProducts() {
         });
     }
 
-
+//edit product data for seafood
     function loadSeafoodEdit() {
         $.ajax({
             type: "GET",
@@ -374,18 +752,69 @@ function updateProducts() {
                 $('#productdata').empty();
                 $('#productdata').hide();
 
-                $.each(response, function (i, p) {
+                $.each(response, function(i, p) {
                     $("#productdata").append(
-                        "<div class=\"d-flex justify-content-between p-3\">" +
-                        "<div class=\"col\">" +
-                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">" +
-                        "<div class=\"card-body\">" +
-                        "<b>" + p["subcategory"] + "</b>" + "<br>" +
-                        "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
-                        "<h4>" + p["productname"] + "</h4>" +
-                        "<h5>" + "<b>" + "€ " + p["price"] + "</h5>" +
-                        "<p>" + "Rating: " + p["rating"] + "</p>" +
-                        "<button href=\"#\" onclick=\" ('" + p["productId"] + "');\" class=\"btn btn-primary\">" + "Add To Cart" + "</button>" + "</div>" + "</div>" + "</div>" + "</div>");
+                        "<div name=\"cartElement\" class=\"d-flex justify-content-between p-3\">"+
+                        "<div class=\"col\">"+
+                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">"+
+                        "<div class=\"card-body\">"+
+                        "<b><p>Product ID</p></b>"+
+                        "<div><input id='productId' type=\"hidden\" value=\"" + p["productId"] +"\">"+ p['productId'] + "</input></div>" +
+                        "<b><p>Category</p></b>"+"<div><select id=\"category\">"+
+                        "                    <option>"+ p['category'] + "</option>" +
+                        "                    <option value=\"Bread and Pastries\">Bread & Pastries</option>\n" +
+                        "                    <option value=\"Meat and Fish\">Meat & Fish</option>" +
+                        "                    <option value=\"Fruits and Vegetables\">Fruits & Vegetables</option>\n" +
+                        "                    <option value=\"Vegan and Drinks\">Vegan & Drinks</option>\n" +
+                        "                    <option value=\"Health and Care\">Health & Care</option></select></div>" +
+                        "<b><p>Subcategory</p></b>"+"<div><select id=\"subcategory\">"+
+                        "                    <option>"+ p['subcategory'] + "</option>" +
+                        "        <optgroup label=\"Bread & Pastries\">" +
+                        "                    <option value=\"Bread\">Bread</option>\n" +
+                        "                    <option value=\"Pastries\">Pastries</option>\n" +
+                        "                    <option value=\"Rolls\">Rolls</option>" +
+                        "                    <option value=\"Confectionery\">Confectionery</option>\n" +
+                        "        <optgroup label=\"Meat & Fish\">"+
+                        "                    <option value=\"Poultry\">Poultry</option>\n" +
+                        "                    <option value=\"Pork\">Pork</option>\n" +
+                        "                    <option value=\"Beef\">Beef</option>\n" +
+                        "                    <option value=\"Seafood\">Seafood</option>\n" +
+                        "        <optgroup label=\"Fruits & Vegetables\">"+
+                        "                    <option value=\"Fruits\">Fruits</option>\n" +
+                        "                    <option value=\"Herbs\">Herbs</option>\n" +
+                        "                    <option value=\"Salads\">Salads</option>\n" +
+                        "                    <option value=\"Vegetables\">Vegetables</option>\n" +
+                        "        <optgroup label=\"Vegan & Drinks\">"+
+                        "                    <option value=\"Meat Substitutes\">Meat Substitutes</option>\n" +
+                        "                    <option value=\"Milk Substitutes\">Milk Substitutes</option>\n" +
+                        "                    <option value=\"Cheese Substitutes\">Cheese Substitutes</option>\n" +
+                        "                    <option value=\"Tofu Variations\">Tofu Variations</option>\n" +
+                        "                    <option value=\"Juices\">Juices</option>\n" +
+                        "                    <option value=\"Smoothies\">Smoothies</option>\n" +
+                        "                    <option value=\"Milk and Hot Chocolate\">Milk and Hot Chocolate</option>\n" +
+                        "                    <option value=\"Alcoholic Beverages\">Alcoholic Beverages</option>\n" +
+                        "        <optgroup label=\"Health & Care\">"+
+                        "                    <option value=\"Pastries\">Health Products</option>\n" +
+                        "                    <option value=\"Pastries\">Natural Cosmetics</option></select></div>" + "<br>" +
+
+                        "<b><p style=\"text-align: center\">Product Image</p></b>"+"<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
+                        "<p>Change image:</p>"+
+                        "<input class=\"form-control form-control-sm\" id=\"imageName\" type=\"file\" value ='" + p["image"] + "'>" +
+
+                        "<b><p style=\"text-align: center\">Name:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\" id=\"productname\"></input>"+
+
+                        "<b><p style=\"text-align  center\">Description:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\" id=\"description\"></input>"+
+
+                        "<b><p style=\"text-align: center\">Price in EUR:</p></b>"+
+                        "<input style=\"text-align: center\" type='number' id=\"price\" value=" + parseFloat(p["price"]) + " ></input>"+
+
+                        "<b><p style=\"text-align: center\">Rating:</p></b>"+
+                        "<input type='number' style=\"text-align: center\" name ='rating' id=\"rating\" value=" + parseFloat(p["rating"]) + " ></input>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"updateProducts(this);\" class=\"btn btn-primary\">"+"Save Changes"+"</button>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"deleteProducts(this);\" class=\"btn btn-danger\">"+"Delete"+"</button>"+
+                        "</div>"+"</div>"+"</div>"+"</div>"+"</form>");
                 });
                 $('#productdata').show();
 
@@ -395,7 +824,7 @@ function updateProducts() {
             }
         });
     }
-
+//edit product data for fruits
     function loadFruitsEdit() {
         $.ajax({
             type: "GET",
@@ -410,18 +839,69 @@ function updateProducts() {
                 $('#productdata').empty();
                 $('#productdata').hide();
 
-                $.each(response, function (i, p) {
+                $.each(response, function(i, p) {
                     $("#productdata").append(
-                        "<div class=\"d-flex justify-content-between p-3\">" +
-                        "<div class=\"col\">" +
-                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">" +
-                        "<div class=\"card-body\">" +
-                        "<b>" + p["subcategory"] + "</b>" + "<br>" +
-                        "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
-                        "<h4>" + p["productname"] + "</h4>" +
-                        "<h5>" + "<b>" + "€ " + p["price"] + "</h5>" +
-                        "<p>" + "Rating: " + p["rating"] + "</p>" +
-                        "<button href=\"#\" onclick=\" ('" + p["productId"] + "');\" class=\"btn btn-primary\">" + "Add To Cart" + "</button>" + "</div>" + "</div>" + "</div>" + "</div>");
+                        "<div name=\"cartElement\" class=\"d-flex justify-content-between p-3\">"+
+                        "<div class=\"col\">"+
+                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">"+
+                        "<div class=\"card-body\">"+
+                        "<b><p>Product ID</p></b>"+
+                        "<div><input id='productId' type=\"hidden\" value=\"" + p["productId"] +"\">"+ p['productId'] + "</input></div>" +
+                        "<b><p>Category</p></b>"+"<div><select id=\"category\">"+
+                        "                    <option>"+ p['category'] + "</option>" +
+                        "                    <option value=\"Bread and Pastries\">Bread & Pastries</option>\n" +
+                        "                    <option value=\"Meat and Fish\">Meat & Fish</option>" +
+                        "                    <option value=\"Fruits and Vegetables\">Fruits & Vegetables</option>\n" +
+                        "                    <option value=\"Vegan and Drinks\">Vegan & Drinks</option>\n" +
+                        "                    <option value=\"Health and Care\">Health & Care</option></select></div>" +
+                        "<b><p>Subcategory</p></b>"+"<div><select id=\"subcategory\">"+
+                        "                    <option>"+ p['subcategory'] + "</option>" +
+                        "        <optgroup label=\"Bread & Pastries\">" +
+                        "                    <option value=\"Bread\">Bread</option>\n" +
+                        "                    <option value=\"Pastries\">Pastries</option>\n" +
+                        "                    <option value=\"Rolls\">Rolls</option>" +
+                        "                    <option value=\"Confectionery\">Confectionery</option>\n" +
+                        "        <optgroup label=\"Meat & Fish\">"+
+                        "                    <option value=\"Poultry\">Poultry</option>\n" +
+                        "                    <option value=\"Pork\">Pork</option>\n" +
+                        "                    <option value=\"Beef\">Beef</option>\n" +
+                        "                    <option value=\"Seafood\">Seafood</option>\n" +
+                        "        <optgroup label=\"Fruits & Vegetables\">"+
+                        "                    <option value=\"Fruits\">Fruits</option>\n" +
+                        "                    <option value=\"Herbs\">Herbs</option>\n" +
+                        "                    <option value=\"Salads\">Salads</option>\n" +
+                        "                    <option value=\"Vegetables\">Vegetables</option>\n" +
+                        "        <optgroup label=\"Vegan & Drinks\">"+
+                        "                    <option value=\"Meat Substitutes\">Meat Substitutes</option>\n" +
+                        "                    <option value=\"Milk Substitutes\">Milk Substitutes</option>\n" +
+                        "                    <option value=\"Cheese Substitutes\">Cheese Substitutes</option>\n" +
+                        "                    <option value=\"Tofu Variations\">Tofu Variations</option>\n" +
+                        "                    <option value=\"Juices\">Juices</option>\n" +
+                        "                    <option value=\"Smoothies\">Smoothies</option>\n" +
+                        "                    <option value=\"Milk and Hot Chocolate\">Milk and Hot Chocolate</option>\n" +
+                        "                    <option value=\"Alcoholic Beverages\">Alcoholic Beverages</option>\n" +
+                        "        <optgroup label=\"Health & Care\">"+
+                        "                    <option value=\"Pastries\">Health Products</option>\n" +
+                        "                    <option value=\"Pastries\">Natural Cosmetics</option></select></div>" + "<br>" +
+
+                        "<b><p style=\"text-align: center\">Product Image</p></b>"+"<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
+                        "<p>Change image:</p>"+
+                        "<input class=\"form-control form-control-sm\" id=\"imageName\" type=\"file\" value ='" + p["image"] + "'>" +
+
+                        "<b><p style=\"text-align: center\">Name:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\" id=\"productname\"></input>"+
+
+                        "<b><p style=\"text-align  center\">Description:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\" id=\"description\"></input>"+
+
+                        "<b><p style=\"text-align: center\">Price in EUR:</p></b>"+
+                        "<input style=\"text-align: center\" type='number' id=\"price\" value=" + parseFloat(p["price"]) + " ></input>"+
+
+                        "<b><p style=\"text-align: center\">Rating:</p></b>"+
+                        "<input type='number' style=\"text-align: center\" name ='rating' id=\"rating\" value=" + parseFloat(p["rating"]) + " ></input>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"updateProducts(this);\" class=\"btn btn-primary\">"+"Save Changes"+"</button>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"deleteProducts(this);\" class=\"btn btn-danger\">"+"Delete"+"</button>"+
+                        "</div>"+"</div>"+"</div>"+"</div>"+"</form>");
                 });
                 $('#productdata').show();
 
@@ -432,6 +912,7 @@ function updateProducts() {
         });
     }
 
+//edit product data for herbs
     function loadHerbsEdit() {
         $.ajax({
             type: "GET",
@@ -446,18 +927,69 @@ function updateProducts() {
                 $('#productdata').empty();
                 $('#productdata').hide();
 
-                $.each(response, function (i, p) {
+                $.each(response, function(i, p) {
                     $("#productdata").append(
-                        "<div class=\"d-flex justify-content-between p-3\">" +
-                        "<div class=\"col\">" +
-                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">" +
-                        "<div class=\"card-body\">" +
-                        "<b>" + p["subcategory"] + "</b>" + "<br>" +
-                        "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
-                        "<h4>" + p["productname"] + "</h4>" +
-                        "<h5>" + "<b>" + "€ " + p["price"] + "</h5>" +
-                        "<p>" + "Rating: " + p["rating"] + "</p>" +
-                        "<button href=\"#\" onclick=\" ('" + p["productId"] + "');\" class=\"btn btn-primary\">" + "Add To Cart" + "</button>" + "</div>" + "</div>" + "</div>" + "</div>");
+                        "<div name=\"cartElement\" class=\"d-flex justify-content-between p-3\">"+
+                        "<div class=\"col\">"+
+                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">"+
+                        "<div class=\"card-body\">"+
+                        "<b><p>Product ID</p></b>"+
+                        "<div><input id='productId' type=\"hidden\" value=\"" + p["productId"] +"\">"+ p['productId'] + "</input></div>" +
+                        "<b><p>Category</p></b>"+"<div><select id=\"category\">"+
+                        "                    <option>"+ p['category'] + "</option>" +
+                        "                    <option value=\"Bread and Pastries\">Bread & Pastries</option>\n" +
+                        "                    <option value=\"Meat and Fish\">Meat & Fish</option>" +
+                        "                    <option value=\"Fruits and Vegetables\">Fruits & Vegetables</option>\n" +
+                        "                    <option value=\"Vegan and Drinks\">Vegan & Drinks</option>\n" +
+                        "                    <option value=\"Health and Care\">Health & Care</option></select></div>" +
+                        "<b><p>Subcategory</p></b>"+"<div><select id=\"subcategory\">"+
+                        "                    <option>"+ p['subcategory'] + "</option>" +
+                        "        <optgroup label=\"Bread & Pastries\">" +
+                        "                    <option value=\"Bread\">Bread</option>\n" +
+                        "                    <option value=\"Pastries\">Pastries</option>\n" +
+                        "                    <option value=\"Rolls\">Rolls</option>" +
+                        "                    <option value=\"Confectionery\">Confectionery</option>\n" +
+                        "        <optgroup label=\"Meat & Fish\">"+
+                        "                    <option value=\"Poultry\">Poultry</option>\n" +
+                        "                    <option value=\"Pork\">Pork</option>\n" +
+                        "                    <option value=\"Beef\">Beef</option>\n" +
+                        "                    <option value=\"Seafood\">Seafood</option>\n" +
+                        "        <optgroup label=\"Fruits & Vegetables\">"+
+                        "                    <option value=\"Fruits\">Fruits</option>\n" +
+                        "                    <option value=\"Herbs\">Herbs</option>\n" +
+                        "                    <option value=\"Salads\">Salads</option>\n" +
+                        "                    <option value=\"Vegetables\">Vegetables</option>\n" +
+                        "        <optgroup label=\"Vegan & Drinks\">"+
+                        "                    <option value=\"Meat Substitutes\">Meat Substitutes</option>\n" +
+                        "                    <option value=\"Milk Substitutes\">Milk Substitutes</option>\n" +
+                        "                    <option value=\"Cheese Substitutes\">Cheese Substitutes</option>\n" +
+                        "                    <option value=\"Tofu Variations\">Tofu Variations</option>\n" +
+                        "                    <option value=\"Juices\">Juices</option>\n" +
+                        "                    <option value=\"Smoothies\">Smoothies</option>\n" +
+                        "                    <option value=\"Milk and Hot Chocolate\">Milk and Hot Chocolate</option>\n" +
+                        "                    <option value=\"Alcoholic Beverages\">Alcoholic Beverages</option>\n" +
+                        "        <optgroup label=\"Health & Care\">"+
+                        "                    <option value=\"Pastries\">Health Products</option>\n" +
+                        "                    <option value=\"Pastries\">Natural Cosmetics</option></select></div>" + "<br>" +
+
+                        "<b><p style=\"text-align: center\">Product Image</p></b>"+"<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
+                        "<p>Change image:</p>"+
+                        "<input class=\"form-control form-control-sm\" id=\"imageName\" type=\"file\" value ='" + p["image"] + "'>" +
+
+                        "<b><p style=\"text-align: center\">Name:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\" id=\"productname\"></input>"+
+
+                        "<b><p style=\"text-align  center\">Description:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\" id=\"description\"></input>"+
+
+                        "<b><p style=\"text-align: center\">Price in EUR:</p></b>"+
+                        "<input style=\"text-align: center\" type='number' id=\"price\" value=" + parseFloat(p["price"]) + " ></input>"+
+
+                        "<b><p style=\"text-align: center\">Rating:</p></b>"+
+                        "<input type='number' style=\"text-align: center\" name ='rating' id=\"rating\" value=" + parseFloat(p["rating"]) + " ></input>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"updateProducts(this);\" class=\"btn btn-primary\">"+"Save Changes"+"</button>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"deleteProducts(this);\" class=\"btn btn-danger\">"+"Delete"+"</button>"+
+                        "</div>"+"</div>"+"</div>"+"</div>"+"</form>");
                 });
                 $('#productdata').show();
 
@@ -468,6 +1000,7 @@ function updateProducts() {
         });
     }
 
+//edit product data for salads
     function loadSaladsEdit() {
         $.ajax({
             type: "GET",
@@ -482,18 +1015,69 @@ function updateProducts() {
                 $('#productdata').empty();
                 $('#productdata').hide();
 
-                $.each(response, function (i, p) {
+                $.each(response, function(i, p) {
                     $("#productdata").append(
-                        "<div class=\"d-flex justify-content-between p-3\">" +
-                        "<div class=\"col\">" +
-                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">" +
-                        "<div class=\"card-body\">" +
-                        "<b>" + p["subcategory"] + "</b>" + "<br>" +
-                        "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
-                        "<h4>" + p["productname"] + "</h4>" +
-                        "<h5>" + "<b>" + "€ " + p["price"] + "</h5>" +
-                        "<p>" + "Rating: " + p["rating"] + "</p>" +
-                        "<button href=\"#\" onclick=\" ('" + p["productId"] + "');\" class=\"btn btn-primary\">" + "Add To Cart" + "</button>" + "</div>" + "</div>" + "</div>" + "</div>");
+                        "<div name=\"cartElement\" class=\"d-flex justify-content-between p-3\">"+
+                        "<div class=\"col\">"+
+                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">"+
+                        "<div class=\"card-body\">"+
+                        "<b><p>Product ID</p></b>"+
+                        "<div><input id='productId' type=\"hidden\" value=\"" + p["productId"] +"\">"+ p['productId'] + "</input></div>" +
+                        "<b><p>Category</p></b>"+"<div><select id=\"category\">"+
+                        "                    <option>"+ p['category'] + "</option>" +
+                        "                    <option value=\"Bread and Pastries\">Bread & Pastries</option>\n" +
+                        "                    <option value=\"Meat and Fish\">Meat & Fish</option>" +
+                        "                    <option value=\"Fruits and Vegetables\">Fruits & Vegetables</option>\n" +
+                        "                    <option value=\"Vegan and Drinks\">Vegan & Drinks</option>\n" +
+                        "                    <option value=\"Health and Care\">Health & Care</option></select></div>" +
+                        "<b><p>Subcategory</p></b>"+"<div><select id=\"subcategory\">"+
+                        "                    <option>"+ p['subcategory'] + "</option>" +
+                        "        <optgroup label=\"Bread & Pastries\">" +
+                        "                    <option value=\"Bread\">Bread</option>\n" +
+                        "                    <option value=\"Pastries\">Pastries</option>\n" +
+                        "                    <option value=\"Rolls\">Rolls</option>" +
+                        "                    <option value=\"Confectionery\">Confectionery</option>\n" +
+                        "        <optgroup label=\"Meat & Fish\">"+
+                        "                    <option value=\"Poultry\">Poultry</option>\n" +
+                        "                    <option value=\"Pork\">Pork</option>\n" +
+                        "                    <option value=\"Beef\">Beef</option>\n" +
+                        "                    <option value=\"Seafood\">Seafood</option>\n" +
+                        "        <optgroup label=\"Fruits & Vegetables\">"+
+                        "                    <option value=\"Fruits\">Fruits</option>\n" +
+                        "                    <option value=\"Herbs\">Herbs</option>\n" +
+                        "                    <option value=\"Salads\">Salads</option>\n" +
+                        "                    <option value=\"Vegetables\">Vegetables</option>\n" +
+                        "        <optgroup label=\"Vegan & Drinks\">"+
+                        "                    <option value=\"Meat Substitutes\">Meat Substitutes</option>\n" +
+                        "                    <option value=\"Milk Substitutes\">Milk Substitutes</option>\n" +
+                        "                    <option value=\"Cheese Substitutes\">Cheese Substitutes</option>\n" +
+                        "                    <option value=\"Tofu Variations\">Tofu Variations</option>\n" +
+                        "                    <option value=\"Juices\">Juices</option>\n" +
+                        "                    <option value=\"Smoothies\">Smoothies</option>\n" +
+                        "                    <option value=\"Milk and Hot Chocolate\">Milk and Hot Chocolate</option>\n" +
+                        "                    <option value=\"Alcoholic Beverages\">Alcoholic Beverages</option>\n" +
+                        "        <optgroup label=\"Health & Care\">"+
+                        "                    <option value=\"Pastries\">Health Products</option>\n" +
+                        "                    <option value=\"Pastries\">Natural Cosmetics</option></select></div>" + "<br>" +
+
+                        "<b><p style=\"text-align: center\">Product Image</p></b>"+"<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
+                        "<p>Change image:</p>"+
+                        "<input class=\"form-control form-control-sm\" id=\"imageName\" type=\"file\" value ='" + p["image"] + "'>" +
+
+                        "<b><p style=\"text-align: center\">Name:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\" id=\"productname\"></input>"+
+
+                        "<b><p style=\"text-align  center\">Description:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\" id=\"description\"></input>"+
+
+                        "<b><p style=\"text-align: center\">Price in EUR:</p></b>"+
+                        "<input style=\"text-align: center\" type='number' id=\"price\" value=" + parseFloat(p["price"]) + " ></input>"+
+
+                        "<b><p style=\"text-align: center\">Rating:</p></b>"+
+                        "<input type='number' style=\"text-align: center\" name ='rating' id=\"rating\" value=" + parseFloat(p["rating"]) + " ></input>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"updateProducts(this);\" class=\"btn btn-primary\">"+"Save Changes"+"</button>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"deleteProducts(this);\" class=\"btn btn-danger\">"+"Delete"+"</button>"+
+                        "</div>"+"</div>"+"</div>"+"</div>"+"</form>");
                 });
                 $('#productdata').show();
 
@@ -504,6 +1088,7 @@ function updateProducts() {
         });
     }
 
+//edit product data for veggies
     function loadVegetablesEdit() {
         $.ajax({
             type: "GET",
@@ -518,18 +1103,69 @@ function updateProducts() {
                 $('#productdata').empty();
                 $('#productdata').hide();
 
-                $.each(response, function (i, p) {
+                $.each(response, function(i, p) {
                     $("#productdata").append(
-                        "<div class=\"d-flex justify-content-between p-3\">" +
-                        "<div class=\"col\">" +
-                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">" +
-                        "<div class=\"card-body\">" +
-                        "<b>" + p["subcategory"] + "</b>" + "<br>" +
-                        "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
-                        "<h4>" + p["productname"] + "</h4>" +
-                        "<h5>" + "<b>" + "€ " + p["price"] + "</h5>" +
-                        "<p>" + "Rating: " + p["rating"] + "</p>" +
-                        "<button href=\"#\" onclick=\" ('" + p["productId"] + "');\" class=\"btn btn-primary\">" + "Add To Cart" + "</button>" + "</div>" + "</div>" + "</div>" + "</div>");
+                        "<div name=\"cartElement\" class=\"d-flex justify-content-between p-3\">"+
+                        "<div class=\"col\">"+
+                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">"+
+                        "<div class=\"card-body\">"+
+                        "<b><p>Product ID</p></b>"+
+                        "<div><input id='productId' type=\"hidden\" value=\"" + p["productId"] +"\">"+ p['productId'] + "</input></div>" +
+                        "<b><p>Category</p></b>"+"<div><select id=\"category\">"+
+                        "                    <option>"+ p['category'] + "</option>" +
+                        "                    <option value=\"Bread and Pastries\">Bread & Pastries</option>\n" +
+                        "                    <option value=\"Meat and Fish\">Meat & Fish</option>" +
+                        "                    <option value=\"Fruits and Vegetables\">Fruits & Vegetables</option>\n" +
+                        "                    <option value=\"Vegan and Drinks\">Vegan & Drinks</option>\n" +
+                        "                    <option value=\"Health and Care\">Health & Care</option></select></div>" +
+                        "<b><p>Subcategory</p></b>"+"<div><select id=\"subcategory\">"+
+                        "                    <option>"+ p['subcategory'] + "</option>" +
+                        "        <optgroup label=\"Bread & Pastries\">" +
+                        "                    <option value=\"Bread\">Bread</option>\n" +
+                        "                    <option value=\"Pastries\">Pastries</option>\n" +
+                        "                    <option value=\"Rolls\">Rolls</option>" +
+                        "                    <option value=\"Confectionery\">Confectionery</option>\n" +
+                        "        <optgroup label=\"Meat & Fish\">"+
+                        "                    <option value=\"Poultry\">Poultry</option>\n" +
+                        "                    <option value=\"Pork\">Pork</option>\n" +
+                        "                    <option value=\"Beef\">Beef</option>\n" +
+                        "                    <option value=\"Seafood\">Seafood</option>\n" +
+                        "        <optgroup label=\"Fruits & Vegetables\">"+
+                        "                    <option value=\"Fruits\">Fruits</option>\n" +
+                        "                    <option value=\"Herbs\">Herbs</option>\n" +
+                        "                    <option value=\"Salads\">Salads</option>\n" +
+                        "                    <option value=\"Vegetables\">Vegetables</option>\n" +
+                        "        <optgroup label=\"Vegan & Drinks\">"+
+                        "                    <option value=\"Meat Substitutes\">Meat Substitutes</option>\n" +
+                        "                    <option value=\"Milk Substitutes\">Milk Substitutes</option>\n" +
+                        "                    <option value=\"Cheese Substitutes\">Cheese Substitutes</option>\n" +
+                        "                    <option value=\"Tofu Variations\">Tofu Variations</option>\n" +
+                        "                    <option value=\"Juices\">Juices</option>\n" +
+                        "                    <option value=\"Smoothies\">Smoothies</option>\n" +
+                        "                    <option value=\"Milk and Hot Chocolate\">Milk and Hot Chocolate</option>\n" +
+                        "                    <option value=\"Alcoholic Beverages\">Alcoholic Beverages</option>\n" +
+                        "        <optgroup label=\"Health & Care\">"+
+                        "                    <option value=\"Pastries\">Health Products</option>\n" +
+                        "                    <option value=\"Pastries\">Natural Cosmetics</option></select></div>" + "<br>" +
+
+                        "<b><p style=\"text-align: center\">Product Image</p></b>"+"<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
+                        "<p>Change image:</p>"+
+                        "<input class=\"form-control form-control-sm\" id=\"imageName\" type=\"file\" value ='" + p["image"] + "'>" +
+
+                        "<b><p style=\"text-align: center\">Name:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\" id=\"productname\"></input>"+
+
+                        "<b><p style=\"text-align  center\">Description:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\" id=\"description\"></input>"+
+
+                        "<b><p style=\"text-align: center\">Price in EUR:</p></b>"+
+                        "<input style=\"text-align: center\" type='number' id=\"price\" value=" + parseFloat(p["price"]) + " ></input>"+
+
+                        "<b><p style=\"text-align: center\">Rating:</p></b>"+
+                        "<input type='number' style=\"text-align: center\" name ='rating' id=\"rating\" value=" + parseFloat(p["rating"]) + " ></input>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"updateProducts(this);\" class=\"btn btn-primary\">"+"Save Changes"+"</button>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"deleteProducts(this);\" class=\"btn btn-danger\">"+"Delete"+"</button>"+
+                        "</div>"+"</div>"+"</div>"+"</div>"+"</form>");
                 });
                 $('#productdata').show();
 
@@ -540,7 +1176,7 @@ function updateProducts() {
         });
     }
 
-
+//edit product data for meat
     function loadMeatSubEdit() {
         $.ajax({
             type: "GET",
@@ -555,18 +1191,69 @@ function updateProducts() {
                 $('#productdata').empty();
                 $('#productdata').hide();
 
-                $.each(response, function (i, p) {
+                $.each(response, function(i, p) {
                     $("#productdata").append(
-                        "<div class=\"d-flex justify-content-between p-3\">" +
-                        "<div class=\"col\">" +
-                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">" +
-                        "<div class=\"card-body\">" +
-                        "<b>" + p["subcategory"] + "</b>" + "<br>" +
-                        "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
-                        "<h4>" + p["productname"] + "</h4>" +
-                        "<h5>" + "<b>" + "€ " + p["price"] + "</h5>" +
-                        "<p>" + "Rating: " + p["rating"] + "</p>" +
-                        "<button href=\"#\" onclick=\" ('" + p["productId"] + "');\" class=\"btn btn-primary\">" + "Add To Cart" + "</button>" + "</div>" + "</div>" + "</div>" + "</div>");
+                        "<div name=\"cartElement\" class=\"d-flex justify-content-between p-3\">"+
+                        "<div class=\"col\">"+
+                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">"+
+                        "<div class=\"card-body\">"+
+                        "<b><p>Product ID</p></b>"+
+                        "<div><input id='productId' type=\"hidden\" value=\"" + p["productId"] +"\">"+ p['productId'] + "</input></div>" +
+                        "<b><p>Category</p></b>"+"<div><select id=\"category\">"+
+                        "                    <option>"+ p['category'] + "</option>" +
+                        "                    <option value=\"Bread and Pastries\">Bread & Pastries</option>\n" +
+                        "                    <option value=\"Meat and Fish\">Meat & Fish</option>" +
+                        "                    <option value=\"Fruits and Vegetables\">Fruits & Vegetables</option>\n" +
+                        "                    <option value=\"Vegan and Drinks\">Vegan & Drinks</option>\n" +
+                        "                    <option value=\"Health and Care\">Health & Care</option></select></div>" +
+                        "<b><p>Subcategory</p></b>"+"<div><select id=\"subcategory\">"+
+                        "                    <option>"+ p['subcategory'] + "</option>" +
+                        "        <optgroup label=\"Bread & Pastries\">" +
+                        "                    <option value=\"Bread\">Bread</option>\n" +
+                        "                    <option value=\"Pastries\">Pastries</option>\n" +
+                        "                    <option value=\"Rolls\">Rolls</option>" +
+                        "                    <option value=\"Confectionery\">Confectionery</option>\n" +
+                        "        <optgroup label=\"Meat & Fish\">"+
+                        "                    <option value=\"Poultry\">Poultry</option>\n" +
+                        "                    <option value=\"Pork\">Pork</option>\n" +
+                        "                    <option value=\"Beef\">Beef</option>\n" +
+                        "                    <option value=\"Seafood\">Seafood</option>\n" +
+                        "        <optgroup label=\"Fruits & Vegetables\">"+
+                        "                    <option value=\"Fruits\">Fruits</option>\n" +
+                        "                    <option value=\"Herbs\">Herbs</option>\n" +
+                        "                    <option value=\"Salads\">Salads</option>\n" +
+                        "                    <option value=\"Vegetables\">Vegetables</option>\n" +
+                        "        <optgroup label=\"Vegan & Drinks\">"+
+                        "                    <option value=\"Meat Substitutes\">Meat Substitutes</option>\n" +
+                        "                    <option value=\"Milk Substitutes\">Milk Substitutes</option>\n" +
+                        "                    <option value=\"Cheese Substitutes\">Cheese Substitutes</option>\n" +
+                        "                    <option value=\"Tofu Variations\">Tofu Variations</option>\n" +
+                        "                    <option value=\"Juices\">Juices</option>\n" +
+                        "                    <option value=\"Smoothies\">Smoothies</option>\n" +
+                        "                    <option value=\"Milk and Hot Chocolate\">Milk and Hot Chocolate</option>\n" +
+                        "                    <option value=\"Alcoholic Beverages\">Alcoholic Beverages</option>\n" +
+                        "        <optgroup label=\"Health & Care\">"+
+                        "                    <option value=\"Pastries\">Health Products</option>\n" +
+                        "                    <option value=\"Pastries\">Natural Cosmetics</option></select></div>" + "<br>" +
+
+                        "<b><p style=\"text-align: center\">Product Image</p></b>"+"<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
+                        "<p>Change image:</p>"+
+                        "<input class=\"form-control form-control-sm\" id=\"imageName\" type=\"file\" value ='" + p["image"] + "'>" +
+
+                        "<b><p style=\"text-align: center\">Name:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\" id=\"productname\"></input>"+
+
+                        "<b><p style=\"text-align  center\">Description:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\" id=\"description\"></input>"+
+
+                        "<b><p style=\"text-align: center\">Price in EUR:</p></b>"+
+                        "<input style=\"text-align: center\" type='number' id=\"price\" value=" + parseFloat(p["price"]) + " ></input>"+
+
+                        "<b><p style=\"text-align: center\">Rating:</p></b>"+
+                        "<input type='number' style=\"text-align: center\" name ='rating' id=\"rating\" value=" + parseFloat(p["rating"]) + " ></input>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"updateProducts(this);\" class=\"btn btn-primary\">"+"Save Changes"+"</button>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"deleteProducts(this);\" class=\"btn btn-danger\">"+"Delete"+"</button>"+
+                        "</div>"+"</div>"+"</div>"+"</div>"+"</form>");
                 });
                 $('#productdata').show();
 
@@ -576,7 +1263,7 @@ function updateProducts() {
             }
         });
     }
-
+//edit product data for Milk
     function loadMilkSubEdit() {
         $.ajax({
             type: "GET",
@@ -591,18 +1278,69 @@ function updateProducts() {
                 $('#productdata').empty();
                 $('#productdata').hide();
 
-                $.each(response, function (i, p) {
+                $.each(response, function(i, p) {
                     $("#productdata").append(
-                        "<div class=\"d-flex justify-content-between p-3\">" +
-                        "<div class=\"col\">" +
-                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">" +
-                        "<div class=\"card-body\">" +
-                        "<b>" + p["subcategory"] + "</b>" + "<br>" +
-                        "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
-                        "<h4>" + p["productname"] + "</h4>" +
-                        "<h5>" + "<b>" + "€ " + p["price"] + "</h5>" +
-                        "<p>" + "Rating: " + p["rating"] + "</p>" +
-                        "<button href=\"#\" onclick=\" ('" + p["productId"] + "');\" class=\"btn btn-primary\">" + "Add To Cart" + "</button>" + "</div>" + "</div>" + "</div>" + "</div>");
+                        "<div name=\"cartElement\" class=\"d-flex justify-content-between p-3\">"+
+                        "<div class=\"col\">"+
+                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">"+
+                        "<div class=\"card-body\">"+
+                        "<b><p>Product ID</p></b>"+
+                        "<div><input id='productId' type=\"hidden\" value=\"" + p["productId"] +"\">"+ p['productId'] + "</input></div>" +
+                        "<b><p>Category</p></b>"+"<div><select id=\"category\">"+
+                        "                    <option>"+ p['category'] + "</option>" +
+                        "                    <option value=\"Bread and Pastries\">Bread & Pastries</option>\n" +
+                        "                    <option value=\"Meat and Fish\">Meat & Fish</option>" +
+                        "                    <option value=\"Fruits and Vegetables\">Fruits & Vegetables</option>\n" +
+                        "                    <option value=\"Vegan and Drinks\">Vegan & Drinks</option>\n" +
+                        "                    <option value=\"Health and Care\">Health & Care</option></select></div>" +
+                        "<b><p>Subcategory</p></b>"+"<div><select id=\"subcategory\">"+
+                        "                    <option>"+ p['subcategory'] + "</option>" +
+                        "        <optgroup label=\"Bread & Pastries\">" +
+                        "                    <option value=\"Bread\">Bread</option>\n" +
+                        "                    <option value=\"Pastries\">Pastries</option>\n" +
+                        "                    <option value=\"Rolls\">Rolls</option>" +
+                        "                    <option value=\"Confectionery\">Confectionery</option>\n" +
+                        "        <optgroup label=\"Meat & Fish\">"+
+                        "                    <option value=\"Poultry\">Poultry</option>\n" +
+                        "                    <option value=\"Pork\">Pork</option>\n" +
+                        "                    <option value=\"Beef\">Beef</option>\n" +
+                        "                    <option value=\"Seafood\">Seafood</option>\n" +
+                        "        <optgroup label=\"Fruits & Vegetables\">"+
+                        "                    <option value=\"Fruits\">Fruits</option>\n" +
+                        "                    <option value=\"Herbs\">Herbs</option>\n" +
+                        "                    <option value=\"Salads\">Salads</option>\n" +
+                        "                    <option value=\"Vegetables\">Vegetables</option>\n" +
+                        "        <optgroup label=\"Vegan & Drinks\">"+
+                        "                    <option value=\"Meat Substitutes\">Meat Substitutes</option>\n" +
+                        "                    <option value=\"Milk Substitutes\">Milk Substitutes</option>\n" +
+                        "                    <option value=\"Cheese Substitutes\">Cheese Substitutes</option>\n" +
+                        "                    <option value=\"Tofu Variations\">Tofu Variations</option>\n" +
+                        "                    <option value=\"Juices\">Juices</option>\n" +
+                        "                    <option value=\"Smoothies\">Smoothies</option>\n" +
+                        "                    <option value=\"Milk and Hot Chocolate\">Milk and Hot Chocolate</option>\n" +
+                        "                    <option value=\"Alcoholic Beverages\">Alcoholic Beverages</option>\n" +
+                        "        <optgroup label=\"Health & Care\">"+
+                        "                    <option value=\"Pastries\">Health Products</option>\n" +
+                        "                    <option value=\"Pastries\">Natural Cosmetics</option></select></div>" + "<br>" +
+
+                        "<b><p style=\"text-align: center\">Product Image</p></b>"+"<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
+                        "<p>Change image:</p>"+
+                        "<input class=\"form-control form-control-sm\" id=\"imageName\" type=\"file\" value ='" + p["image"] + "'>" +
+
+                        "<b><p style=\"text-align: center\">Name:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\" id=\"productname\"></input>"+
+
+                        "<b><p style=\"text-align  center\">Description:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\" id=\"description\"></input>"+
+
+                        "<b><p style=\"text-align: center\">Price in EUR:</p></b>"+
+                        "<input style=\"text-align: center\" type='number' id=\"price\" value=" + parseFloat(p["price"]) + " ></input>"+
+
+                        "<b><p style=\"text-align: center\">Rating:</p></b>"+
+                        "<input type='number' style=\"text-align: center\" name ='rating' id=\"rating\" value=" + parseFloat(p["rating"]) + " ></input>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"updateProducts(this);\" class=\"btn btn-primary\">"+"Save Changes"+"</button>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"deleteProducts(this);\" class=\"btn btn-danger\">"+"Delete"+"</button>"+
+                        "</div>"+"</div>"+"</div>"+"</div>"+"</form>");
                 });
                 $('#productdata').show();
 
@@ -613,7 +1351,7 @@ function updateProducts() {
         });
     }
 
-
+//edit product data for cheese
     function loadCheeseSubEdit() {
         $.ajax({
             type: "GET",
@@ -628,18 +1366,69 @@ function updateProducts() {
                 $('#productdata').empty();
                 $('#productdata').hide();
 
-                $.each(response, function (i, p) {
+                $.each(response, function(i, p) {
                     $("#productdata").append(
-                        "<div class=\"d-flex justify-content-between p-3\">" +
-                        "<div class=\"col\">" +
-                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">" +
-                        "<div class=\"card-body\">" +
-                        "<b>" + p["subcategory"] + "</b>" + "<br>" +
-                        "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
-                        "<h4>" + p["productname"] + "</h4>" +
-                        "<h5>" + "<b>" + "€ " + p["price"] + "</h5>" +
-                        "<p>" + "Rating: " + p["rating"] + "</p>" +
-                        "<button href=\"#\" onclick=\" ('" + p["productId"] + "');\" class=\"btn btn-primary\">" + "Add To Cart" + "</button>" + "</div>" + "</div>" + "</div>" + "</div>");
+                        "<div name=\"cartElement\" class=\"d-flex justify-content-between p-3\">"+
+                        "<div class=\"col\">"+
+                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">"+
+                        "<div class=\"card-body\">"+
+                        "<b><p>Product ID</p></b>"+
+                        "<div><input id='productId' type=\"hidden\" value=\"" + p["productId"] +"\">"+ p['productId'] + "</input></div>" +
+                        "<b><p>Category</p></b>"+"<div><select id=\"category\">"+
+                        "                    <option>"+ p['category'] + "</option>" +
+                        "                    <option value=\"Bread and Pastries\">Bread & Pastries</option>\n" +
+                        "                    <option value=\"Meat and Fish\">Meat & Fish</option>" +
+                        "                    <option value=\"Fruits and Vegetables\">Fruits & Vegetables</option>\n" +
+                        "                    <option value=\"Vegan and Drinks\">Vegan & Drinks</option>\n" +
+                        "                    <option value=\"Health and Care\">Health & Care</option></select></div>" +
+                        "<b><p>Subcategory</p></b>"+"<div><select id=\"subcategory\">"+
+                        "                    <option>"+ p['subcategory'] + "</option>" +
+                        "        <optgroup label=\"Bread & Pastries\">" +
+                        "                    <option value=\"Bread\">Bread</option>\n" +
+                        "                    <option value=\"Pastries\">Pastries</option>\n" +
+                        "                    <option value=\"Rolls\">Rolls</option>" +
+                        "                    <option value=\"Confectionery\">Confectionery</option>\n" +
+                        "        <optgroup label=\"Meat & Fish\">"+
+                        "                    <option value=\"Poultry\">Poultry</option>\n" +
+                        "                    <option value=\"Pork\">Pork</option>\n" +
+                        "                    <option value=\"Beef\">Beef</option>\n" +
+                        "                    <option value=\"Seafood\">Seafood</option>\n" +
+                        "        <optgroup label=\"Fruits & Vegetables\">"+
+                        "                    <option value=\"Fruits\">Fruits</option>\n" +
+                        "                    <option value=\"Herbs\">Herbs</option>\n" +
+                        "                    <option value=\"Salads\">Salads</option>\n" +
+                        "                    <option value=\"Vegetables\">Vegetables</option>\n" +
+                        "        <optgroup label=\"Vegan & Drinks\">"+
+                        "                    <option value=\"Meat Substitutes\">Meat Substitutes</option>\n" +
+                        "                    <option value=\"Milk Substitutes\">Milk Substitutes</option>\n" +
+                        "                    <option value=\"Cheese Substitutes\">Cheese Substitutes</option>\n" +
+                        "                    <option value=\"Tofu Variations\">Tofu Variations</option>\n" +
+                        "                    <option value=\"Juices\">Juices</option>\n" +
+                        "                    <option value=\"Smoothies\">Smoothies</option>\n" +
+                        "                    <option value=\"Milk and Hot Chocolate\">Milk and Hot Chocolate</option>\n" +
+                        "                    <option value=\"Alcoholic Beverages\">Alcoholic Beverages</option>\n" +
+                        "        <optgroup label=\"Health & Care\">"+
+                        "                    <option value=\"Pastries\">Health Products</option>\n" +
+                        "                    <option value=\"Pastries\">Natural Cosmetics</option></select></div>" + "<br>" +
+
+                        "<b><p style=\"text-align: center\">Product Image</p></b>"+"<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
+                        "<p>Change image:</p>"+
+                        "<input class=\"form-control form-control-sm\" id=\"imageName\" type=\"file\" value ='" + p["image"] + "'>" +
+
+                        "<b><p style=\"text-align: center\">Name:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\" id=\"productname\"></input>"+
+
+                        "<b><p style=\"text-align  center\">Description:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\" id=\"description\"></input>"+
+
+                        "<b><p style=\"text-align: center\">Price in EUR:</p></b>"+
+                        "<input style=\"text-align: center\" type='number' id=\"price\" value=" + parseFloat(p["price"]) + " ></input>"+
+
+                        "<b><p style=\"text-align: center\">Rating:</p></b>"+
+                        "<input type='number' style=\"text-align: center\" name ='rating' id=\"rating\" value=" + parseFloat(p["rating"]) + " ></input>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"updateProducts(this);\" class=\"btn btn-primary\">"+"Save Changes"+"</button>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"deleteProducts(this);\" class=\"btn btn-danger\">"+"Delete"+"</button>"+
+                        "</div>"+"</div>"+"</div>"+"</div>"+"</form>");
                 });
                 $('#productdata').show();
 
@@ -650,6 +1439,7 @@ function updateProducts() {
         });
     }
 
+//edit product data for tofu
     function loadTofuVarEdit() {
         $.ajax({
             type: "GET",
@@ -664,18 +1454,69 @@ function updateProducts() {
                 $('#productdata').empty();
                 $('#productdata').hide();
 
-                $.each(response, function (i, p) {
+                $.each(response, function(i, p) {
                     $("#productdata").append(
-                        "<div class=\"d-flex justify-content-between p-3\">" +
-                        "<div class=\"col\">" +
-                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">" +
-                        "<div class=\"card-body\">" +
-                        "<b>" + p["subcategory"] + "</b>" + "<br>" +
-                        "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
-                        "<h4>" + p["productname"] + "</h4>" +
-                        "<h5>" + "<b>" + "€ " + p["price"] + "</h5>" +
-                        "<p>" + "Rating: " + p["rating"] + "</p>" +
-                        "<button href=\"#\" onclick=\" ('" + p["productId"] + "');\" class=\"btn btn-primary\">" + "Add To Cart" + "</button>" + "</div>" + "</div>" + "</div>" + "</div>");
+                        "<div name=\"cartElement\" class=\"d-flex justify-content-between p-3\">"+
+                        "<div class=\"col\">"+
+                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">"+
+                        "<div class=\"card-body\">"+
+                        "<b><p>Product ID</p></b>"+
+                        "<div><input id='productId' type=\"hidden\" value=\"" + p["productId"] +"\">"+ p['productId'] + "</input></div>" +
+                        "<b><p>Category</p></b>"+"<div><select id=\"category\">"+
+                        "                    <option>"+ p['category'] + "</option>" +
+                        "                    <option value=\"Bread and Pastries\">Bread & Pastries</option>\n" +
+                        "                    <option value=\"Meat and Fish\">Meat & Fish</option>" +
+                        "                    <option value=\"Fruits and Vegetables\">Fruits & Vegetables</option>\n" +
+                        "                    <option value=\"Vegan and Drinks\">Vegan & Drinks</option>\n" +
+                        "                    <option value=\"Health and Care\">Health & Care</option></select></div>" +
+                        "<b><p>Subcategory</p></b>"+"<div><select id=\"subcategory\">"+
+                        "                    <option>"+ p['subcategory'] + "</option>" +
+                        "        <optgroup label=\"Bread & Pastries\">" +
+                        "                    <option value=\"Bread\">Bread</option>\n" +
+                        "                    <option value=\"Pastries\">Pastries</option>\n" +
+                        "                    <option value=\"Rolls\">Rolls</option>" +
+                        "                    <option value=\"Confectionery\">Confectionery</option>\n" +
+                        "        <optgroup label=\"Meat & Fish\">"+
+                        "                    <option value=\"Poultry\">Poultry</option>\n" +
+                        "                    <option value=\"Pork\">Pork</option>\n" +
+                        "                    <option value=\"Beef\">Beef</option>\n" +
+                        "                    <option value=\"Seafood\">Seafood</option>\n" +
+                        "        <optgroup label=\"Fruits & Vegetables\">"+
+                        "                    <option value=\"Fruits\">Fruits</option>\n" +
+                        "                    <option value=\"Herbs\">Herbs</option>\n" +
+                        "                    <option value=\"Salads\">Salads</option>\n" +
+                        "                    <option value=\"Vegetables\">Vegetables</option>\n" +
+                        "        <optgroup label=\"Vegan & Drinks\">"+
+                        "                    <option value=\"Meat Substitutes\">Meat Substitutes</option>\n" +
+                        "                    <option value=\"Milk Substitutes\">Milk Substitutes</option>\n" +
+                        "                    <option value=\"Cheese Substitutes\">Cheese Substitutes</option>\n" +
+                        "                    <option value=\"Tofu Variations\">Tofu Variations</option>\n" +
+                        "                    <option value=\"Juices\">Juices</option>\n" +
+                        "                    <option value=\"Smoothies\">Smoothies</option>\n" +
+                        "                    <option value=\"Milk and Hot Chocolate\">Milk and Hot Chocolate</option>\n" +
+                        "                    <option value=\"Alcoholic Beverages\">Alcoholic Beverages</option>\n" +
+                        "        <optgroup label=\"Health & Care\">"+
+                        "                    <option value=\"Pastries\">Health Products</option>\n" +
+                        "                    <option value=\"Pastries\">Natural Cosmetics</option></select></div>" + "<br>" +
+
+                        "<b><p style=\"text-align: center\">Product Image</p></b>"+"<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
+                        "<p>Change image:</p>"+
+                        "<input class=\"form-control form-control-sm\" id=\"imageName\" type=\"file\" value ='" + p["image"] + "'>" +
+
+                        "<b><p style=\"text-align: center\">Name:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\" id=\"productname\"></input>"+
+
+                        "<b><p style=\"text-align  center\">Description:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\" id=\"description\"></input>"+
+
+                        "<b><p style=\"text-align: center\">Price in EUR:</p></b>"+
+                        "<input style=\"text-align: center\" type='number' id=\"price\" value=" + parseFloat(p["price"]) + " ></input>"+
+
+                        "<b><p style=\"text-align: center\">Rating:</p></b>"+
+                        "<input type='number' style=\"text-align: center\" name ='rating' id=\"rating\" value=" + parseFloat(p["rating"]) + " ></input>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"updateProducts(this);\" class=\"btn btn-primary\">"+"Save Changes"+"</button>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"deleteProducts(this);\" class=\"btn btn-danger\">"+"Delete"+"</button>"+
+                        "</div>"+"</div>"+"</div>"+"</div>"+"</form>");
                 });
                 $('#productdata').show();
 
@@ -686,7 +1527,7 @@ function updateProducts() {
         });
     }
 
-
+//edit product data for juices
     function loadJuicesEdit() {
         $.ajax({
             type: "GET",
@@ -701,18 +1542,69 @@ function updateProducts() {
                 $('#productdata').empty();
                 $('#productdata').hide();
 
-                $.each(response, function (i, p) {
+                $.each(response, function(i, p) {
                     $("#productdata").append(
-                        "<div class=\"d-flex justify-content-between p-3\">" +
-                        "<div class=\"col\">" +
-                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">" +
-                        "<div class=\"card-body\">" +
-                        "<b>" + p["subcategory"] + "</b>" + "<br>" +
-                        "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
-                        "<h4>" + p["productname"] + "</h4>" +
-                        "<h5>" + "<b>" + "€ " + p["price"] + "</h5>" +
-                        "<p>" + "Rating: " + p["rating"] + "</p>" +
-                        "<button href=\"#\" onclick=\" ('" + p["productId"] + "');\" class=\"btn btn-primary\">" + "Add To Cart" + "</button>" + "</div>" + "</div>" + "</div>" + "</div>");
+                        "<div name=\"cartElement\" class=\"d-flex justify-content-between p-3\">"+
+                        "<div class=\"col\">"+
+                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">"+
+                        "<div class=\"card-body\">"+
+                        "<b><p>Product ID</p></b>"+
+                        "<div><input id='productId' type=\"hidden\" value=\"" + p["productId"] +"\">"+ p['productId'] + "</input></div>" +
+                        "<b><p>Category</p></b>"+"<div><select id=\"category\">"+
+                        "                    <option>"+ p['category'] + "</option>" +
+                        "                    <option value=\"Bread and Pastries\">Bread & Pastries</option>\n" +
+                        "                    <option value=\"Meat and Fish\">Meat & Fish</option>" +
+                        "                    <option value=\"Fruits and Vegetables\">Fruits & Vegetables</option>\n" +
+                        "                    <option value=\"Vegan and Drinks\">Vegan & Drinks</option>\n" +
+                        "                    <option value=\"Health and Care\">Health & Care</option></select></div>" +
+                        "<b><p>Subcategory</p></b>"+"<div><select id=\"subcategory\">"+
+                        "                    <option>"+ p['subcategory'] + "</option>" +
+                        "        <optgroup label=\"Bread & Pastries\">" +
+                        "                    <option value=\"Bread\">Bread</option>\n" +
+                        "                    <option value=\"Pastries\">Pastries</option>\n" +
+                        "                    <option value=\"Rolls\">Rolls</option>" +
+                        "                    <option value=\"Confectionery\">Confectionery</option>\n" +
+                        "        <optgroup label=\"Meat & Fish\">"+
+                        "                    <option value=\"Poultry\">Poultry</option>\n" +
+                        "                    <option value=\"Pork\">Pork</option>\n" +
+                        "                    <option value=\"Beef\">Beef</option>\n" +
+                        "                    <option value=\"Seafood\">Seafood</option>\n" +
+                        "        <optgroup label=\"Fruits & Vegetables\">"+
+                        "                    <option value=\"Fruits\">Fruits</option>\n" +
+                        "                    <option value=\"Herbs\">Herbs</option>\n" +
+                        "                    <option value=\"Salads\">Salads</option>\n" +
+                        "                    <option value=\"Vegetables\">Vegetables</option>\n" +
+                        "        <optgroup label=\"Vegan & Drinks\">"+
+                        "                    <option value=\"Meat Substitutes\">Meat Substitutes</option>\n" +
+                        "                    <option value=\"Milk Substitutes\">Milk Substitutes</option>\n" +
+                        "                    <option value=\"Cheese Substitutes\">Cheese Substitutes</option>\n" +
+                        "                    <option value=\"Tofu Variations\">Tofu Variations</option>\n" +
+                        "                    <option value=\"Juices\">Juices</option>\n" +
+                        "                    <option value=\"Smoothies\">Smoothies</option>\n" +
+                        "                    <option value=\"Milk and Hot Chocolate\">Milk and Hot Chocolate</option>\n" +
+                        "                    <option value=\"Alcoholic Beverages\">Alcoholic Beverages</option>\n" +
+                        "        <optgroup label=\"Health & Care\">"+
+                        "                    <option value=\"Pastries\">Health Products</option>\n" +
+                        "                    <option value=\"Pastries\">Natural Cosmetics</option></select></div>" + "<br>" +
+
+                        "<b><p style=\"text-align: center\">Product Image</p></b>"+"<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
+                        "<p>Change image:</p>"+
+                        "<input class=\"form-control form-control-sm\" id=\"imageName\" type=\"file\" value ='" + p["image"] + "'>" +
+
+                        "<b><p style=\"text-align: center\">Name:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\" id=\"productname\"></input>"+
+
+                        "<b><p style=\"text-align  center\">Description:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\" id=\"description\"></input>"+
+
+                        "<b><p style=\"text-align: center\">Price in EUR:</p></b>"+
+                        "<input style=\"text-align: center\" type='number' id=\"price\" value=" + parseFloat(p["price"]) + " ></input>"+
+
+                        "<b><p style=\"text-align: center\">Rating:</p></b>"+
+                        "<input type='number' style=\"text-align: center\" name ='rating' id=\"rating\" value=" + parseFloat(p["rating"]) + " ></input>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"updateProducts(this);\" class=\"btn btn-primary\">"+"Save Changes"+"</button>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"deleteProducts(this);\" class=\"btn btn-danger\">"+"Delete"+"</button>"+
+                        "</div>"+"</div>"+"</div>"+"</div>"+"</form>");
                 });
                 $('#productdata').show();
 
@@ -723,6 +1615,7 @@ function updateProducts() {
         });
     }
 
+//edit product data for smoothies
     function loadSmoothiesEdit() {
         $.ajax({
             type: "GET",
@@ -737,18 +1630,69 @@ function updateProducts() {
                 $('#productdata').empty();
                 $('#productdata').hide();
 
-                $.each(response, function (i, p) {
+                $.each(response, function(i, p) {
                     $("#productdata").append(
-                        "<div class=\"d-flex justify-content-between p-3\">" +
-                        "<div class=\"col\">" +
-                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">" +
-                        "<div class=\"card-body\">" +
-                        "<b>" + p["subcategory"] + "</b>" + "<br>" +
-                        "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
-                        "<h4>" + p["productname"] + "</h4>" +
-                        "<h5>" + "<b>" + "€ " + p["price"] + "</h5>" +
-                        "<p>" + "Rating: " + p["rating"] + "</p>" +
-                        "<button href=\"#\" onclick=\" ('" + p["productId"] + "');\" class=\"btn btn-primary\">" + "Add To Cart" + "</button>" + "</div>" + "</div>" + "</div>" + "</div>");
+                        "<div name=\"cartElement\" class=\"d-flex justify-content-between p-3\">"+
+                        "<div class=\"col\">"+
+                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">"+
+                        "<div class=\"card-body\">"+
+                        "<b><p>Product ID</p></b>"+
+                        "<div><input id='productId' type=\"hidden\" value=\"" + p["productId"] +"\">"+ p['productId'] + "</input></div>" +
+                        "<b><p>Category</p></b>"+"<div><select id=\"category\">"+
+                        "                    <option>"+ p['category'] + "</option>" +
+                        "                    <option value=\"Bread and Pastries\">Bread & Pastries</option>\n" +
+                        "                    <option value=\"Meat and Fish\">Meat & Fish</option>" +
+                        "                    <option value=\"Fruits and Vegetables\">Fruits & Vegetables</option>\n" +
+                        "                    <option value=\"Vegan and Drinks\">Vegan & Drinks</option>\n" +
+                        "                    <option value=\"Health and Care\">Health & Care</option></select></div>" +
+                        "<b><p>Subcategory</p></b>"+"<div><select id=\"subcategory\">"+
+                        "                    <option>"+ p['subcategory'] + "</option>" +
+                        "        <optgroup label=\"Bread & Pastries\">" +
+                        "                    <option value=\"Bread\">Bread</option>\n" +
+                        "                    <option value=\"Pastries\">Pastries</option>\n" +
+                        "                    <option value=\"Rolls\">Rolls</option>" +
+                        "                    <option value=\"Confectionery\">Confectionery</option>\n" +
+                        "        <optgroup label=\"Meat & Fish\">"+
+                        "                    <option value=\"Poultry\">Poultry</option>\n" +
+                        "                    <option value=\"Pork\">Pork</option>\n" +
+                        "                    <option value=\"Beef\">Beef</option>\n" +
+                        "                    <option value=\"Seafood\">Seafood</option>\n" +
+                        "        <optgroup label=\"Fruits & Vegetables\">"+
+                        "                    <option value=\"Fruits\">Fruits</option>\n" +
+                        "                    <option value=\"Herbs\">Herbs</option>\n" +
+                        "                    <option value=\"Salads\">Salads</option>\n" +
+                        "                    <option value=\"Vegetables\">Vegetables</option>\n" +
+                        "        <optgroup label=\"Vegan & Drinks\">"+
+                        "                    <option value=\"Meat Substitutes\">Meat Substitutes</option>\n" +
+                        "                    <option value=\"Milk Substitutes\">Milk Substitutes</option>\n" +
+                        "                    <option value=\"Cheese Substitutes\">Cheese Substitutes</option>\n" +
+                        "                    <option value=\"Tofu Variations\">Tofu Variations</option>\n" +
+                        "                    <option value=\"Juices\">Juices</option>\n" +
+                        "                    <option value=\"Smoothies\">Smoothies</option>\n" +
+                        "                    <option value=\"Milk and Hot Chocolate\">Milk and Hot Chocolate</option>\n" +
+                        "                    <option value=\"Alcoholic Beverages\">Alcoholic Beverages</option>\n" +
+                        "        <optgroup label=\"Health & Care\">"+
+                        "                    <option value=\"Pastries\">Health Products</option>\n" +
+                        "                    <option value=\"Pastries\">Natural Cosmetics</option></select></div>" + "<br>" +
+
+                        "<b><p style=\"text-align: center\">Product Image</p></b>"+"<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
+                        "<p>Change image:</p>"+
+                        "<input class=\"form-control form-control-sm\" id=\"imageName\" type=\"file\" value ='" + p["image"] + "'>" +
+
+                        "<b><p style=\"text-align: center\">Name:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\" id=\"productname\"></input>"+
+
+                        "<b><p style=\"text-align  center\">Description:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\" id=\"description\"></input>"+
+
+                        "<b><p style=\"text-align: center\">Price in EUR:</p></b>"+
+                        "<input style=\"text-align: center\" type='number' id=\"price\" value=" + parseFloat(p["price"]) + " ></input>"+
+
+                        "<b><p style=\"text-align: center\">Rating:</p></b>"+
+                        "<input type='number' style=\"text-align: center\" name ='rating' id=\"rating\" value=" + parseFloat(p["rating"]) + " ></input>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"updateProducts(this);\" class=\"btn btn-primary\">"+"Save Changes"+"</button>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"deleteProducts(this);\" class=\"btn btn-danger\">"+"Delete"+"</button>"+
+                        "</div>"+"</div>"+"</div>"+"</div>"+"</form>");
                 });
                 $('#productdata').show();
 
@@ -758,7 +1702,7 @@ function updateProducts() {
             }
         });
     }
-
+//edit product data for chocolate
     function loadMilkAndHotChocolateEdit() {
         $.ajax({
             type: "GET",
@@ -773,18 +1717,69 @@ function updateProducts() {
                 $('#productdata').empty();
                 $('#productdata').hide();
 
-                $.each(response, function (i, p) {
+                $.each(response, function(i, p) {
                     $("#productdata").append(
-                        "<div class=\"d-flex justify-content-between p-3\">" +
-                        "<div class=\"col\">" +
-                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">" +
-                        "<div class=\"card-body\">" +
-                        "<b>" + p["subcategory"] + "</b>" + "<br>" +
-                        "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
-                        "<h4>" + p["productname"] + "</h4>" +
-                        "<h5>" + "<b>" + "€ " + p["price"] + "</h5>" +
-                        "<p>" + "Rating: " + p["rating"] + "</p>" +
-                        "<button href=\"#\" onclick=\" ('" + p["productId"] + "');\" class=\"btn btn-primary\">" + "Add To Cart" + "</button>" + "</div>" + "</div>" + "</div>" + "</div>");
+                        "<div name=\"cartElement\" class=\"d-flex justify-content-between p-3\">"+
+                        "<div class=\"col\">"+
+                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">"+
+                        "<div class=\"card-body\">"+
+                        "<b><p>Product ID</p></b>"+
+                        "<div><input id='productId' type=\"hidden\" value=\"" + p["productId"] +"\">"+ p['productId'] + "</input></div>" +
+                        "<b><p>Category</p></b>"+"<div><select id=\"category\">"+
+                        "                    <option>"+ p['category'] + "</option>" +
+                        "                    <option value=\"Bread and Pastries\">Bread & Pastries</option>\n" +
+                        "                    <option value=\"Meat and Fish\">Meat & Fish</option>" +
+                        "                    <option value=\"Fruits and Vegetables\">Fruits & Vegetables</option>\n" +
+                        "                    <option value=\"Vegan and Drinks\">Vegan & Drinks</option>\n" +
+                        "                    <option value=\"Health and Care\">Health & Care</option></select></div>" +
+                        "<b><p>Subcategory</p></b>"+"<div><select id=\"subcategory\">"+
+                        "                    <option>"+ p['subcategory'] + "</option>" +
+                        "        <optgroup label=\"Bread & Pastries\">" +
+                        "                    <option value=\"Bread\">Bread</option>\n" +
+                        "                    <option value=\"Pastries\">Pastries</option>\n" +
+                        "                    <option value=\"Rolls\">Rolls</option>" +
+                        "                    <option value=\"Confectionery\">Confectionery</option>\n" +
+                        "        <optgroup label=\"Meat & Fish\">"+
+                        "                    <option value=\"Poultry\">Poultry</option>\n" +
+                        "                    <option value=\"Pork\">Pork</option>\n" +
+                        "                    <option value=\"Beef\">Beef</option>\n" +
+                        "                    <option value=\"Seafood\">Seafood</option>\n" +
+                        "        <optgroup label=\"Fruits & Vegetables\">"+
+                        "                    <option value=\"Fruits\">Fruits</option>\n" +
+                        "                    <option value=\"Herbs\">Herbs</option>\n" +
+                        "                    <option value=\"Salads\">Salads</option>\n" +
+                        "                    <option value=\"Vegetables\">Vegetables</option>\n" +
+                        "        <optgroup label=\"Vegan & Drinks\">"+
+                        "                    <option value=\"Meat Substitutes\">Meat Substitutes</option>\n" +
+                        "                    <option value=\"Milk Substitutes\">Milk Substitutes</option>\n" +
+                        "                    <option value=\"Cheese Substitutes\">Cheese Substitutes</option>\n" +
+                        "                    <option value=\"Tofu Variations\">Tofu Variations</option>\n" +
+                        "                    <option value=\"Juices\">Juices</option>\n" +
+                        "                    <option value=\"Smoothies\">Smoothies</option>\n" +
+                        "                    <option value=\"Milk and Hot Chocolate\">Milk and Hot Chocolate</option>\n" +
+                        "                    <option value=\"Alcoholic Beverages\">Alcoholic Beverages</option>\n" +
+                        "        <optgroup label=\"Health & Care\">"+
+                        "                    <option value=\"Pastries\">Health Products</option>\n" +
+                        "                    <option value=\"Pastries\">Natural Cosmetics</option></select></div>" + "<br>" +
+
+                        "<b><p style=\"text-align: center\">Product Image</p></b>"+"<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
+                        "<p>Change image:</p>"+
+                        "<input class=\"form-control form-control-sm\" id=\"imageName\" type=\"file\" value ='" + p["image"] + "'>" +
+
+                        "<b><p style=\"text-align: center\">Name:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\" id=\"productname\"></input>"+
+
+                        "<b><p style=\"text-align  center\">Description:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\" id=\"description\"></input>"+
+
+                        "<b><p style=\"text-align: center\">Price in EUR:</p></b>"+
+                        "<input style=\"text-align: center\" type='number' id=\"price\" value=" + parseFloat(p["price"]) + " ></input>"+
+
+                        "<b><p style=\"text-align: center\">Rating:</p></b>"+
+                        "<input type='number' style=\"text-align: center\" name ='rating' id=\"rating\" value=" + parseFloat(p["rating"]) + " ></input>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"updateProducts(this);\" class=\"btn btn-primary\">"+"Save Changes"+"</button>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"deleteProducts(this);\" class=\"btn btn-danger\">"+"Delete"+"</button>"+
+                        "</div>"+"</div>"+"</div>"+"</div>"+"</form>");
                 });
                 $('#productdata').show();
 
@@ -795,6 +1790,7 @@ function updateProducts() {
         });
     }
 
+//edit product data for alcohol
     function loadAlcoholicBevEdit() {
         $.ajax({
             type: "GET",
@@ -809,18 +1805,69 @@ function updateProducts() {
                 $('#productdata').empty();
                 $('#productdata').hide();
 
-                $.each(response, function (i, p) {
+                $.each(response, function(i, p) {
                     $("#productdata").append(
-                        "<div class=\"d-flex justify-content-between p-3\">" +
-                        "<div class=\"col\">" +
-                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">" +
-                        "<div class=\"card-body\">" +
-                        "<b>" + p["subcategory"] + "</b>" + "<br>" +
-                        "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
-                        "<h4>" + p["productname"] + "</h4>" +
-                        "<h5>" + "<b>" + "€ " + p["price"] + "</h5>" +
-                        "<p>" + "Rating: " + p["rating"] + "</p>" +
-                        "<button href=\"#\" onclick=\" ('" + p["productId"] + "');\" class=\"btn btn-primary\">" + "Add To Cart" + "</button>" + "</div>" + "</div>" + "</div>" + "</div>");
+                        "<div name=\"cartElement\" class=\"d-flex justify-content-between p-3\">"+
+                        "<div class=\"col\">"+
+                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">"+
+                        "<div class=\"card-body\">"+
+                        "<b><p>Product ID</p></b>"+
+                        "<div><input id='productId' type=\"hidden\" value=\"" + p["productId"] +"\">"+ p['productId'] + "</input></div>" +
+                        "<b><p>Category</p></b>"+"<div><select id=\"category\">"+
+                        "                    <option>"+ p['category'] + "</option>" +
+                        "                    <option value=\"Bread and Pastries\">Bread & Pastries</option>\n" +
+                        "                    <option value=\"Meat and Fish\">Meat & Fish</option>" +
+                        "                    <option value=\"Fruits and Vegetables\">Fruits & Vegetables</option>\n" +
+                        "                    <option value=\"Vegan and Drinks\">Vegan & Drinks</option>\n" +
+                        "                    <option value=\"Health and Care\">Health & Care</option></select></div>" +
+                        "<b><p>Subcategory</p></b>"+"<div><select id=\"subcategory\">"+
+                        "                    <option>"+ p['subcategory'] + "</option>" +
+                        "        <optgroup label=\"Bread & Pastries\">" +
+                        "                    <option value=\"Bread\">Bread</option>\n" +
+                        "                    <option value=\"Pastries\">Pastries</option>\n" +
+                        "                    <option value=\"Rolls\">Rolls</option>" +
+                        "                    <option value=\"Confectionery\">Confectionery</option>\n" +
+                        "        <optgroup label=\"Meat & Fish\">"+
+                        "                    <option value=\"Poultry\">Poultry</option>\n" +
+                        "                    <option value=\"Pork\">Pork</option>\n" +
+                        "                    <option value=\"Beef\">Beef</option>\n" +
+                        "                    <option value=\"Seafood\">Seafood</option>\n" +
+                        "        <optgroup label=\"Fruits & Vegetables\">"+
+                        "                    <option value=\"Fruits\">Fruits</option>\n" +
+                        "                    <option value=\"Herbs\">Herbs</option>\n" +
+                        "                    <option value=\"Salads\">Salads</option>\n" +
+                        "                    <option value=\"Vegetables\">Vegetables</option>\n" +
+                        "        <optgroup label=\"Vegan & Drinks\">"+
+                        "                    <option value=\"Meat Substitutes\">Meat Substitutes</option>\n" +
+                        "                    <option value=\"Milk Substitutes\">Milk Substitutes</option>\n" +
+                        "                    <option value=\"Cheese Substitutes\">Cheese Substitutes</option>\n" +
+                        "                    <option value=\"Tofu Variations\">Tofu Variations</option>\n" +
+                        "                    <option value=\"Juices\">Juices</option>\n" +
+                        "                    <option value=\"Smoothies\">Smoothies</option>\n" +
+                        "                    <option value=\"Milk and Hot Chocolate\">Milk and Hot Chocolate</option>\n" +
+                        "                    <option value=\"Alcoholic Beverages\">Alcoholic Beverages</option>\n" +
+                        "        <optgroup label=\"Health & Care\">"+
+                        "                    <option value=\"Pastries\">Health Products</option>\n" +
+                        "                    <option value=\"Pastries\">Natural Cosmetics</option></select></div>" + "<br>" +
+
+                        "<b><p style=\"text-align: center\">Product Image</p></b>"+"<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
+                        "<p>Change image:</p>"+
+                        "<input class=\"form-control form-control-sm\" id=\"imageName\" type=\"file\" value ='" + p["image"] + "'>" +
+
+                        "<b><p style=\"text-align: center\">Name:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\" id=\"productname\"></input>"+
+
+                        "<b><p style=\"text-align  center\">Description:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\" id=\"description\"></input>"+
+
+                        "<b><p style=\"text-align: center\">Price in EUR:</p></b>"+
+                        "<input style=\"text-align: center\" type='number' id=\"price\" value=" + parseFloat(p["price"]) + " ></input>"+
+
+                        "<b><p style=\"text-align: center\">Rating:</p></b>"+
+                        "<input type='number' style=\"text-align: center\" name ='rating' id=\"rating\" value=" + parseFloat(p["rating"]) + " ></input>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"updateProducts(this);\" class=\"btn btn-primary\">"+"Save Changes"+"</button>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"deleteProducts(this);\" class=\"btn btn-danger\">"+"Delete"+"</button>"+
+                        "</div>"+"</div>"+"</div>"+"</div>"+"</form>");
                 });
                 $('#productdata').show();
 
@@ -831,6 +1878,7 @@ function updateProducts() {
         });
     }
 
+//edit product data for health
     function loadHealthProdEdit() {
         $.ajax({
             type: "GET",
@@ -845,18 +1893,69 @@ function updateProducts() {
                 $('#productdata').empty();
                 $('#productdata').hide();
 
-                $.each(response, function (i, p) {
+                $.each(response, function(i, p) {
                     $("#productdata").append(
-                        "<div class=\"d-flex justify-content-between p-3\">" +
-                        "<div class=\"col\">" +
-                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">" +
-                        "<div class=\"card-body\">" +
-                        "<b>" + p["subcategory"] + "</b>" + "<br>" +
-                        "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
-                        "<h4>" + p["productname"] + "</h4>" +
-                        "<h5>" + "<b>" + "€ " + p["price"] + "</h5>" +
-                        "<p>" + "Rating: " + p["rating"] + "</p>" +
-                        "<button href=\"#\" onclick=\" ('" + p["productId"] + "');\" class=\"btn btn-primary\">" + "Add To Cart" + "</button>" + "</div>" + "</div>" + "</div>" + "</div>");
+                        "<div name=\"cartElement\" class=\"d-flex justify-content-between p-3\">"+
+                        "<div class=\"col\">"+
+                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">"+
+                        "<div class=\"card-body\">"+
+                        "<b><p>Product ID</p></b>"+
+                        "<div><input id='productId' type=\"hidden\" value=\"" + p["productId"] +"\">"+ p['productId'] + "</input></div>" +
+                        "<b><p>Category</p></b>"+"<div><select id=\"category\">"+
+                        "                    <option>"+ p['category'] + "</option>" +
+                        "                    <option value=\"Bread and Pastries\">Bread & Pastries</option>\n" +
+                        "                    <option value=\"Meat and Fish\">Meat & Fish</option>" +
+                        "                    <option value=\"Fruits and Vegetables\">Fruits & Vegetables</option>\n" +
+                        "                    <option value=\"Vegan and Drinks\">Vegan & Drinks</option>\n" +
+                        "                    <option value=\"Health and Care\">Health & Care</option></select></div>" +
+                        "<b><p>Subcategory</p></b>"+"<div><select id=\"subcategory\">"+
+                        "                    <option>"+ p['subcategory'] + "</option>" +
+                        "        <optgroup label=\"Bread & Pastries\">" +
+                        "                    <option value=\"Bread\">Bread</option>\n" +
+                        "                    <option value=\"Pastries\">Pastries</option>\n" +
+                        "                    <option value=\"Rolls\">Rolls</option>" +
+                        "                    <option value=\"Confectionery\">Confectionery</option>\n" +
+                        "        <optgroup label=\"Meat & Fish\">"+
+                        "                    <option value=\"Poultry\">Poultry</option>\n" +
+                        "                    <option value=\"Pork\">Pork</option>\n" +
+                        "                    <option value=\"Beef\">Beef</option>\n" +
+                        "                    <option value=\"Seafood\">Seafood</option>\n" +
+                        "        <optgroup label=\"Fruits & Vegetables\">"+
+                        "                    <option value=\"Fruits\">Fruits</option>\n" +
+                        "                    <option value=\"Herbs\">Herbs</option>\n" +
+                        "                    <option value=\"Salads\">Salads</option>\n" +
+                        "                    <option value=\"Vegetables\">Vegetables</option>\n" +
+                        "        <optgroup label=\"Vegan & Drinks\">"+
+                        "                    <option value=\"Meat Substitutes\">Meat Substitutes</option>\n" +
+                        "                    <option value=\"Milk Substitutes\">Milk Substitutes</option>\n" +
+                        "                    <option value=\"Cheese Substitutes\">Cheese Substitutes</option>\n" +
+                        "                    <option value=\"Tofu Variations\">Tofu Variations</option>\n" +
+                        "                    <option value=\"Juices\">Juices</option>\n" +
+                        "                    <option value=\"Smoothies\">Smoothies</option>\n" +
+                        "                    <option value=\"Milk and Hot Chocolate\">Milk and Hot Chocolate</option>\n" +
+                        "                    <option value=\"Alcoholic Beverages\">Alcoholic Beverages</option>\n" +
+                        "        <optgroup label=\"Health & Care\">"+
+                        "                    <option value=\"Pastries\">Health Products</option>\n" +
+                        "                    <option value=\"Pastries\">Natural Cosmetics</option></select></div>" + "<br>" +
+
+                        "<b><p style=\"text-align: center\">Product Image</p></b>"+"<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
+                        "<p>Change image:</p>"+
+                        "<input class=\"form-control form-control-sm\" id=\"imageName\" type=\"file\" value ='" + p["image"] + "'>" +
+
+                        "<b><p style=\"text-align: center\">Name:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\" id=\"productname\"></input>"+
+
+                        "<b><p style=\"text-align  center\">Description:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\" id=\"description\"></input>"+
+
+                        "<b><p style=\"text-align: center\">Price in EUR:</p></b>"+
+                        "<input style=\"text-align: center\" type='number' id=\"price\" value=" + parseFloat(p["price"]) + " ></input>"+
+
+                        "<b><p style=\"text-align: center\">Rating:</p></b>"+
+                        "<input type='number' style=\"text-align: center\" name ='rating' id=\"rating\" value=" + parseFloat(p["rating"]) + " ></input>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"updateProducts(this);\" class=\"btn btn-primary\">"+"Save Changes"+"</button>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"deleteProducts(this);\" class=\"btn btn-danger\">"+"Delete"+"</button>"+
+                        "</div>"+"</div>"+"</div>"+"</div>"+"</form>");
                 });
                 $('#productdata').show();
 
@@ -867,6 +1966,7 @@ function updateProducts() {
         });
     }
 
+//edit product data for cosmetics
     function loadNaturalCosmeticsEdit() {
         $.ajax({
             type: "GET",
@@ -881,18 +1981,69 @@ function updateProducts() {
                 $('#productdata').empty();
                 $('#productdata').hide();
 
-                $.each(response, function (i, p) {
+                $.each(response, function(i, p) {
                     $("#productdata").append(
-                        "<div class=\"d-flex justify-content-between p-3\">" +
-                        "<div class=\"col\">" +
-                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">" +
-                        "<div class=\"card-body\">" +
-                        "<b>" + p["subcategory"] + "</b>" + "<br>" +
-                        "<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
-                        "<h4>" + p["productname"] + "</h4>" +
-                        "<h5>" + "<b>" + "€ " + p["price"] + "</h5>" +
-                        "<p>" + "Rating: " + p["rating"] + "</p>" +
-                        "<button href=\"#\" onclick=\" ('" + p["productId"] + "');\" class=\"btn btn-primary\">" + "Add To Cart" + "</button>" + "</div>" + "</div>" + "</div>" + "</div>");
+                        "<div name=\"cartElement\" class=\"d-flex justify-content-between p-3\">"+
+                        "<div class=\"col\">"+
+                        "<div class=\"card text-center h-100\" style=\"width: 15rem;\">"+
+                        "<div class=\"card-body\">"+
+                        "<b><p>Product ID</p></b>"+
+                        "<div><input id='productId' type=\"hidden\" value=\"" + p["productId"] +"\">"+ p['productId'] + "</input></div>" +
+                        "<b><p>Category</p></b>"+"<div><select id=\"category\">"+
+                        "                    <option>"+ p['category'] + "</option>" +
+                        "                    <option value=\"Bread and Pastries\">Bread & Pastries</option>\n" +
+                        "                    <option value=\"Meat and Fish\">Meat & Fish</option>" +
+                        "                    <option value=\"Fruits and Vegetables\">Fruits & Vegetables</option>\n" +
+                        "                    <option value=\"Vegan and Drinks\">Vegan & Drinks</option>\n" +
+                        "                    <option value=\"Health and Care\">Health & Care</option></select></div>" +
+                        "<b><p>Subcategory</p></b>"+"<div><select id=\"subcategory\">"+
+                        "                    <option>"+ p['subcategory'] + "</option>" +
+                        "        <optgroup label=\"Bread & Pastries\">" +
+                        "                    <option value=\"Bread\">Bread</option>\n" +
+                        "                    <option value=\"Pastries\">Pastries</option>\n" +
+                        "                    <option value=\"Rolls\">Rolls</option>" +
+                        "                    <option value=\"Confectionery\">Confectionery</option>\n" +
+                        "        <optgroup label=\"Meat & Fish\">"+
+                        "                    <option value=\"Poultry\">Poultry</option>\n" +
+                        "                    <option value=\"Pork\">Pork</option>\n" +
+                        "                    <option value=\"Beef\">Beef</option>\n" +
+                        "                    <option value=\"Seafood\">Seafood</option>\n" +
+                        "        <optgroup label=\"Fruits & Vegetables\">"+
+                        "                    <option value=\"Fruits\">Fruits</option>\n" +
+                        "                    <option value=\"Herbs\">Herbs</option>\n" +
+                        "                    <option value=\"Salads\">Salads</option>\n" +
+                        "                    <option value=\"Vegetables\">Vegetables</option>\n" +
+                        "        <optgroup label=\"Vegan & Drinks\">"+
+                        "                    <option value=\"Meat Substitutes\">Meat Substitutes</option>\n" +
+                        "                    <option value=\"Milk Substitutes\">Milk Substitutes</option>\n" +
+                        "                    <option value=\"Cheese Substitutes\">Cheese Substitutes</option>\n" +
+                        "                    <option value=\"Tofu Variations\">Tofu Variations</option>\n" +
+                        "                    <option value=\"Juices\">Juices</option>\n" +
+                        "                    <option value=\"Smoothies\">Smoothies</option>\n" +
+                        "                    <option value=\"Milk and Hot Chocolate\">Milk and Hot Chocolate</option>\n" +
+                        "                    <option value=\"Alcoholic Beverages\">Alcoholic Beverages</option>\n" +
+                        "        <optgroup label=\"Health & Care\">"+
+                        "                    <option value=\"Pastries\">Health Products</option>\n" +
+                        "                    <option value=\"Pastries\">Natural Cosmetics</option></select></div>" + "<br>" +
+
+                        "<b><p style=\"text-align: center\">Product Image</p></b>"+"<img style=\"width: 100%; object-fit: cover\" src ='" + p["image"] + "'></img>" +
+                        "<p>Change image:</p>"+
+                        "<input class=\"form-control form-control-sm\" id=\"imageName\" type=\"file\" value ='" + p["image"] + "'>" +
+
+                        "<b><p style=\"text-align: center\">Name:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productname' value=\"" + p["productname"] + "\" id=\"productname\"></input>"+
+
+                        "<b><p style=\"text-align  center\">Description:</p></b>"+
+                        "<input style=\"text-align: center\" name ='productdescription' value=\"" + p["description"] + "\" id=\"description\"></input>"+
+
+                        "<b><p style=\"text-align: center\">Price in EUR:</p></b>"+
+                        "<input style=\"text-align: center\" type='number' id=\"price\" value=" + parseFloat(p["price"]) + " ></input>"+
+
+                        "<b><p style=\"text-align: center\">Rating:</p></b>"+
+                        "<input type='number' style=\"text-align: center\" name ='rating' id=\"rating\" value=" + parseFloat(p["rating"]) + " ></input>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"updateProducts(this);\" class=\"btn btn-primary\">"+"Save Changes"+"</button>"+"<br>"+
+                        "<br>"+"<button href=\"#\" onclick=\"deleteProducts(this);\" class=\"btn btn-danger\">"+"Delete"+"</button>"+
+                        "</div>"+"</div>"+"</div>"+"</div>"+"</form>");
                 });
                 $('#productdata').show();
 

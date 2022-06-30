@@ -1,3 +1,5 @@
+
+//show contents of cart
 function showCart(){
     $.ajax({
         type: "GET",
@@ -11,6 +13,8 @@ function showCart(){
             var products = JSON.parse(response['cartProducts']);
             var tableProduct = document.getElementById('productTable');
 
+
+           //display products in cart with name, price and quantity
             products.forEach(function(product){
 
                 tableProduct.insertAdjacentHTML('beforeend','   <tr><td style="width:20%"><img style=\"width: 100%; object-fit: cover\" src ="/webshop/res/img/products/'
@@ -34,11 +38,13 @@ function showCart(){
 
 showCart();
 
+//remove product from cart
 function deleteProduct(element){
     element.parentElement.parentElement.innerHTML = '';
     updateCart();
 }
 
+//update cart content
 function updateCart(){
 var inputs = document.getElementsByName('productid');
 var newCardArray = [];
@@ -61,6 +67,7 @@ console.log(newCardArray);
 
             }
         });
+
     var inputs = document.getElementsByName('productid');
     var sumQuantity = 0;
     var sumPrice = 0;
@@ -76,19 +83,4 @@ console.log(newCardArray);
     document.getElementById('productPrice').innerHTML = sumPrice.toFixed(2);
 }
 
-/*
-function addOrder(cartId){
-    $.ajax({
-        type: "GET",
-        url: "../config/cartDataHandler.php",
-        cache: false,
-        data: {productid: cartId},
-        dataType: "json",
-        success: function (response) {
-            var expires = (new Date(Date.now()+ 86400*1000)).toUTCString();
-            document.cookie =  "cart=" + response['cartToken'] + ";expires=" + expires + ";path=/";
-            document.getElementById('card-quantity').innerHTML = response['cartQuantity'];
 
-        },
-    });
-}*/

@@ -16,11 +16,64 @@
 
 <div id="pageContent"></div>
 <div class="container py-5">
-    <div class="row justify-content-center">
-        <h1 class="display-6 text-center pb-3">Products</h1>
+        <h1 class="display-5 text-center pb-3">Products</h1>
         <div class="row row-cols-1 row-cols-md-5 g-3" id="productdata"></div>
             <div id="productAddMessage"></div>
+    <h1 class="display-6 text-center pb-3">Categories</h1>
+    <div class="row row-cols-1 row-cols-md-5 g-3">
+    <div class="d-flex justify-content-between p-3">
+    <div class="col" role="button" id="BreadAndPastries">
+    <div class="card text-center h-100" style="width: 15rem;">
+    <div class="card-body">
+        <b>Bread & Pastries</b><br>
+        <br><img style="width: 100%; object-fit: cover" src ="../res/img/ProductCategories/BreadAndPastries.jpg"></img>
     </div>
+    </div>
+</div>
+</div>
+
+    <div class="d-flex justify-content-between p-3">
+        <div class="col" role="button" id="MeatAndFish">
+            <div class="card text-center h-100" style="width: 15rem;">
+                <div class="card-body">
+                    <b>Meat & Fish</b><br>
+                    <br><img style="width: 100%; object-fit: cover" src ="../res/img/ProductCategories/MeatAndFish.png"></img>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between p-3">
+        <div class="col" role="button" id="FruitsAndVegetables">
+            <div class="card text-center h-100" style="width: 15rem;">
+                <div class="card-body">
+                    <b>Fruits & Vegetables</b><br>
+                    <br><img style="width: 100%; object-fit: cover" src ="../res/img/ProductCategories/FruitsAndVegetables.jpg"></img>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between p-3">
+        <div class="col" role="button" id="VeganAndDrinks">
+            <div class="card text-center h-100" style="width: 15rem;">
+                <div class="card-body">
+                    <b>Vegan & Drinks</b><br>
+                    <br><img style="width: 100%; object-fit: cover" src ="../res/img/ProductCategories/VeganAndDrinks.png"></img>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between p-3">
+        <div class="col" role="button" id="HealthAndCare">
+            <div class="card text-center h-100" style="width: 15rem;">
+                <div class="card-body">
+                    <b>Health & Care</b><br>
+                    <br><img style="width: 100%; object-fit: cover" src ="../res/img/ProductCategories/HealthAndCare.jpg"></img>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
 </div>
 <div class="loadFooter"></div>
 </div>
@@ -41,6 +94,22 @@
     //load navbar
     loadNavbar();
     loadFooter();
+
+    $("#BreadAndPastries").click(function (){
+        loadBread();
+    });
+    $("#MeatAndFish").click(function (){
+        loadPoultry();
+    });
+    $("#FruitsAndVegetables").click(function (){
+        loadFruits();
+    });
+    $("#VeganAndDrinks").click(function (){
+        loadMeatSub();
+    });
+    $("#HealthAndCare").click(function (){
+        loadHealthProd();
+    });
 
 </script>
 </html>

@@ -1,4 +1,5 @@
-//breadAndPastries
+
+//load product categories
 function addCart(productId){
     $.ajax({
         type: "GET",
@@ -14,6 +15,7 @@ function addCart(productId){
         },
     });
 }
+
 
 function loadBread(){
     $.ajax({
@@ -40,7 +42,7 @@ function loadBread(){
                 "<h4>"+p["productname"]+"</h4>"+
                 "<h5>"+"<b>"+"€ "+p["price"]+"</h5>"+
                 "<p>"+"Rating: "+p["rating"]+"</p>"+
-                "<button href=\"#\" onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
+                "<button  onclick=\"addCart('" + p["productId"] + "');\" class=\"btn btn-primary\">"+"Add To Cart"+"</button>"+"</div>"+"</div>"+"</div>"+"</div>");
             });
             $('#productdata').show();
 
@@ -87,6 +89,7 @@ function loadPork(){
         }
     });
 }
+
 
 function loadPastries(){
     $.ajax({
@@ -159,6 +162,7 @@ function loadRolls(){
         }
     });
 }
+
 
 function loadConfectionery(){
     $.ajax({
@@ -902,15 +906,20 @@ function addProduct() {
 
 
 
-function loadAllProducts(){
+
+/*function loadSearchedProduct(searchproduct){
+
+    let searchedProduct = document.getElementById("searchProduct").value;
+
     $.ajax({
         type: "GET",
-        url: "../config/allProductsDataHandler.php",
+        url: "../config/searchedProductDataHandler.php",
         cache: false,
-        data: {method: "getAllProductsData"},
+        data: {method: "getProductname", productname: searchedProduct},
         dataType: "json",
 
         success: function (response) {
+
 
             //console.log(response);
             $('#productdata').empty();
@@ -936,4 +945,4 @@ function loadAllProducts(){
             $("#productdata").text("something went wrong!");
         }
     });
-}
+}*/

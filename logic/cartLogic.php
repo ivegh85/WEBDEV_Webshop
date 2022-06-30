@@ -12,25 +12,18 @@ class cartLogic
         $this->dataHandler = new DataHandler();
 
     }
+
+    //check cart content
     function readCart($token,$returnType = 'response'){
         require('../config/dbaccess.php');
 
+        //db connection
         $db_obj = new mysqli($host, $user, $password, $database);
         if ($db_obj->connect_error) {
             die("Connection failed: " . $db_obj->connect_error);
         }
 
-        //1. Step Cookie wird eingesetzt und damit wird die Cart rausgesucht aus der Datenbank
-        //2. Step Produkte auslesen die sich in der Cart des Cookies/Users befindet
-        //3. Step mit den ProduktId's in der Tabelle Products nach den entsprechenen Detailierten Daten suchen
-        //4. Step Alle Detaillierten Daten zusammenfassen in ein Array mit der Product ID namen Anzahl Bild usw.
-        //5. Step alles als eine Json als response zurückschicken
-
-
-        //1. Step Schau erstmal was passiert und geh nochmal alles logisch durch
-        //2. Step wenn du eine sache gefunden hast die eigenartig ist
-        //3. Step überlege warum es dazu gekommen ist und welche faktoren das ergebnis beinflussen können
-
+        //check if cart exists
         $checkCartExists = "SELECT * FROM cart WHERE sessionid = ? LIMIT 1";
         $stmt = $db_obj->prepare($checkCartExists);
 
@@ -40,7 +33,7 @@ class cartLogic
         $stmt->execute();
         $checkCartExists_res = $stmt->get_result(); // get the mysqli result
 
-
+        //when card exists query for products
         if ($checkCartExists_res->num_rows > 0) {
 
             $entryCart = $checkCartExists_res->fetch_assoc();
@@ -63,12 +56,15 @@ class cartLogic
 
 
             }
+            //return json
         $showCartEntries = json_encode(($showCart));
         $result = $this->dataHandler->ShowCartElement($showCartEntries);
+
         if($returnType == 'response')
         $this->response("GET", 200, $result);
         else{
             return $showCartEntries;
+
         }
 
         }
@@ -77,9 +73,11 @@ class cartLogic
     }
 
 
+    // check cart product quantity
     function readCartQuantity($token)
     {
 
+        //check if cart exists
         require('../config/dbaccess.php');
         $db_obj = new mysqli($host, $user, $password, $database);
         if ($db_obj->connect_error) {
@@ -95,7 +93,7 @@ class cartLogic
         $stmt->execute();
         $checkCartExists_res = $stmt->get_result(); // get the mysqli result
 
-
+        //when cart exists write quantity of products into an array and return it
         if ($checkCartExists_res->num_rows > 0) {
 
             $entryCart = $checkCartExists_res->fetch_assoc();
@@ -111,15 +109,17 @@ class cartLogic
 
 
         }else{
-
+            //return qty zero
             $result = $this->dataHandler->cartElement($token,0);
             $this->response("GET", 200, $result);
         }
     }
 
+    //cart update
     function updateCart($token,$cartJson)
     {
 
+        //update cart table with products json and session id token
         require('../config/dbaccess.php');
         $db_obj = new mysqli($host, $user, $password, $database);
         if ($db_obj->connect_error) {
@@ -140,6 +140,7 @@ class cartLogic
         $db_obj->close();
     }
 
+    //create new cart entry
     function addToCart($token,$productId)
     {
         $cartQuantity = 0;
@@ -155,6 +156,7 @@ class cartLogic
 
         }
 
+        //check if cart already exists
         $checkCartExists = "SELECT * FROM cart WHERE sessionid = ? LIMIT 1";
         $stmt = $db_obj->prepare($checkCartExists);
 
@@ -165,6 +167,7 @@ class cartLogic
         $checkCartExists_res = $stmt->get_result(); // get the mysqli result
 
 
+        //when cart doesn't exist, create product array from json
         if ($checkCartExists_res->num_rows > 0) {
 
             $entryCart = $checkCartExists_res->fetch_assoc();
@@ -181,6 +184,7 @@ class cartLogic
 
              array_push($productNewArray,$product);
             }
+            //update products in existing cart entry
             if(!$checkProductExists)array_push($productArray,['productId' => $productId,'quantity' => 1]);
             else $productArray = $productNewArray;
 
@@ -202,6 +206,7 @@ class cartLogic
 
 
         } else {
+            //insert products into cart table
             $sql = "INSERT INTO `cart` (`sessionid`,`product`) VALUES (?, ?)";
 
             //use prepare function
@@ -217,6 +222,8 @@ class cartLogic
         $result = $this->dataHandler->cartElement($token,$cartQuantity);
         $this->response("GET", 200, $result);
     }
+
+    //response function
     function response($method, $httpStatus, $data)
     {
         header('Content-Type: application/json');
@@ -230,6 +237,8 @@ class cartLogic
                 echo("Method not supported yet!");
         }
     }
+
+    //check active session
     public function checkLoggedIn(){
         $session = isset($_COOKIE['session']) ? $_COOKIE['session'] : '';
         if(empty($session))return false;
@@ -240,6 +249,7 @@ class cartLogic
             die("Connection failed: " . $db_obj->connect_error);
         }
 
+        //compare session table with current session id token
         $checkCartExists = "SELECT * FROM session WHERE token = ? LIMIT 1";
         $stmt = $db_obj->prepare($checkCartExists);
 
@@ -256,6 +266,8 @@ class cartLogic
         return false;
 
     }
+
+    // return user information
     public function getUserInfo(){
         $session = isset($_COOKIE['session']) ? $_COOKIE['session'] : '';
         if(empty($session))return false;
@@ -266,6 +278,7 @@ class cartLogic
             die("Connection failed: " . $db_obj->connect_error);
         }
 
+        //select session with same session id token
         $userInfo = "SELECT * FROM session WHERE token = ? LIMIT 1";
         $stmt = $db_obj->prepare($userInfo);
 
@@ -275,7 +288,7 @@ class cartLogic
         $stmt->execute();
         $userInfo_res = $stmt->get_result(); // get the mysqli result
 
-
+        //get user information from users table
         if ($userInfo_res->num_rows > 0) {
             $userId = $userInfo_res->fetch_assoc()['user_id'];
             $userInfo = "SELECT usermail,title,firstname,surname,postalcode,city,address FROM users WHERE user_id = ? LIMIT 1";

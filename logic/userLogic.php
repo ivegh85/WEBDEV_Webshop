@@ -43,6 +43,7 @@ class UserLogic
         $responseElement = '';
         $combinedArray[] = '';
 
+        //bind data from DB
         while ($row = $result->fetch_assoc()){
             $db_user_name = $row["username"];
             $db_user_id = $row["user_id"];
@@ -57,6 +58,7 @@ class UserLogic
             $db_created_at = $row["created_at"];
             $db_state = $row["state"];
 
+           //return object
             $responseElement = $this->dataHandler->userElement($db_user_name, $db_user_id, $db_role, $db_usermail, $db_title, $db_firstname, $db_surname, $db_postalcode, $db_city, $db_address, $db_created_at, $db_state);
 
             $combinedArray2[] = array_merge($responseElement, $combinedArray);
@@ -110,6 +112,28 @@ class UserLogic
 
     }
 
+    //get logged in user
+    function showLoggedInUser($db_user_id)
+    {
+
+        require('../config/dbaccess.php');
+        $db_obj = new mysqli($host, $user, $password, $database);
+        if ($db_obj->connect_error) {
+            die("Connection failed: " . $db_obj->connect_error);
+        }
+        $db_user_name = "";
+        $stmt = $db_obj->prepare("SELECT username FROM users WHERE user_id = ? LIMIT 1");
+        $result = $db_obj->query($stmt);
+
+        //"s" stands for string (string datatype is expected) ... i for integer, d for double
+        //followed by the variables which will be bound to the parameters
+        $stmt->bind_param("s", $db_user_id);
+        $stmt->execute();
+        $sql_res = $stmt->get_result(); // get the mysqli result
+        $value = $sql_res->fetch_assoc();
+        $_GET['username'] = $value->userElement($db_user_id, $db_user_name);
+
+    }
 
 
 }

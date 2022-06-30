@@ -18,12 +18,11 @@
 <div class="loadNavbar"></div>
 
 <!-- actual body -->
-<div class="container mt-4">
 
-<div class="container-fluid shadow border mt-3 mb-3 "><br>
+<div class="container-fluid shadow border mt-3 mb-3 ">
   <div class="row mt-auto mb-auto pb-3 justify-content-center">
 
-    <br><h2 class="display-6 text-center pb-3">My Profile Overview</h2>
+    <h2 class="display-6 text-center pb-3">My Profile Overview</h2>
 
     <div class="table-scroll">
 
@@ -34,6 +33,8 @@
           <thead>
 
           <tr>
+
+            <th>User ID</th>
             <th>Username</th>
             <th>Firstname</th>
             <th>Surname</th>
@@ -41,7 +42,8 @@
             <th>Address</th>
             <th>Postalcode</th>
             <th>City</th>
-            <th>Registrated since</th>
+            <th>Created at</th>
+            <th>Status</th>
           </tr>
           </thead>
 
@@ -52,10 +54,10 @@
         </table>
 
         </div>
-      </div><br>
+      </div>
 
 
-    <br><h2 class="display-6 text-center pb-3">Change Profile Data</h2>
+    <h2 class="display-6 text-center pb-3">Change Profile Data</h2>
 
     <div class="container-fluid d-flex justify-content-center mt-auto">
 
@@ -112,16 +114,16 @@
             <div class="invalid-feedback">Please provide a valid address.</div>
           </div>
 
-          <div class="col-md-2">
-            <label class="form-label" for="postalCodeUpdate">Postal Code:</label>
-            <input type="text" name="postalCode" id="postalCodeUpdate" class="form-control" required>
-            <div class="invalid-feedback">Please provide a valid zip.</div>
-          </div>
-
           <div class="col-md-4">
             <label class="form-label" for="cityUpdate">City:</label>
             <input type="text" name="city" id="cityUpdate" class="form-control" required>
             <div class="invalid-feedback">Please provide a valid city.</div>
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label" for="postalCodeUpdate">Postal Code:</label>
+            <input type="text" name="postalCode" id="postalCodeUpdate" class="form-control" required>
+            <div class="invalid-feedback">Please provide a valid zip.</div>
           </div>
 
 
@@ -133,35 +135,41 @@
           </div>
         </form>
       </div>
-    </div><br>
+    </div>
 
-      <br><h2 class="display-6 text-center pb-3">Order History</h2>
+      <h2 class="display-6 text-center pb-3">Order History</h2>
 
     <div class="table-scroll">
 
       <!-- responsive table display -->
       <div class="col-md-12 align-middle table-responsive ">
 
-        <table id="orderTable" class="table table-bordered table-hover table-striped align-middle" >
+        <table class="table table-bordered table-hover table-striped align-middle" >
           <thead>
 
           <tr>
 
-            <th>Order ID</th>
-            <th>Order Date</th>
-            <th>Product</th>
-            <th>Price</th>
+            <th>User ID</th>
+            <th>orderID</th>
+            <th>productID</th>
+            <th>product</th>
+            <th>price</th>
+            <th>orderPackage</th>
+            <th>orderDate</th>
+          </tr>
+          </thead>
+
+          <tr id="orderTable0">
+
           </tr>
 
-          </thead>
         </table>
-
       </div>
 
     </div>
   </div>
 </div>
-</div>
+
 <div include-footer="footer.html"></div>
 </body>
 
@@ -194,6 +202,7 @@
   } else {
     window.location.href = '../index.html';
   }
+
 
 </script>
 </html>

@@ -98,7 +98,7 @@
             </ul>
 
             <form class="d-flex">
-                <input class="form-control me-2" type="text" placeholder="Search">
+                <input class="form-control me-2" type="text" placeholder="Search" id="searchProduct">
                 <button class="btn btn-primary" type="button">Search</button>
             </form>
         </div>
@@ -172,6 +172,9 @@
     $("#naturalCosmetics").click(function (){
         loadNaturalCosmetics();
     });
+    $("#searchProduct").click(function (){
+        loadSearchedProduct()
+    });
 
     function loadPage(){
         window.location.href = "../sites/products.html";
@@ -193,4 +196,6 @@
 
     }
     readCartQuantity();
+
+
 </script>

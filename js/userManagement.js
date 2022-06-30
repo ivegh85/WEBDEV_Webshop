@@ -1,5 +1,5 @@
 
-
+// load all user data and display via table
 function loadUsers(){
     $.ajax({
         type: "GET",
@@ -76,12 +76,13 @@ function loadUsers(){
 
 }
 
+//show orders and redirect with user parameters
 function showOrders(id){
     //redirect with parameters
     window.location = "../sites/orderManagement.html?userid=" + id;
 }
 
-
+//function to deactivate user
 function deactivateUser(id){
     //update db
     $.ajax({
@@ -103,6 +104,7 @@ function deactivateUser(id){
     location.reload();
 }
 
+//function to reactivate user
 function activateUser(id){
     //update db
     $.ajax({

@@ -93,14 +93,13 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                    <a class="nav-link active" aria-current="page" href="../sites/cart.html" id="card-quantity" onload="addCart()"></a>
+                    <a class="nav-link active" aria-current="page" href="sites/cart.html" id="card-quantity" onload="addCart()"></a>
                 </ul>
             </ul>
-
-            <form class="d-flex">
-                <input class="form-control me-2" type="text" placeholder="Search">
-                <button class="btn btn-primary" type="button">Search</button>
-            </form>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="text" placeholder="Search" id="searchProduct">
+                    <button class="btn btn-primary" type="button">Search</button>
+                </form>
         </div>
     </div>
 </nav>
@@ -181,7 +180,7 @@
     function readCartQuantity(productId){
         $.ajax({
             type: "GET",
-            url: "../config/cartQuantityDataHandler.php",
+            url: "./config/cartQuantityDataHandler.php",
             cache: false,
             data: {productid: productId},
             dataType: "json",

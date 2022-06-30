@@ -18,9 +18,6 @@ class LoginLogic
             //login
             case "login":
 
-                //check input
-                //$usernameChecked = filter_input($username);
-                //$typed_password = filter_input($pw);
 
                 //db connection
                 require_once('../config/dbaccess.php');

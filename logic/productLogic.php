@@ -11,56 +11,7 @@ class ProductLogic
     {
         $this->dataHandler = new DataHandler();
     }
-
-    //data from all users
-    function getAllProductData()
-    {
-        //db connection
-        require_once('../config/dbaccess.php');
-        $db_obj = new mysqli($host, $user, $password, $database);
-        if ($db_obj->connect_error) {
-            die("Connection failed: " . $db_obj->connect_error);
-        }
-
-        //declare variables
-        $db_product_id = '';
-        $db_product_name = '';
-        $db_description = '';
-        $db_price = '';
-        $db_rating = '';
-        $db_category = '';
-        $db_sub_category = '';
-
-        //get data from db
-        $sql = "SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products";
-        $result = $db_obj->query($sql);
-
-        $responseElement = '';
-        $combinedArray[] = '';
-
-        while ($row = $result->fetch_assoc()) {
-            $db_product_id = $row["product_id"];
-            $db_product_name = $row["productname"];
-            $db_description = $row["description"];
-            $db_price = $row["price"];
-            $db_rating = $row["rating"];
-            $db_category = $row["category"];
-            $db_sub_category = $row["subcategory"];
-            $db_image = "/webshop/res/img/products/" . $row["image"];
-
-            $responseElement = $this->dataHandler->productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image);
-
-            $combinedArray2[] = array_merge($responseElement, $combinedArray);
-            $combinedArray = $combinedArray2;
-        }
-
-        //close db connection
-        $db_obj->close();
-
-
-        return $combinedArray;
-    }
-
+//get and return product data
     function getBreadData()
     {
         //db connection
@@ -1206,7 +1157,7 @@ class ProductLogic
             die("Connection failed: " . $db_obj->connect_error);
         }
 
-        $sql = "UPDATE products SET productname = '$updatedProductname', description = '$updatedDescription', price = '$updatedPrice', rating = '$updatedRating', category = '$updatedCategory', subcategory = '$updatedSubcategory', image = '$updatedImage' WHERE product_id = '$permanentProductId'";
+        $sql = "UPDATE products SET product_id = '$permanentProductId', productname = '$updatedProductname', description = '$updatedDescription', price = '$updatedPrice', rating = '$updatedRating', category = '$updatedCategory', subcategory = '$updatedSubcategory', image = '$updatedImage' WHERE product_id = '$permanentProductId'";
 
         $db_obj->query($sql);
 
@@ -1231,6 +1182,25 @@ class ProductLogic
         $image = $updatedImage;
 
 
+    }
+
+    function deleteProducts($permanentProductId)
+    {
+
+        require('../config/dbaccess.php');
+        $db_obj = new mysqli($host, $user, $password, $database);
+        if ($db_obj->connect_error) {
+            die("Connection failed: " . $db_obj->connect_error);
+
+            $sql = "DELETE FROM products WHERE `products`.`product_id` = '$permanentProductId'";
+
+            $db_obj->query($sql);
+
+            //close db connection
+            $db_obj->close();
+            return true;
+
+        }
     }
 
     function addToProducts($newProductname, $newDescription, $newPrice, $newRating, $newCategory, $newSubcategory, $newImage)
@@ -1271,6 +1241,32 @@ class ProductLogic
         //close connection
         $db_obj->close();
         return true;
+    }
+
+
+    function getSearchedProductData($searchedProduct)
+    {
+        //db connection
+        require_once('../config/dbaccess.php');
+        $db_obj = new mysqli($host, $user, $password, $database);
+        if ($db_obj->connect_error) {
+            die("Connection failed: " . $db_obj->connect_error);
+        }
+
+        //declare variables
+        $productname = '';
+
+
+        //get data from db
+        $stmt = $db_obj->prepare("SELECT product_id, productname, description, price, rating, category, subcategory, image FROM products WHERE productname = ?");
+
+        //"s" stands for string (string datatype is expected) ... i for integer, d for double
+        //followed by the variables which will be bound to the parameters
+        $stmt->bind_param("s", $searchedProduct);
+        $stmt->execute();
+        $sql_res = $stmt->get_result(); // get the mysqli result
+        $value = $sql_res->fetch_assoc();
+        $_GET['productname'] = $value->productname;
     }
 }
 

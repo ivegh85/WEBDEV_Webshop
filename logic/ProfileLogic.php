@@ -42,6 +42,7 @@ class ProfileLogic
                 $responseElement = '';
                 $combinedArray[] = '';
 
+                //assign data
                 while ($row = $result->fetch_assoc()) {
                     $db_user_name = $row["username"];
                     $db_user_id = $row["user_id"];
@@ -56,6 +57,7 @@ class ProfileLogic
                     $db_created_at = $row["created_at"];
                     $db_state = $row["state"];
 
+                    //return object via array
                     $responseElement = $this->dataHandler->userElement($db_user_name, $db_user_id, $db_role, $db_usermail, $db_title, $db_firstname, $db_surname, $db_postalcode, $db_city, $db_address, $db_created_at, $db_state);
 
                     $combinedArray2[] = array_merge($responseElement, $combinedArray);
@@ -83,16 +85,16 @@ class ProfileLogic
             die("Connection failed: " . $db_obj->connect_error);
         }
 
-        //insert data to db
-        //$sql = "UPDATE `users` SET `password`='$passwordUpdate',`usermail`='$emailUpdate',`title`='$titleUpdate',`firstname`='$firstNameUpdate',`surname`='$lastNameUpdate',`postalcode`='$postalCodeUpdate',`city`='$cityUpdate',`address`='$addressUpdate' WHERE username = '$userNameUpdate'";
+        //update data to db
+
         $sql = "UPDATE `users` SET `password`=?,`usermail`=?,`title`=?,`firstname`=?,`surname`=?,`postalcode`=?,`city`=?,`address`=? WHERE username = '$userNameUpdate'";
-        //$sql = "UPDATE `users` SET `password`='?',`usermail`='?',`title`='?',`firstname`='?',`surname`='?',`postalcode`='?',`city`='?',`address`='?' WHERE username = '$userNameUpdate'";
         $stmt = $db_obj->prepare($sql);
 
         $stmt->bind_param("sssssiss", $pass, $mail, $title, $fname, $sname, $pcode, $city, $address);
 
         $hash_pw = password_hash($passwordUpdate, PASSWORD_DEFAULT);
 
+        //update
         $pass = $hash_pw;
         $mail = $emailUpdate;
         $title = $titleUpdate;
@@ -111,6 +113,7 @@ class ProfileLogic
         $responseElement = '';
         $combinedArray[] = '';
 
+        //return object via array
         $responseElement = $this->dataHandler->updateUserElement($mail);
 
         $combinedArray2[] = array_merge($responseElement, $combinedArray);

@@ -49,6 +49,15 @@ class DataHandler{
         );
     }
 
+    public function ShowOrderElement($orderData){
+        //create and return array
+        return array(
+
+            "orderData" => $orderData,
+
+        );
+    }
+
     public function productElement($db_product_id, $db_product_name, $db_description, $db_price, $db_rating, $db_category, $db_sub_category, $db_image){
         //create and return array
         return array(

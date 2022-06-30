@@ -11,7 +11,7 @@ function require(script) {
         }
     });
 }
-require("../js/script.js");
+require("../archiv/script.js");
 require("../js/cookieHandling.js");
 
 //navbar display according to permissions
@@ -68,4 +68,9 @@ function loadNavbarIdx(){
 
     $(".loadNavbar").load("./sites/loadNavbarIndex.html");
 
+
+}
+
+function loadFooterIdx() {
+    $(".loadFooter").load("./sites/loadFooter.html");
 }

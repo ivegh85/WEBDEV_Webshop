@@ -71,29 +71,18 @@
                 <!-- other nav elements -->
             </ul>
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                <li class="nav-item" id="navLogout">
-                    <a class="nav-link" aria-current="page" href="../sites/logout.html">Logout</a> <!-- link deleted -->
-                </li>
-
-
-                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                    <li class="nav-item" visibility ="all" id="navEditProfile">
-                        <a class="nav-link active" aria-current="page" href="../sites/myProfile.html">My Profile</a>
-                </ul>
-                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-					<span class = "navbar-text" id="navCurrentUser">
-						<!-- Current User - Demo Text Below-->
-                        <div id="displayUser">
-
-                        </div>
-					</span>
-                </ul>
-
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                     <li class="nav-item" visibility ="all" id="navMyProfile">
                         <a class="nav-link active" aria-current="page" href="../sites/myProfile.html">My Profile</a>
                 </ul>
-
+                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                        <div id="userNameData">
+					<span class = "navbar-text" id="navCurrentUser">
+						<!-- Current User - Demo Text Below-->
+                        <div id="displayUser"></div>
+					</span>
+                        </div>
+                </ul>
                 <ul class="navbar-nav ml-auto nav-flex-icons">
                     <li class="nav-item">
                         <a class="nav-link waves-effect waves-light" href="../sites/cart.html" >
@@ -104,16 +93,19 @@
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                     <a class="nav-link active" aria-current="page" href="../sites/cart.html" id="card-quantity" onload="addCart()"></a>
                 </ul>
-            </ul>
-
             <form class="d-flex">
-                <input class="form-control me-2" type="text" placeholder="Search">
+                <input class="form-control me-2" type="text" placeholder="Search" id="searchProduct">
                 <button class="btn btn-primary" type="button">Search</button>
             </form>
+            <li class="nav-item" id="navLogout">
+                <a class="nav-link" aria-current="page" href="../sites/home.html" id="btnLogoutClicked">Logout</a> <!-- link deleted -->
+            </li>
+            </ul>
         </div>
     </div>
 </nav>
 
+<script src="../js/logout.js"></script>
 <script src="../js/products.js"></script>
 <script>
     $("#bread").click(function (){
@@ -182,6 +174,9 @@
     $("#naturalCosmetics").click(function (){
         loadNaturalCosmetics();
     });
+    $("#btnLogoutClicked").click(function (){
+        logout();
+    });
 
     function loadPage(){
         window.location.href = "../sites/products.html";
@@ -204,5 +199,21 @@
 
     }
     readCartQuantity();
+
+   /* function displayUserName(userId){
+        $.ajax({
+            type: "GET",
+            url: "../config/cartquantitydatahandler.php",
+            cache: false,
+            data: {userid: userId},
+            dataType: "json",
+            success: function (response) {
+                document.getElementById('displayUser').innerHTML = response['cartQuantity'];
+
+            },
+        });
+
+    }*/
+
 </script>
 

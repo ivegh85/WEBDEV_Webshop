@@ -66,118 +66,116 @@
 
             </ul>
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                <li class="nav-item" visibility ="all" id="navEditProfile">
-                    <a class="nav-link active" aria-current="page" href="../sites/myProfile.html">My Profile</a>
-            </ul>
-            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                 <li class="nav-item" visibility ="all" id="navEditProducts">
                     <a class="nav-link active" aria-current="page" href="../sites/productManagement.html">Add Products</a>
-            </ul>
-            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                </li>
+
+
                 <li class="nav-item" visibility ="all" id="navEditCustomers">
                     <a class="nav-link active" aria-current="page" href="../sites/userManagement.html">Edit Customers</a>
-            </ul>
-            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                </li>
+
+
                 <li class="nav-item" visibility ="all" id="navMyProfile">
                     <a class="nav-link active" aria-current="page" href="../sites/myProfile.html">My Profile</a>
-            </ul>
+                </li>
+
             </li>
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                <li class="nav-item" id="navLogout">
-                    <a class="nav-link active" aria-current="page" href="../sites/logout.html">Logout</a> <!-- link deleted -->
-                </li>
+
                 <span class = "navbar-text" id="navCurrentUser">
 						<!-- Current User - Demo Text Below-->
                         <div id="displayUser"></div>
 					</span>
             </ul>
-            <ul class="navbar-nav ml-auto nav-flex-icons">
-                <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light" href="../sites/cart.html" >
-                        <img src="../res/img/icons/cart_empty.png" alt="" width="30" height="24">
-                    </a>
-                </li>
-            </ul>
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                <a class="nav-link active" aria-current="page" href="../sites/cart.html" id="card-quantity" onload="addCart()"></a>
-            </ul>
+                <input type= hidden class="nav-link active" aria-current="page" href="../sites/cart.html" id="card-quantity" onload="addCart()"></input>
             </ul>
 
+
             <form class="d-flex">
-                <input class="form-control me-2" type="text" placeholder="Search">
+                <input class="form-control me-2" type="text" placeholder="Search" id="searchProduct">
                 <button class="btn btn-primary" type="button">Search</button>
             </form>
+            <li class="nav-item" id="navLogout">
+                <a class="nav-link" aria-current="page" href="../sites/home.html" id="btnLogoutClicked">Logout</a> <!-- link deleted -->
+            </li>
+            </ul>
         </div>
     </div>
 </nav>
 
+<script src="../js/logout.js"></script>
 <script src="../js/productManagement.js"></script>
 <script>
     $("#bread").click(function (){
         loadBreadEdit();
     });
     $("#pastries").click(function (){
-        loadPastries();
+        loadPastriesEdit();
     });
     $("#rolls").click(function (){
-        loadRolls();
+        loadRollsEdit();
     });
     $("#confectionery").click(function (){
-        loadConfectionery();
+        loadConfectioneryEdit();
     });
     $("#poultry").click(function (){
-        loadPoultry();
+        loadPoultryEdit();
     });
     $("#pork").click(function (){
-        loadPork();
+        loadPorkEdit();
     });
     $("#beef").click(function (){
-        loadBeef();
+        loadBeefEdit();
     });
     $("#seafood").click(function (){
-        loadSeafood();
+        loadSeafoodEdit();
     });
     $("#fruits").click(function (){
-        loadFruits();
+        loadFruitsEdit();
     });
     $("#herbs").click(function (){
-        loadHerbs();
+        loadHerbsEdit();
     });
     $("#salads").click(function (){
-        loadSalads();
+        loadSaladsEdit();
     });
     $("#vegetables").click(function (){
-        loadVegetables();
+        loadVegetablesEdit();
     });
     $("#meatSub").click(function (){
-        loadMeatSub();
+        loadMeatSubEdit();
     });
     $("#milkSub").click(function (){
-        loadMilkSub();
+        loadMilkSubEdit();
     });
     $("#cheeseSub").click(function (){
-        loadCheeseSub();
+        loadCheeseSubEdit();
     });
     $("#tofu").click(function (){
-        loadTofuVar();
+        loadTofuVarEdit();
     });
     $("#juices").click(function (){
-        loadJuices();
+        loadJuicesEdit();
     });
     $("#smoothies").click(function (){
-        loadSmoothies();
+        loadSmoothiesEdit();
     });
     $("#milkAndHotChocolate").click(function (){
-        loadMilkAndHotChocolate();
+        loadMilkAndHotChocolateEdit();
     });
     $("#alcohol").click(function (){
-        loadAlcoholicBev();
+        loadAlcoholicBevEdit();
     });
     $("#healthProducts").click(function (){
-        loadHealthProd();
+        loadHealthProdEdit();
     });
     $("#naturalCosmetics").click(function (){
-        loadNaturalCosmetics();
+        loadNaturalCosmeticsEdit();
+    });
+    $("#btnLogoutClicked").click(function (){
+        logout();
     });
 
     function loadPage(){

@@ -1,5 +1,4 @@
-//Starting point for JQuery init
-
+//frontend validation, prohibits form submission before all fields are validated
 $(document).ready(function (){
 
     $("#btnRegisterUserClicked").click(function (){
@@ -27,6 +26,7 @@ $(document).ready(function (){
     });
 });
 
+//match password 1 and 2
 const password = document.getElementById('password');
 const password2 = document.getElementById('password2');
 password2.addEventListener('change',matchRegistrationPassword);
@@ -101,6 +101,7 @@ function registerUser() {
     }
 }
 
+//match passwords during registration and set validity
 function matchRegistrationPassword() {
 
     if (password.value !== password2.value){
